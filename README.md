@@ -119,7 +119,15 @@ Use an owned domain name to configure applications to be accessible externally f
 
 ## Tech Stack
 
-TBD
+- Hypervisor: `proxmox`
+- Guest OS: `Ubuntu Desktop LTS`
+- Application Infrastructure - `containerd` & `kubernetes`
+- Application Provisioning - `ansible`
+- Container Provisioning - `docker-compose`
+- Filesystem - `zfs`
+- Storage Pooling - `mergerfs`
+- Redundancy - `snapraid`
+- Remote Access - `wireguard` VPN
 
 ## Installation
 
