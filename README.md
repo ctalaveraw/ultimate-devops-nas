@@ -6,6 +6,7 @@ This project draws inspiration from:
 
 - [Ansible NAS](https://github.com/davestephens/ansible-nas) - NAS project by David Stephens
 - [Wolfgang's Home Server Playbook](https://github.com/notthebee/infra) - Automated Home Server by Linux YouTuber [Wolfgang](https://www.youtube.com/c/WolfgangsChannel)
+- [proxmox-build-template](https://github.com/mfin/proxmox-build-template) - Project by Matjaž Finžgar that builds a cloud-init VM on Proxmox with Packer
 
 ## What Ultimate Ansible NAS Does
 
@@ -53,9 +54,9 @@ Use an owned domain name to configure applications to be accessible externally f
 - [Guacamole](https://guacamole.apache.org/) - Web based remote desktop gateway, supports VNC, RDP and SSH
 - [PiHole + Unbound](https://github.com/chriscrowe/docker-pihole-unbound) (An all-in-one DNS solution with built-in ad-blocking)
 - [UniFi Controller](https://hub.docker.com/r/linuxserver/unifi-controller) (A controller for UniFi devices such as routers and Access Points)
+- [netboot.xyz](https://netboot.xyz/) - a PXE boot server
 - ~~[SWAG](https://hub.docker.com/r/linuxserver/swag) (A reverse proxy with built-in support for dynamic DNS, Certbot and fail2ban)~~
 - ~~[DuckDNS](https://hub.docker.com/r/linuxserver/duckdns/) (A dynamic DNS client for DuckDNS)~~
-- ~~[netboot.xyz](https://netboot.xyz/) - a PXE boot server~~
 
 #### Security
 
