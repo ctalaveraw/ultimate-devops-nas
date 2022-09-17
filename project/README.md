@@ -17,6 +17,7 @@ The following toolset will be used for the environment:
 - Image base configuration - `cloud-init`
 - VM provisioning - `terraform`
   - tutorial [here](https://www.youtube.com/watch?v=dvyeoDBUtsU)
+  - docs on Proxmox Terraform provider [here](https://github.com/Telmate/terraform-provider-proxmox/blob/master/docs/guides/installation.md)
 
 ### Provision
 
