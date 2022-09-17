@@ -9,7 +9,7 @@
 
 ## Configure Proxmox automation
 
-- Use Packer to create a standard VMI (Virtual Machine Image) containing `cloud-init`; this will produce an artifact for later deployment use - ***have base config, needs testing***
-- Use Terraform to automate provisioning of a VM on the Proxmox platform ***have base config, needs testing***
+- Use Packer to create a standard VMI (Virtual Machine Image) containing `cloud-init`; this will produce an artifact for later deployment use - ***have base config, needs testing, needs more research***
+- Use Terraform to automate provisioning of a VM on the Proxmox platform ***have base config, needs testing, needs more research***
 - Use `cloud-init` to complete bare-minimum configuration of the VM
 - Use custom Ansible playbooks to start application configuration and standing up of container infrastructure
