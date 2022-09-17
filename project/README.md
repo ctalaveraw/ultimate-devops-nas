@@ -13,8 +13,10 @@ The following toolset will be used for the environment:
 - Hypervisor - `proxmox`
 - Guest OS - `ubuntu`
 - Machine image creation - `packer`
+  - tutorial [here](https://www.youtube.com/watch?v=1nf3WOEFq1Y)
 - Image base configuration - `cloud-init`
-- Infrastructure provisioning - `terraform`
+- VM provisioning - `terraform`
+  - tutorial [here](https://www.youtube.com/watch?v=dvyeoDBUtsU)
 
 ### Provision
 
