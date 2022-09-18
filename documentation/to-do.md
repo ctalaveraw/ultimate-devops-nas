@@ -13,3 +13,10 @@
 - Use Terraform to automate provisioning of a VM on the Proxmox platform ***have base config, needs testing, needs more research***
 - Use `cloud-init` to complete bare-minimum configuration of the VM
 - Use custom Ansible playbooks to start application configuration and standing up of container infrastructure
+
+## Things to architect and plan
+
+- Provisioning (with Terraform) a "DevOps" VM containing the GitLab/Packer/Terraform/Ansible runners and container/artifact registry
+- The end-to-end architecture of the GitLab CI/CD pipeline
+- The network architecture (including reverse proxy (might need VM), SSL certificates, DDNS, port forwarding, etc)
+- Create different Ansible playbooks for each VM, and within each VM, each task needing provisioning, container infrastructure provisioning, etc.
