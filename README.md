@@ -45,31 +45,31 @@ Use an owned domain name to configure applications to be accessible externally f
 #### ~~Microservices~~
 
 - ~~[Gotify](https://gotify.net/) - Self-hosted server for sending push notifications~~
-- ~~[Mosquitto](https://mosquitto.org/) - An open source MQTT broker~~
+- [![Eclipse Mosquitto](https://img.shields.io/badge/-Eclipse%20Mosquitto-3C5280?logo=Eclipse%20Mosquitto&logoColor=white&style=plastic)](https://mosquitto.org/) - An open source MQTT broker~~
 
 #### Networking & Remote Access
 
-- [bunkerized-nginx](https://github.com/bunkerity/bunkerized-nginx) (A NGINX-based web server focused on security; needs Certbot + fail2ban)
-- [Cloudflare DDNS](https://hub.docker.com/r/joshuaavalon/cloudflare-ddns/) - automatically update Cloudflare with your IP address
+- [![CloudFlare DDNS](https://img.shields.io/badge/-Bunkerized%20NGINX-009639?logo=CloudFlare&logoColor=white&style=plastic)](https://github.com/bunkerity/bunkerized-nginx) - A NGINX-based web server focused on security; needs Certbot + fail2ban)
+- [![CloudFlare DDNS](https://img.shields.io/badge/-CloudFlare%20DDNS-F38020?logo=CloudFlare&logoColor=white&style=plastic)](https://hub.docker.com/r/joshuaavalon/cloudflare-ddns/) - automatically update Cloudflare with your IP address
+- [![UniFi Controller](https://img.shields.io/badge/-PiHole%20+%20Unbound-96060C?logo=pi-hole&logoColor=white&style=plastic)](https://github.com/chriscrowe/docker-pihole-unbound) (An all-in-one DNS solution with built-in ad-blocking)
+- [![UniFi Controller](https://img.shields.io/badge/-UniFi%20Controller-0559C9?logo=ubiquiti&logoColor=white&style=plastic)](https://hub.docker.com/r/linuxserver/unifi-controller) (A controller for UniFi devices such as routers and Access Points)
 - [Guacamole](https://guacamole.apache.org/) - Web based remote desktop gateway, supports VNC, RDP and SSH
-- [PiHole + Unbound](https://github.com/chriscrowe/docker-pihole-unbound) (An all-in-one DNS solution with built-in ad-blocking)
-- [UniFi Controller](https://hub.docker.com/r/linuxserver/unifi-controller) (A controller for UniFi devices such as routers and Access Points)
 - [netboot.xyz](https://netboot.xyz/) - a PXE boot server
 - ~~[SWAG](https://hub.docker.com/r/linuxserver/swag) (A reverse proxy with built-in support for dynamic DNS, Certbot and fail2ban)~~
 - ~~[DuckDNS](https://hub.docker.com/r/linuxserver/duckdns/) (A dynamic DNS client for DuckDNS)~~
 
 #### Security
 
-- [Authelia](https://hub.docker.com/r/authelia/authelia) (An authentication provider)
-- [Traefik](https://traefik.io/) - Web proxy and SSL certificate manager
-- [Vaultwarden](https://hub.docker.com/r/vaultwarden/server) (A FOSS Bitwarden fork written in Rust)
-- [Wireguard](https://hub.docker.com/r/linuxserver/wireguard) (A VPN server)
+- [Authelia](https://hub.docker.com/r/authelia/authelia) - An authentication provider
+- [![Traefik Proxy](https://img.shields.io/badge/-Traefik%20Proxy-24A1C1?logo=Traefik%20Proxy&logoColor=white&style=plastic)](https://traefik.io/) - Web proxy and SSL certificate manager
+- [![Vaultwarden](https://img.shields.io/badge/-Vaultwarden-175DDC?logo=Bitwarden&logoColor=white&style=plastic)](https://hub.docker.com/r/vaultwarden/server) - A FOSS Bitwarden fork written in Rust
+- [![Wireguard](https://img.shields.io/badge/-Wireguard-88171A?logo=Wireguard&logoColor=white&style=plastic)](https://hub.docker.com/r/linuxserver/wireguard) - A VPN server
 
 #### Utilities
 
 - ~~[Code Server](https://code.visualstudio.com/) - Powerful IDE from Microsoft accessible through the browser~~
-- [MariaDB](https://hub.docker.com/r/linuxserver/mariadb) (A database server for Nextcloud)
 - [Syncthing](https://syncthing.net/) - sync directories with another device
+- [![MariaDB](https://img.shields.io/badge/-MariaDB-003545?logo=MariaDB&logoColor=white&style=plastic)](https://hub.docker.com/r/linuxserver/mariadb) - A database server for Nextcloud
 
 ### Media Streaming
 
@@ -97,25 +97,25 @@ Use an owned domain name to configure applications to be accessible externally f
 - [Airsonic](https://airsonic.github.io/) - catalog and stream music
 - [Booksonic](https://hub.docker.com/r/linuxserver/booksonic) (An audiobook server)
 - [Calibre-web](https://github.com/janeczku/calibre-web) - Provides a clean interface for browsing, reading and downloading eBooks using an existing Calibre database.
-- [![Jellyfin](https://img.shields.io/badge/-Jellyfin-00A4DC?logo=jellyfin&logoColor=white&style=plastic)](https://jellyfin.github.io) - The Free Software Media System
 - [Komga](https://komga.org/) - a media server for your comics, mangas, BDs and magazines
 - [Navidrome](https://www.navidrome.org/) - Modern Music Server and Streamer compatible with Subsonic/Airsonic
 - [PhotoPrism](https://hub.docker.com/r/linuxserver/photoprism) - A photo library
 - ~~[Miniflux](https://miniflux.app/) - An RSS news reader~~
 - ~~[Paperless_ng](https://github.com/jonaswinkler/paperless-ng) - Scan, index and archive all your physical documents~~
 - ~~[Ubooquity](http://vaemendis.net/ubooquity/) - Book and comic server~~
-- ~~[Piwigo](https://piwigo.org/) - Photo Gallery Software~~
-- ~~[Plex](https://www.plex.tv/) - Plex Media Server~~
+- [![Jellyfin](https://img.shields.io/badge/-Jellyfin-00A4DC?logo=jellyfin&logoColor=white&style=plastic)](https://jellyfin.github.io) - The Free Software Media System
+- ~~[![Piwigo](https://img.shields.io/badge/-Piwigo-FF7700?logo=piwigo&logoColor=white&style=plastic)](https://piwigo.org/) - Photo Gallery Software~~
+- ~~[![Plex](https://img.shields.io/badge/-Plex-E5A00D?logo=plex&logoColor=white&style=plastic)](https://www.plex.tv/) - Plex Media Server~~
 
 ### Miscellaneous
 
 #### Private Cloud Storage
 
-- [Nextcloud](https://nextcloud.com/) - A self-hosted Dropbox alternative
+- [![Nextcloud](https://img.shields.io/badge/-Nextcloud-0092C9?logo=Nextcloud&logoColor=white&style=plastic)](https://nextcloud.com/) - A self-hosted Dropbox alternative
 
 #### Smart Home Management
 
-- [Home Assistant](https://www.home-assistant.io) - Open source home automation
+- [![Home Assistant](https://img.shields.io/badge/-Home%20Assistant-41BDF5?logo=Home%20Assistant&logoColor=white&style=plastic)](https://www.home-assistant.io) - Open source home automation
 - ~~[openHAB](https://www.openhab.org/) - A vendor and technology agnostic open source automation software for your home; Alternative to Home Assistant~~
 
 ## Tech Stack
