@@ -6,6 +6,10 @@
 - ~~[Set](https://www.servethehome.com/how-to-change-primary-proxmox-ve-ip-address/) internal static IP of the Proxmox host~~
 - ~~Create [ZFS pool(s)](https://www.45drives.com/community/articles/RAID-and-RAIDZ/) and choose RAID level from available storage; RAID explained [here](https://eshop.macsales.com/blog/56056-a-beginners-guide-to-understanding-raid/)~~
 - ~~Format SSD for VM guest OS use~~
+- Create service account on Proxmox hypervisor
+- SSH into the hypervisor and install `git`
+- Clone the repo locally on the hypervisor
+
 
 ## Configure Proxmox automation
 
