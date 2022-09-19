@@ -20,9 +20,9 @@ Use an owned domain name to configure applications to be accessible externally f
 
 #### ~~CI/CD Pipelines & Server Automation~~
 
+- [![GitLab CI](https://img.shields.io/badge/GitLab%20CI%20Runner-FC6D26?style=plastic&logo=gitlab&logoColor=white)](https://about.gitlab.com/features/) - Self-hosted GitHub clone of the highest order
 - ~~[n8n](https://n8n.io/) - Nodemation, a node based workflow and automation service like IFTTT.~~
 - ~~[Woodpecker-CI](https://woodpecker-ci.org) - a simple CI engine with great extensibility, forked from Drone.~~
-- ~~[GitLab](https://about.gitlab.com/features/) - Self-hosted GitHub clone of the highest order~~
 
 #### Front-End
 
@@ -34,10 +34,10 @@ Use an owned domain name to configure applications to be accessible externally f
 
 #### Infrastructure & Application Management
 
-- [Grafana](https://grafana.com/) - Query, visualize, alert on, and understand your data no matter where it’s stored (via stats role).
+- [![Grafana](https://img.shields.io/badge/-Grafana-F46800?logo=Grafana&logoColor=white&style=plastic)](https://grafana.com/) - Query, visualize, alert on, and understand your data no matter where it’s stored (via stats role).
+- [![Portainer](https://img.shields.io/badge/-Portainer-13BEF9?logo=Portainer&logoColor=white&style=plastic)](https://portainer.io/) - for managing Docker and running custom images
+- [![Prometheus](https://img.shields.io/badge/-Prometheus-E6522C?logo=Prometheus&logoColor=white&style=plastic)](https://prometheus.io/) - Time series database and monitoring system (via stats role).
 - [healthchecks.io](https://healthchecks.io/) - Ensure your NAS is online and get notified otherwise
-- [Portainer](https://portainer.io/) - for managing Docker and running custom images
-- [Prometheus](https://prometheus.io/) - Time series database and monitoring system (via stats role).
 - ~~[Netdata](https://my-netdata.io/) - An extremely comprehensive system monitoring solution~~
 - ~~[Tautulli](http://tautulli.com/) - Monitor Your Plex Media Server~~
 - ~~[Watchtower](https://github.com/v2tec/watchtower) - Monitor your Docker containers and update them if a new version is available~~
@@ -45,7 +45,7 @@ Use an owned domain name to configure applications to be accessible externally f
 #### ~~Microservices~~
 
 - ~~[Gotify](https://gotify.net/) - Self-hosted server for sending push notifications~~
-- [![Eclipse Mosquitto](https://img.shields.io/badge/-Eclipse%20Mosquitto-3C5280?logo=Eclipse%20Mosquitto&logoColor=white&style=plastic)](https://mosquitto.org/) - An open source MQTT broker~~
+- ~~[![Eclipse Mosquitto](https://img.shields.io/badge/-Eclipse%20Mosquitto-3C5280?logo=Eclipse%20Mosquitto&logoColor=white&style=plastic)](https://mosquitto.org/) - An open source MQTT broker~~
 
 #### Networking & Remote Access
 
@@ -60,16 +60,16 @@ Use an owned domain name to configure applications to be accessible externally f
 
 #### Security
 
-- [Authelia](https://hub.docker.com/r/authelia/authelia) - An authentication provider
 - [![Traefik Proxy](https://img.shields.io/badge/-Traefik%20Proxy-24A1C1?logo=Traefik%20Proxy&logoColor=white&style=plastic)](https://traefik.io/) - Web proxy and SSL certificate manager
 - [![Vaultwarden](https://img.shields.io/badge/-Vaultwarden-175DDC?logo=Bitwarden&logoColor=white&style=plastic)](https://hub.docker.com/r/vaultwarden/server) - A FOSS Bitwarden fork written in Rust
 - [![Wireguard](https://img.shields.io/badge/-Wireguard-88171A?logo=Wireguard&logoColor=white&style=plastic)](https://hub.docker.com/r/linuxserver/wireguard) - A VPN server
+- [Authelia](https://hub.docker.com/r/authelia/authelia) - An authentication provider
 
 #### Utilities
 
-- ~~[Code Server](https://code.visualstudio.com/) - Powerful IDE from Microsoft accessible through the browser~~
-- [Syncthing](https://syncthing.net/) - sync directories with another device
 - [![MariaDB](https://img.shields.io/badge/-MariaDB-003545?logo=MariaDB&logoColor=white&style=plastic)](https://hub.docker.com/r/linuxserver/mariadb) - A database server for Nextcloud
+- [Syncthing](https://syncthing.net/) - sync directories with another device
+- ~~[Code Server](https://code.visualstudio.com/) - Powerful IDE from Microsoft accessible through the browser~~
 
 ### Media Streaming
 
@@ -94,6 +94,9 @@ Use an owned domain name to configure applications to be accessible externally f
 
 #### Content Streaming
 
+- [![Jellyfin](https://img.shields.io/badge/-Jellyfin-00A4DC?logo=jellyfin&logoColor=white&style=plastic)](https://jellyfin.github.io) - The Free Software Media System
+- ~~[![Piwigo](https://img.shields.io/badge/-Piwigo-FF7700?logo=piwigo&logoColor=white&style=plastic)](https://piwigo.org/) - Photo Gallery Software~~
+- ~~[![Plex](https://img.shields.io/badge/-Plex-E5A00D?logo=plex&logoColor=white&style=plastic)](https://www.plex.tv/) - Plex Media Server~~
 - [Airsonic](https://airsonic.github.io/) - catalog and stream music
 - [Booksonic](https://hub.docker.com/r/linuxserver/booksonic) (An audiobook server)
 - [Calibre-web](https://github.com/janeczku/calibre-web) - Provides a clean interface for browsing, reading and downloading eBooks using an existing Calibre database.
@@ -103,9 +106,6 @@ Use an owned domain name to configure applications to be accessible externally f
 - ~~[Miniflux](https://miniflux.app/) - An RSS news reader~~
 - ~~[Paperless_ng](https://github.com/jonaswinkler/paperless-ng) - Scan, index and archive all your physical documents~~
 - ~~[Ubooquity](http://vaemendis.net/ubooquity/) - Book and comic server~~
-- [![Jellyfin](https://img.shields.io/badge/-Jellyfin-00A4DC?logo=jellyfin&logoColor=white&style=plastic)](https://jellyfin.github.io) - The Free Software Media System
-- ~~[![Piwigo](https://img.shields.io/badge/-Piwigo-FF7700?logo=piwigo&logoColor=white&style=plastic)](https://piwigo.org/) - Photo Gallery Software~~
-- ~~[![Plex](https://img.shields.io/badge/-Plex-E5A00D?logo=plex&logoColor=white&style=plastic)](https://www.plex.tv/) - Plex Media Server~~
 
 ### Miscellaneous
 
@@ -120,15 +120,45 @@ Use an owned domain name to configure applications to be accessible externally f
 
 ## Tech Stack
 
-- Hypervisor: `proxmox`
-- Guest OS: `Ubuntu Desktop LTS`
-- Application Infrastructure - `containerd` & `kubernetes`
-- Application Provisioning - `ansible`
-- Container Provisioning - `docker-compose`
-- Filesystem - `zfs`
-- Storage Pooling - `mergerfs`
-- Redundancy - `snapraid`
-- Remote Access - `wireguard` VPN
+Hypervisor:
+
+![Proxmox](https://img.shields.io/badge/-Proxmox-E57000?logo=proxmox&logoColor=white&style=for-the-badge)
+
+Guest OS:
+
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+
+Application Infrastructure:
+
+![Kubernetes](https://img.shields.io/badge/kubernetes-326ce5.svg?&style=for-the-badge&logo=kubernetes&logoColor=white)
+![containerd](https://img.shields.io/badge/containerd-575757.svg?&style=for-the-badge&logo=containerd&logoColor=white)
+
+Application Provisioning:
+
+![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
+![cloud-init](https://img.shields.io/badge/cloudInit-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+
+Container Provisioning:
+
+![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+Filesystem:
+
+![ZFS](https://img.shields.io/badge/ZFS-2A667F?style=for-the-badge&logo=openzfs&logoColor=white)
+
+Remote Access:
+
+![Wireguard](https://img.shields.io/badge/-Wireguard-88171A?logo=Wireguard&logoColor=white&style=for-the-badge)
+![SSH](https://img.shields.io/badge/-SSH-241F31?logo=gnome%20terminal&logoColor=white&style=for-the-badge)
+
+Storage Pooling:
+
+`mergerfs`
+
+Redundancy:
+
+`snapraid`
+
 
 ## Installation
 
