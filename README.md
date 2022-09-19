@@ -97,7 +97,7 @@ Use an owned domain name to configure applications to be accessible externally f
 - [Airsonic](https://airsonic.github.io/) - catalog and stream music
 - [Booksonic](https://hub.docker.com/r/linuxserver/booksonic) (An audiobook server)
 - [Calibre-web](https://github.com/janeczku/calibre-web) - Provides a clean interface for browsing, reading and downloading eBooks using an existing Calibre database.
-- [Jellyfin](https://jellyfin.github.io) - The Free Software Media System
+- [![Jellyfin](https://img.shields.io/badge/-Jellyfin-00A4DC?logo=jellyfin&logoColor=white&style=plastic)](https://jellyfin.github.io) - The Free Software Media System
 - [Komga](https://komga.org/) - a media server for your comics, mangas, BDs and magazines
 - [Navidrome](https://www.navidrome.org/) - Modern Music Server and Streamer compatible with Subsonic/Airsonic
 - [PhotoPrism](https://hub.docker.com/r/linuxserver/photoprism) - A photo library
