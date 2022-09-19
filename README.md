@@ -1,12 +1,28 @@
 # Ultimate Ansible NAS - Kubernetes Edition
 
-[![license](https://img.shields.io/github/license/DAVFoundation/api_doc.svg?style=flat-square)](https://github.com/davestephens/ansible-nas/blob/master/LICENSE)
+## About
+
+[![license](https://img.shields.io/github/license/DAVFoundation/api_doc.svg?style=for-the-badge)](https://github.com/davestephens/ansible-nas/blob/master/LICENSE)
 
 This project draws inspiration from:
 
 - [Ansible NAS](https://github.com/davestephens/ansible-nas) - NAS project by David Stephens
 - [Wolfgang's Home Server Playbook](https://github.com/notthebee/infra) - Automated Home Server by Linux YouTuber [Wolfgang](https://www.youtube.com/c/WolfgangsChannel)
 - [proxmox-build-template](https://github.com/mfin/proxmox-build-template) - Project by Matjaž Finžgar that builds a cloud-init VM on Proxmox with Packer
+
+## Stats
+
+### Project start
+
+[![Created](https://badges.strrl.dev/created/ctalaveraw/ultimate-devops-k8s-nas)](https://badges.strrl.dev)
+
+### View count
+
+[![Visits Badge](https://badges.strrl.dev/visits/ctalaveraw/ultimate-devops-k8s-nas)](https://badges.strrl.dev)
+
+### Last update
+
+[![Updated](https://badges.strrl.dev/updated/ctalaveraw/ultimate-devops-k8s-nas)](https://badges.strrl.dev)
 
 ## What Ultimate Ansible NAS Does
 
