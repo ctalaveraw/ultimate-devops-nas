@@ -124,13 +124,27 @@ Hypervisor:
 
 ![Proxmox](https://img.shields.io/badge/-Proxmox-E57000?logo=proxmox&logoColor=white&style=for-the-badge)
 
+CI/CD Runner:
+
+![GitLab CI](https://img.shields.io/badge/GitLab%20CI%20Runner-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white)
+
+Source Control:
+
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![GitLab](https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=gitlab&logoColor=white)
+
 Guest OS:
 
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu%20LTS-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 
 Image Creation:
 
 ![Packer](https://img.shields.io/badge/packer-%23E7EEF0.svg?style=for-the-badge&logo=packer&logoColor=%2302A8EF)
+
+
+Infrastructure Provisioning:
+
+![Terrraform](https://img.shields.io/badge/Terraform-7B42BC?&style=for-the-badge&logo=Terraform&logoColor=white)
 
 Application Infrastructure:
 
@@ -142,7 +156,7 @@ Application Provisioning:
 ![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
 ![cloud-init](https://img.shields.io/badge/cloudInit-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 
-Container Provisioning:
+Container Infrastructure Provisioning:
 
 ![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
@@ -154,6 +168,11 @@ Remote Access:
 
 ![Wireguard](https://img.shields.io/badge/-Wireguard-88171A?logo=Wireguard&logoColor=white&style=for-the-badge)
 ![SSH](https://img.shields.io/badge/-SSH-241F31?logo=gnome%20terminal&logoColor=white&style=for-the-badge)
+
+Reverse-Proxy:
+
+![NGINX](https://img.shields.io/badge/-NGINX-009639?logo=nginx&logoColor=white&style=for-the-badge)
+
 
 Storage Pooling:
 
