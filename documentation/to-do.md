@@ -1,6 +1,8 @@
 # To-do list
 
-## ~~Set up bare metal host~~ (done manually, need to automate this process)
+## ~~Set up bare metal host~~ 
+
+(done manually, need to automate this process, would have to create an Ansible playbook to run this list, need to examine Proxmox VE docs for the commands)
 
 - ~~Install the Proxmox VE hypervisor on NAS host; use on NVMe drive, formatted as `zfs`~~
 - ~~[Set](https://www.servethehome.com/how-to-change-primary-proxmox-ve-ip-address/) internal static IP of the Proxmox host~~
