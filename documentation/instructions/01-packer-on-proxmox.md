@@ -24,13 +24,13 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 
 The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
 
 #### Resource Definitions
 
 Begin the `proxmox` resource block:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L23-L25
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L23-L25
 
 ##### Add Proxmox Connection Settings
 
@@ -147,7 +147,7 @@ Set the base configuration for the following conponents:
 - System settings
 - Hard disk settings
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L49-L64
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L49-L64
 
 ##### Adding VM CPU, Memory and Network Settings
 
@@ -157,4 +157,4 @@ Set the base configuration for the following conponents:
 - Memory settings
 - Network settings
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77
