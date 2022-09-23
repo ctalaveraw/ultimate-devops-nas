@@ -68,15 +68,18 @@ source "proxmox" "ubuntu-server-jammy" {
     
     # VM Memory Settings
     memory = "2048" 
+    
     # VM Network Settings
     network_adapters {
         model = "virtio"
         bridge = "vmbr0"
         firewall = "false"
     } 
+    
     # VM Cloud-Init Settings
     cloud_init = true
     cloud_init_storage_pool = "local-lvm"
+    
     # PACKER Boot Commands
     boot_command = [
         "<esc><wait><esc><wait>",

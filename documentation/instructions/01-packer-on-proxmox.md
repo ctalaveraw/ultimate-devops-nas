@@ -22,19 +22,7 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 
 The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file:
 
-```HCL
-# Variable Definitions
-variable "proxmox_api_url" {
-    type = string
-}
-variable "proxmox_api_token_id" {
-    type = string
-}
-variable "proxmox_api_token_secret" {
-    type = string
-    sensitive = true
-}
-```
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
 
 #### Resource Definitions
 
@@ -192,6 +180,8 @@ source "proxmox" "ubuntu-server-jammy" {
 }
 ```
 ##### Adding VM CPU, Memroy and Network Settings
+
+
 
 Set the base configuration for the following conponents:
 
