@@ -11,16 +11,218 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 ## Prerequisite files for the `packer` project
 
 - `credentials.pkr.hcl` - contains the connection settings for the Proxmox server
-  - These credentials can be retrieved from "Proxmox>Permissions>API Tokens"
+  - These credentials can be created and retrieved from "Proxmox>Permissions>API Tokens"
 - `ubuntu-server-jammy.pkr.hcl` - this is the main project file, and will contain the following:
   - Variables
   - Defined resources for the VM
 
 ### Using the `ubuntu-server-jammy.pkr.hcl` file
 
+#### Variable Definitions
+
+The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file:
+
+```HCL
+# Variable Definitions
+variable "proxmox_api_url" {
+    type = string
+}
+variable "proxmox_api_token_id" {
+    type = string
+}
+variable "proxmox_api_token_secret" {
+    type = string
+    sensitive = true
+}
+```
+
+#### Resource Definitions
+
+Begin the `proxmox` resource block:
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+}
+```
+
+##### Add Proxmox Connection Settings
+
+The variables previously defined will be used for the Proxmox connection settings:
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # Proxmox Connection Settings
+    username = "${var.proxmox_api_token_id}"
+    token = "${var.proxmox_api_token_secret}"
+    proxmox_url = "${var.proxmox_api_url}"
+  ...
+  ...
+  ...
+}
+```
+
+##### TLS Verification
+
 If the Proxmox hypervisor has any self-signed  certificates, be sure to use this line to disable TLS verification:
 
 ```HCL
-insecure_skip_tls_verify = true
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # TLS Verification Skip (If needed)
+    # insecure_skip_tls_verify = true
+  ...
+  ...
+  ...
+}
+```
 
+##### Add VM General Settings
+
+This is where the metadata of the VM template is defined:
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # VM General Settings
+    node = "tva" # Name of the destination "node" on Proxmox
+    vm_id = "100"
+    vm_name = "ubuntu-server-jammy"
+    template_description = "Ubuntu 22.04.1 LTS Jammy Jellyfish VMI"
+  ...
+  ...
+  ...
+}
+```
+
+##### Setting the ISO source
+
+Two options are available for the base ISO:
+
+`option 1` - the base ISO is downloaded from a remote URL:
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # VM ISO source (Choose ONLY ONE)
+    
+    # Download ISO (Option 1)
+    iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
+    iso_checksum = "INSERT_CHECKSUM_HERE"
+    
+    # Local ISO File (Option 2)
+    # iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
+  ...
+  ...
+  ...
+}
+```
+
+`option 2` - the base ISO is retrieved locally:
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # VM ISO source (Choose ONLY ONE)
+    
+    # Download ISO (Option 1)
+    # iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
+    # iso_checksum = "INSERT_CHECKSUM_HERE"
+    
+    # Local ISO File (Option 2)
+    iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
+  ...
+  ...
+  ...
+}
+```
+
+##### Adding VM OS, System and Hard Disk Settings
+
+Set the base configuration for the following conponents:
+
+- OS settings
+- System settings
+- Hard disk settings
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # VM OS Settings
+    iso_storage_pool = "local"
+    unmount_iso = true
+    
+    # VM System Settings
+    qemu_agent = true
+    
+    # VM Hard Disk Settings
+    scsi_controller = "virtio-scsi-pci"
+    disks {
+        disk_size = "20G"
+        format = "qcow2"
+        storage_pool = "local-lvm"
+        storage_pool_type = "lvm"
+        type = "virtio"
+    }
+  ...
+  ...
+  ...
+}
+```
+##### Adding VM CPU, Memroy and Network Settings
+
+Set the base configuration for the following conponents:
+
+- OS settings
+- System settings
+- Hard disk settings
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # VM OS Settings
+    iso_storage_pool = "local"
+    unmount_iso = true
+    
+    # VM System Settings
+    qemu_agent = true
+    
+    # VM Hard Disk Settings
+    scsi_controller = "virtio-scsi-pci"
+    disks {
+        disk_size = "20G"
+        format = "qcow2"
+        storage_pool = "local-lvm"
+        storage_pool_type = "lvm"
+        type = "virtio"
+    }
+  ...
+  ...
+  ...
+}
 ```
