@@ -16,6 +16,12 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
   - Variables
   - Defined resources for the VM
 
+### Using the `credentials.pkr.hcl` file
+
+The unique secrets that need to be plugged into the project can be defined here:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/credentials.pkr.hcl#L1-L3
+
 ### Using the `ubuntu-server-jammy.pkr.hcl` file
 
 [In-depth documentation](v) is available for configuring the Packer project file to your specific needs; a short-breakdown of each part of the project file is listed below:
