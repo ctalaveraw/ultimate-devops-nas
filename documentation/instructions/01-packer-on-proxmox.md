@@ -18,6 +18,8 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 
 ### Using the `ubuntu-server-jammy.pkr.hcl` file
 
+[In-depth documentation](v) is available for configuring the Packer project file to your specific needs; a short-breakdown of each part of the project file is listed below:
+
 #### Variable Definitions
 
 The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file:
@@ -145,67 +147,14 @@ Set the base configuration for the following conponents:
 - System settings
 - Hard disk settings
 
-```HCL
-# VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-    # VM OS Settings
-    iso_storage_pool = "local"
-    unmount_iso = true
-    
-    # VM System Settings
-    qemu_agent = true
-    
-    # VM Hard Disk Settings
-    scsi_controller = "virtio-scsi-pci"
-    disks {
-        disk_size = "20G"
-        format = "qcow2"
-        storage_pool = "local-lvm"
-        storage_pool_type = "lvm"
-        type = "virtio"
-    }
-  ...
-  ...
-  ...
-}
-```
-##### Adding VM CPU, Memroy and Network Settings
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L49-L64
 
-
+##### Adding VM CPU, Memory and Network Settings
 
 Set the base configuration for the following conponents:
 
-- OS settings
-- System settings
-- Hard disk settings
+- CPU settings
+- Memory settings
+- Network settings
 
-```HCL
-# VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-    # VM OS Settings
-    iso_storage_pool = "local"
-    unmount_iso = true
-    
-    # VM System Settings
-    qemu_agent = true
-    
-    # VM Hard Disk Settings
-    scsi_controller = "virtio-scsi-pci"
-    disks {
-        disk_size = "20G"
-        format = "qcow2"
-        storage_pool = "local-lvm"
-        storage_pool_type = "lvm"
-        type = "virtio"
-    }
-  ...
-  ...
-  ...
-}
-```
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77

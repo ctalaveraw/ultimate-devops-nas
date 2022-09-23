@@ -47,8 +47,8 @@ source "proxmox" "ubuntu-server-jammy" {
     # iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
     
     # VM OS Settings
-    iso_storage_pool = "local"
-    unmount_iso = true
+    iso_storage_pool = "local" # This is where Proxmox is installed; change if images need storage elsewhere
+    unmount_iso = true # Dismount's the ISO after build is done
     
     # VM System Settings
     qemu_agent = true
@@ -56,10 +56,10 @@ source "proxmox" "ubuntu-server-jammy" {
     # VM Hard Disk Settings
     scsi_controller = "virtio-scsi-pci"
     disks {
-        disk_size = "20G"
-        format = "qcow2"
-        storage_pool = "local-lvm"
-        storage_pool_type = "lvm"
+        disk_size = "50G"
+        format = "raw"
+        storage_pool = "vm_os_storage" # This is the name of the target storage pool in Proxmox
+        storage_pool_type = "zfspool"
         type = "virtio"
     }
     
@@ -67,7 +67,7 @@ source "proxmox" "ubuntu-server-jammy" {
     cores = "1"
     
     # VM Memory Settings
-    memory = "2048" 
+    memory = "10240" 
     
     # VM Network Settings
     network_adapters {
