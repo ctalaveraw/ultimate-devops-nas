@@ -28,14 +28,7 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d
 
 Begin the `proxmox` resource block:
 
-```HCL
-# VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-}
-```
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/cee594849ac3a014a989d02394d673b102665245/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L3-L25
 
 ##### Add Proxmox Connection Settings
 
