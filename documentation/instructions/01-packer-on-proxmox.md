@@ -126,8 +126,96 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8ea
 
 ##### Adding `packer` boot commands
 
-There is additional Packer [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot.
-
-These specific commands allow for `cloud-init` to be utilized:
+There is additional `packer` [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot.
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L83-L92
+
+##### Setting up `packer` auto-install HTTP server
+
+`packer` is able to stand up a temporary HTTP server for assisting with auto-install functionality:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L94-L96
+
+###### Setting static IP for temporary HTTP server (optional)
+
+If required, the IP assigned to the temporary HTTP server can be defined:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L99-L102
+
+##### Setting up SSH authentication
+
+Two options are available for authenticating via SSH:
+
+`option 1` - use a generated private SSH key file (RECOMMENDED):
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # Authentication (CHOOSE ONLY ONE)
+    
+    # Use private SSH Key file (Option 1 - RECOMMENDED)
+    ssh_private_key_file = "~/.ssh/id_rsa"
+    ssh_timeout = "10m" # Raise the timeout, when installation takes longer
+    
+    # Use SSH Password (Option 2)
+    # ssh_password = "your-password"
+  ...
+  ...
+  ...
+}
+```
+
+`option 2` - use a hard-coded SSH password:
+
+```HCL
+# VM Template Resource Definition
+source "proxmox" "ubuntu-server-jammy" {
+  ...
+  ...
+  ...
+    # Authentication (CHOOSE ONLY ONE)
+    
+    # Use private SSH Key file (Option 1 - RECOMMENDED)
+    # ssh_private_key_file = "~/.ssh/id_rsa"
+    # ssh_timeout = "10m" # Raise the timeout, when installation takes longer
+    
+    # Use SSH Password (Option 2)
+    ssh_password = "your-password"
+  ...
+  ...
+  ...
+}
+```
+
+#### VM Template Build Definition
+
+Lastly, the `build` block can defined for the image:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L114-L117
+
+##### Bootstrap provisioner script for `cloud-init` integration
+
+This first script executes the commands that prepares the ISO for `cloud-init` integration:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L119-L132
+
+##### Sourcing configuration file for `cloud-init` integration
+
+This sources the configuration that prepares the ISO for `cloud-init` integration:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L134-L138
+
+##### Injecting configuration file for `cloud-init` integration
+
+This injects the configuration that prepares the ISO for `cloud-init` integration:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L140-L143
+
+##### (Optional) Add any additional scripts at boot time here
+
+Any additional commands that should be run during ISO build can be added here:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L145-L146

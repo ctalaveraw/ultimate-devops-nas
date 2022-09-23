@@ -110,10 +110,12 @@ source "proxmox" "ubuntu-server-jammy" {
     # Use SSH Password (Option 2)
     # ssh_password = "your-password"
 }
-# Build Definition to create the VM Template
+
+# Build definition to create the VM Template
 build {
-    name = "ubuntu-server-focal"
-    sources = ["source.proxmox.ubuntu-server-focal"]
+    name = "ubuntu-server-jammy"
+    sources = ["source.proxmox.ubuntu-server-jammy"]
+    
     # Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
     provisioner "shell" {
         inline = [
@@ -128,15 +130,18 @@ build {
             "sudo sync"
         ]
     }
+    
     # Provisioning the VM Template for Cloud-Init Integration in Proxmox #2
     provisioner "file" {
         source = "files/99-pve.cfg"
         destination = "/tmp/99-pve.cfg"
     }
+    
     # Provisioning the VM Template for Cloud-Init Integration in Proxmox #3
     provisioner "shell" {
         inline = [ "sudo cp /tmp/99-pve.cfg /etc/cloud/cloud.cfg.d/99-pve.cfg" ]
     }
+    
     # Add additional provisioning scripts here
     # ...
 }
