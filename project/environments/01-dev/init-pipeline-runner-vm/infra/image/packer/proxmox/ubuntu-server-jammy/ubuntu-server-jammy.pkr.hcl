@@ -40,8 +40,8 @@ source "proxmox" "ubuntu-server-jammy" {
     # VM ISO source (Choose ONLY ONE)
     
     # Download ISO (Option 1)
-    # iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
-    # iso_checksum = "INSERT_CHECKSUM_HERE"
+    iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
+    iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
     
     # Local ISO File (Option 2)
     # iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
@@ -78,7 +78,7 @@ source "proxmox" "ubuntu-server-jammy" {
     
     # VM Cloud-Init Settings
     cloud_init = true
-    cloud_init_storage_pool = "local-lvm"
+    cloud_init_storage_pool = "local-zfs"
     
     # PACKER Boot Commands
     boot_command = [

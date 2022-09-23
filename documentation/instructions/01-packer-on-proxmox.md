@@ -36,60 +36,19 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c
 
 The variables previously defined will be used for the Proxmox connection settings:
 
-```HCL
-# VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-    # Proxmox Connection Settings
-    username = "${var.proxmox_api_token_id}"
-    token = "${var.proxmox_api_token_secret}"
-    proxmox_url = "${var.proxmox_api_url}"
-  ...
-  ...
-  ...
-}
-```
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L26-L29
 
 ##### TLS Verification
 
 If the Proxmox hypervisor has any self-signed  certificates, be sure to use this line to disable TLS verification:
 
-```HCL
-# VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-    # TLS Verification Skip (If needed)
-    # insecure_skip_tls_verify = true
-  ...
-  ...
-  ...
-}
-```
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L31-L32
 
 ##### Add VM General Settings
 
 This is where the metadata of the VM template is defined:
 
-```HCL
-# VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-    # VM General Settings
-    node = "tva" # Name of the destination "node" on Proxmox
-    vm_id = "100"
-    vm_name = "ubuntu-server-jammy"
-    template_description = "Ubuntu 22.04.1 LTS Jammy Jellyfish VMI"
-  ...
-  ...
-  ...
-}
-```
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L34-L38
 
 ##### Setting the ISO source
 
@@ -107,7 +66,7 @@ source "proxmox" "ubuntu-server-jammy" {
     
     # Download ISO (Option 1)
     iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
-    iso_checksum = "INSERT_CHECKSUM_HERE"
+    iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
     
     # Local ISO File (Option 2)
     # iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
@@ -129,7 +88,7 @@ source "proxmox" "ubuntu-server-jammy" {
     
     # Download ISO (Option 1)
     # iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
-    # iso_checksum = "INSERT_CHECKSUM_HERE"
+    # iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
     
     # Local ISO File (Option 2)
     iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
