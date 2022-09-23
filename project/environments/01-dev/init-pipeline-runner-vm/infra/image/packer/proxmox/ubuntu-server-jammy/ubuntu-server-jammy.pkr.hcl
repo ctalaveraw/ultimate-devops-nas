@@ -80,7 +80,7 @@ source "proxmox" "ubuntu-server-jammy" {
     cloud_init = true
     cloud_init_storage_pool = "local-zfs"
     
-    # PACKER Boot Commands
+    # Packer Boot Commands
     boot_command = [
         "<esc><wait><esc><wait>",
         "<f6><wait><esc><wait>",
@@ -90,20 +90,25 @@ source "proxmox" "ubuntu-server-jammy" {
     ]
     boot = "c"
     boot_wait = "5s"
-    # PACKER Autoinstall Settings
+
+    # Packer HTTP Server Settings for Autoinstall
     http_directory = "http" 
-    # (Optional) Bind IP Address and Port
-    # http_bind_address = "0.0.0.0"
-    # http_port_min = 8802
-    # http_port_max = 8802
     ssh_username = "your-user-name"
-    # (Option 1) Add your Password here
+    
+
+    # Bind IP Address and Port Statically (Optional)
+    http_bind_address = "10.69.69.170"
+    http_port_min = 9000
+    http_port_max = 9005
+    
+    # Authentication (CHOOSE ONLY ONE)
+    
+    # Use private SSH Key file (Option 1 - RECOMMENDED)
+    ssh_private_key_file = "~/.ssh/id_rsa"
+    ssh_timeout = "10m" # Raise the timeout, when installation takes longer
+    
+    # Use SSH Password (Option 2)
     # ssh_password = "your-password"
-    # - or -
-    # (Option 2) Add your Private SSH KEY file here
-    # ssh_private_key_file = "~/.ssh/id_rsa"
-    # Raise the timeout, when installation takes longer
-    ssh_timeout = "20m"
 }
 # Build Definition to create the VM Template
 build {

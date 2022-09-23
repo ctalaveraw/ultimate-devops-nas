@@ -110,10 +110,24 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c
 
 ##### Adding VM CPU, Memory and Network Settings
 
-Set the base configuration for the following conponents:
+Set the base configuration for the following components:
 
 - CPU settings
 - Memory settings
 - Network settings
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77
+
+##### Adding VM `cloud-init` settings
+
+Set the base configuration use with `cloud-init`:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L79-L81
+
+##### Adding `packer` boot commands
+
+There is additional Packer [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot.
+
+These specific commands allow for `cloud-init` to be utilized:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/1483ae0adb2e0c5c2a13c1596def489a170fc0ed/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L79-L81
