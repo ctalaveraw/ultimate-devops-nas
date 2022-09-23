@@ -130,4 +130,4 @@ There is additional Packer [documentation](https://www.packer.io/plugins/builder
 
 These specific commands allow for `cloud-init` to be utilized:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L79-L81
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/9923d2ca820826387a8eacb160e947df3b913c97/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L83-L92
