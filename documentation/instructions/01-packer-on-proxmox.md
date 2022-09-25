@@ -15,6 +15,7 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 - `ubuntu-server-jammy.pkr.hcl` - this is the main project file, and will contain the following:
   - Variables
   - Defined resources for the VM
+- `http/user-data` - this contains the custom-defined configuration for `cloud-init` to read
 
 ### Using the `credentials.pkr.hcl` file
 
@@ -28,7 +29,7 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8
 
 #### Variable Definitions
 
-The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file:
+The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file; the actual values will be set in the `credentials.pkr.hcl` file:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
 
@@ -52,11 +53,24 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8
 
 ##### Add VM General Settings
 
+User-specific input:
+
+- `node` - the name of the destination node" on Proxmox
+
 This is where the metadata of the VM template is defined:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L34-L38
 
 ##### Setting the ISO source
+
+User-specific input:
+
+- `iso_url` - the URL of the lastest Ubuntu LTS ISO image; this may change in the future and may need to be updated
+- `iso_checksum` - the checksum of the defined Ubuntu LTS ISO image; this may change in the future and may need to be updated
+
+OR
+
+- `iso_file` - the local location of the target ISO file
 
 Two options are available for the base ISO:
 
@@ -106,7 +120,7 @@ source "proxmox" "ubuntu-server-jammy" {
 
 ##### Adding VM OS, System and Hard Disk Settings
 
-Set the base configuration for the following conponents:
+Set the base configuration for the following components using personal preferences:
 
 - OS settings
 - System settings
@@ -116,7 +130,7 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8
 
 ##### Adding VM CPU, Memory and Network Settings
 
-Set the base configuration for the following components:
+Set the base configuration for the following components using personal preferences:
 
 - CPU settings
 - Memory settings
@@ -132,23 +146,46 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8
 
 ##### Adding `packer` boot commands
 
-There is additional `packer` [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot.
+User-specific input:
+
+- `HTTPIP` - the static IP of the HTTP auto-install server
+- `HTTPPort` - the port of the HTTP auto-install server
+
+There is additional `packer` [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot; see the [documentation](https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html) for more context on how Ubuntu uses a local `cloud-init` configuration. These key presses allows an unattended Ubuntu install without manual input.
+
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L83-L92
 
 ##### Setting up `packer` auto-install HTTP server
 
+User-specific input:
+
+- `ssh_username` - the SSH username on Proxmox configured to allow unattended install
+
 `packer` is able to stand up a temporary HTTP server for assisting with auto-install functionality:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L94-L96
 
-###### Setting static IP for temporary HTTP server (optional)
+###### Setting static IP for temporary HTTP server
 
-If required, the IP assigned to the temporary HTTP server can be defined:
+User-specific input:
+
+- `HTTPIP` - the static IP of the HTTP auto-install server
+- `HTTPPort` - the port of the HTTP auto-install server
+
+The IP assigned to the temporary HTTP server needs to be defined:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L99-L102
 
 ##### Setting up SSH authentication
+
+User-specific input:
+
+- `ssh_private_key_file` - private SSH key file used for authentication
+
+OR
+
+- `ssh_password` - SSH password used for authentication
 
 Two options are available for authenticating via SSH:
 
@@ -225,3 +262,72 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8
 Any additional commands that should be run during ISO build can be added here:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L145-L146
+
+### Using the `http/user-data` file
+
+This is the configuration file that `cloud-init` will reference.
+
+This will need to be defined; please reference the [documentation](https://cloudinit.readthedocs.io/en/latest/topics/modules.html) to see more details on how to set up the YAML file:
+
+#### Defining the `autoinstall` block
+
+Sensible defaults have been provided for the following fields:
+
+- `version`
+- `locale`
+- `keyboard`
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L3-L7
+
+#### Defining the `ssh` block
+
+This installs an SSH server using `cloud-init` as well as allow password authentication; important for provisioning tasks:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L8-L13
+
+#### Defining the `packages` block
+
+This preinstalls the following Ubuntu packages:
+
+- `sudo`
+- `qemu-guest-agent`
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L14-L16
+
+#### Defining the `storages` block
+
+Sensible defaults have been provided for the following fields:
+
+- `layout`
+- `swap`
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L17-L21
+
+#### Defining the `user-data` block
+
+Sensible defaults have been provided for the following fields:
+
+- `package_upgrade`
+- `timezone` (change if needed)
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L22-L24
+
+##### Defining the `users` block
+
+User-specific input:
+
+- `name` - the name of the created Linux user used for SSH connection
+- `ssh_authorized_keys` - the SSH key file used for SSH connection
+
+OR
+
+- `passwd` - the password used for SSH connection
+
+Sensible defaults have been provided for the following fields:
+
+- `groups`
+- `shell`
+- `sudo`
+- `lock-passwd`
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/3a963a35e687b86a658c8bf4d74496a26750551e/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L25-L35

@@ -96,10 +96,10 @@ source "proxmox" "ubuntu-server-jammy" {
     ssh_username = "your-user-name"
     
 
-    # Bind IP Address and Port Statically (Optional)
-    http_bind_address = "10.69.69.170"
-    http_port_min = 9000
-    http_port_max = 9005
+    # Bind IP Address and Port Statically
+    http_bind_address = "HTTPIP"
+    http_port_min = "HTTPPort"
+    http_port_max = "HTTPPort"
     
     # Authentication (CHOOSE ONLY ONE)
     
