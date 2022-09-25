@@ -21,7 +21,7 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 
 The unique secrets that need to be plugged into the project can be defined here:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/credentials.pkr.hcl#L1-L3
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/credentials.pkr.hcl#L1-L3
 
 ### Using the `ubuntu-server-jammy.pkr.hcl` file
 
@@ -31,25 +31,25 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27e
 
 The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file; the actual values will be set in the `credentials.pkr.hcl` file:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
 
 #### Resource Definitions
 
 Begin the `proxmox` resource block:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L23-L25
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L23-L25
 
 ##### Add Proxmox Connection Settings
 
 The variables previously defined will be used for the Proxmox connection settings:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L26-L29
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L26-L29
 
 ##### TLS Verification
 
 If the Proxmox hypervisor has any self-signed  certificates, be sure to use this line to disable TLS verification:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L31-L32
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L31-L32
 
 ##### Add VM General Settings
 
@@ -59,7 +59,7 @@ User-specific input:
 
 This is where the metadata of the VM template is defined:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L34-L38
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L34-L38
 
 ##### Setting the ISO source
 
@@ -126,7 +126,7 @@ Set the base configuration for the following components using personal preferenc
 - System settings
 - Hard disk settings
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L49-L64
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L49-L64
 
 ##### Adding VM CPU, Memory and Network Settings
 
@@ -136,13 +136,13 @@ Set the base configuration for the following components using personal preferenc
 - Memory settings
 - Network settings
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77
 
 ##### Adding VM `cloud-init` settings
 
 Set the base configuration use with `cloud-init`:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L79-L81
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L79-L81
 
 ##### Adding `packer` boot commands
 
@@ -154,7 +154,7 @@ User-specific input:
 There is additional `packer` [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot; see the [documentation](https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html) for more context on how Ubuntu uses a local `cloud-init` configuration. These key presses allows an unattended Ubuntu install without manual input.
 
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L83-L92
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L83-L92
 
 ##### Setting up `packer` auto-install HTTP server
 
@@ -164,7 +164,7 @@ User-specific input:
 
 `packer` is able to stand up a temporary HTTP server for assisting with auto-install functionality:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L94-L96
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L94-L96
 
 ###### Setting static IP for temporary HTTP server
 
@@ -175,7 +175,7 @@ User-specific input:
 
 The IP assigned to the temporary HTTP server needs to be defined:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L99-L102
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L99-L102
 
 ##### Setting up SSH authentication
 
@@ -237,31 +237,31 @@ source "proxmox" "ubuntu-server-jammy" {
 
 Lastly, the `build` block can defined for the image:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L114-L117
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L114-L117
 
 ##### Bootstrap provisioner script for `cloud-init` integration
 
 This first script executes the commands that prepares the ISO for `cloud-init` integration:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L119-L132
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L119-L132
 
 ##### Sourcing configuration file for `cloud-init` integration
 
 This sources the configuration that prepares the ISO for `cloud-init` integration:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L134-L138
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L134-L138
 
 ##### Injecting configuration file for `cloud-init` integration
 
 This injects the configuration that prepares the ISO for `cloud-init` integration:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L140-L143
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L140-L143
 
 ##### (Optional) Add any additional scripts at boot time here
 
 Any additional commands that should be run during ISO build can be added here:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L145-L146
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L145-L146
 
 ### Using the `http/user-data` file
 
@@ -277,13 +277,13 @@ Sensible defaults have been provided for the following fields:
 - `locale`
 - `keyboard`
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L3-L7
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L3-L7
 
 #### Defining the `ssh` block
 
 This installs an SSH server using `cloud-init` as well as allow password authentication; important for provisioning tasks:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L8-L13
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L8-L13
 
 #### Defining the `packages` block
 
@@ -292,7 +292,7 @@ This preinstalls the following Ubuntu packages:
 - `sudo`
 - `qemu-guest-agent`
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L14-L16
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L14-L16
 
 #### Defining the `storages` block
 
@@ -301,7 +301,7 @@ Sensible defaults have been provided for the following fields:
 - `layout`
 - `swap`
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L17-L21
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L17-L21
 
 #### Defining the `user-data` block
 
@@ -310,7 +310,7 @@ Sensible defaults have been provided for the following fields:
 - `package_upgrade`
 - `timezone` (change if needed)
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L22-L24
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L22-L24
 
 ##### Defining the `users` block
 
@@ -330,4 +330,4 @@ Sensible defaults have been provided for the following fields:
 - `sudo`
 - `lock-passwd`
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/ 815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L25-L35
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/815b0020bcce5b45c27eae0ae9b95f8b81a02500/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/http/user-data#L25-L35
