@@ -22,6 +22,7 @@
       - [Sourcing configuration file for `cloud-init` integration](#sourcing-configuration-file-for-cloud-init-integration)
       - [Injecting configuration file for `cloud-init` integration](#injecting-configuration-file-for-cloud-init-integration)
       - [(Optional) Add any additional scripts at boot time here](#optional-add-any-additional-scripts-at-boot-time-here)
+      - [Add script to template to install `docker`](#add-script-to-template-to-install-docker)
   - [Using the `http/user-data` file](#using-the-httpuser-data-file)
     - [Defining the `autoinstall` block](#defining-the-autoinstall-block)
     - [Defining the `ssh` block](#defining-the-ssh-block)
@@ -295,6 +296,11 @@ Any additional commands that should be run during ISO build can be added here:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/8551dfe470b6c0785482f11dcf121b8aff5211df/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L145-L146
 
+#### Add script to template to install `docker` 
+
+A provisioner will be made to run all the commands to install the `docker` daemon:
+
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/8551dfe470b6c0785482f11dcf121b8aff5211df/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L148-L158
 ## Using the `http/user-data` file
 
 This is the configuration file that `cloud-init` will reference.
