@@ -7,6 +7,14 @@ This is the "Jammy Jellyfish" release and will contain "cloud-init" baked in.
 */
 
 # Variable Definitions
+
+/*
+Details are listed here:
+https://developer.hashicorp.com/packer/plugins/builders/proxmox/iso#proxmox_url
+https://developer.hashicorp.com/packer/plugins/builders/proxmox/iso#username
+https://developer.hashicorp.com/packer/plugins/builders/proxmox/iso#token
+*/
+
 variable "proxmox_api_token_id" {
     type = string
 }
