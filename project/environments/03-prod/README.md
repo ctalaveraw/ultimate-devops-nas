@@ -1,5 +1,9 @@
-# "Production" environment
+# "Development" environment
 
-This will be used to host the `prod` version of this Ultimate NAS environment.
+This will be used to host the `dev` version of this Ultimate NAS environment.
 
-Once considered stable, changes from `staging` will promoted into `prod` pending some QA and testing.
+Both `dev` and `staging` will contain more up-to-date software.
+
+However, `dev` will contain more debugging and bleeding edge components.
+
+Once considered stable, changes will be promoted from `dev` --> `staging`.

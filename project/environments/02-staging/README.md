@@ -1,6 +1,6 @@
-# "Staging" environment
+# "Development" environment
 
-This will be used to host the `staging` version of this Ultimate NAS environment.
+This will be used to host the `dev` version of this Ultimate NAS environment.
 
 Both `dev` and `staging` will contain more up-to-date software.
 
