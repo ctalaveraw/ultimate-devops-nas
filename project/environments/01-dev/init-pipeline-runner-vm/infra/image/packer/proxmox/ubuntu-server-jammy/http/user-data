@@ -23,7 +23,7 @@ autoinstall:
     package_upgrade: false
     timezone: America/New York
     users:
-      - name: your-user-name
+      - name: packer
         shell: /bin/bash
         sudo: ALL=(ALL) NOPASSWD:ALL
         lock-passwd: false

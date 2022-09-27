@@ -101,7 +101,7 @@ source "proxmox" "ubuntu-server-jammy" {
 
     # Packer HTTP Server Settings for Autoinstall
     http_directory = "http" 
-    ssh_username = "your-user-name"
+    ssh_username = "packer"
     
 
     # Bind IP Address and Port Statically
