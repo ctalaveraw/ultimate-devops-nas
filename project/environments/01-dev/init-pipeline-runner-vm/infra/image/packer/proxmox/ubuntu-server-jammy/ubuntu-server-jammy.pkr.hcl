@@ -37,7 +37,7 @@ source "proxmox" "ubuntu-server-jammy" {
     proxmox_url = "${var.proxmox_api_url}"
     
     # TLS Verification Skip (If needed)
-    # insecure_skip_tls_verify = true
+    insecure_skip_tls_verify = true
     
     # VM General Settings
     node = "tva" # Name of the destination "node" on Proxmox
@@ -90,18 +90,19 @@ source "proxmox" "ubuntu-server-jammy" {
     
     # Packer Boot Commands
     boot_command = [
-        "<esc><wait><esc><wait>",
-        "<f6><wait><esc><wait>",
-        "<bs><bs><bs><bs><bs>",
-        "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
-        "--- <enter>"
+        "<esc><wait>",
+        "e<wait>",
+        "<down><down><down><end>",
+        "<bs><bs><bs><bs><wait>",
+        "autoinstall ds=nocloud-net\\;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ---<wait>",
+        "<f10><wait>"
     ]
     boot = "c"
     boot_wait = "5s"
 
     # Packer HTTP Server Settings for Autoinstall
     http_directory = "http" 
-    ssh_username = "packer"
+    ssh_username = "root"
     
 
     # Bind IP Address and Port Statically
