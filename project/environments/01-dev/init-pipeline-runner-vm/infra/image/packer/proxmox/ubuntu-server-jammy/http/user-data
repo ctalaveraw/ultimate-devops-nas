@@ -1,5 +1,4 @@
 # cloud-init configuration
-
 autoinstall:
   version: 1
   locale: en_US
@@ -14,6 +13,9 @@ autoinstall:
   packages:
     - qemu-guest-agent
     - sudo
+  late-commands:
+    - curtin in-target --target=/target -- systemctl start qemu-guest-agent
+    - curtin in-target --target=/target -- systemctl enable qemu-guest-agent
   storage:
     layout:
       name: direct
