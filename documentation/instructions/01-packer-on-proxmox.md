@@ -2,7 +2,7 @@
 - [Table of Contents](#table-of-contents)
 - [How to install `packer` on Proxmox](#how-to-install-packer-on-proxmox)
 - [Prerequisite files for the `packer` project](#prerequisite-files-for-the-packer-project)
-  - [Using the `credentials.pkr.hcl` file](#using-the-credentialspkrhcl-file)
+  - [Using the `secrets.pkr.hcl` file](#using-the-secretspkrhcl-file)
   - [Using the `ubuntu-server-jammy.pkr.hcl` file](#using-the-ubuntu-server-jammypkrhcl-file)
     - [Variable Definitions](#variable-definitions)
     - [Resource Definitions](#resource-definitions)
@@ -43,18 +43,18 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 
 # Prerequisite files for the `packer` project
 
-- `credentials.pkr.hcl` - contains the connection settings for the Proxmox server
+- `secrets.pkr.hcl` - contains the connection settings for the Proxmox server
   - These credentials can be created and retrieved from "Proxmox>Permissions>API Tokens"
 - `ubuntu-server-jammy.pkr.hcl` - this is the main project file, and will contain the following:
   - Variables
   - Defined resources for the VM
 - `http/user-data` - this contains the custom-defined configuration for `cloud-init` to read
 
-## Using the `credentials.pkr.hcl` file
+## Using the `secrets.pkr.hcl` file
 
 The unique secrets that need to be plugged into the project can be defined here:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/34195247dadc36b195f7c2acacd58a0fe9b36bbb/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/credentials.pkr.hcl#L1-L3
+https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/34195247dadc36b195f7c2acacd58a0fe9b36bbb/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/secrets.pkr.hcl#L1-L3
 
 ## Using the `ubuntu-server-jammy.pkr.hcl` file
 
@@ -62,7 +62,7 @@ https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/34195247dadc36b195f7c
 
 ### Variable Definitions
 
-The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file; the actual values will be set in the `credentials.pkr.hcl` file:
+The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file; the actual values will be set in the `secrets.pkr.hcl` file:
 
 https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/34195247dadc36b195f7c2acacd58a0fe9b36bbb/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
 
