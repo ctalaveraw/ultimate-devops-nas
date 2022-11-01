@@ -65,6 +65,7 @@ variable "proxmox_target_node" {
 }
 
 ## SSH configuration
+/*
 variable "proxmox_ssh_username" {
     type = string
     default = "root"
@@ -74,15 +75,14 @@ variable "proxmox_ssh_password" {
     type = string
     sensitive = true
 }
+*/
 
 # OR
 
-/*
 variable "proxmox_ssh_keyfile_path" {
     type = string
     default = "~/.ssh/id_rsa"
 }
-*/
 
 ### VM Template Resource Definition
 source "proxmox" "ubuntu-server-jammy" {
@@ -171,13 +171,13 @@ source "proxmox" "ubuntu-server-jammy" {
     ssh_timeout = "20m" # Raise the timeout, when installation takes longer
     
     ## Use private SSH Key file (Option 1 - RECOMMENDED)
-    # ssh_private_key_file = "${var.proxmox_ssh_keyfile_path}"
+    ssh_private_key_file = "${var.proxmox_ssh_keyfile_path}"
     
     # OR
 
     ## Use SSH Password (Option 2)
-    ssh_username = "${var.proxmox_ssh_username}"
-    ssh_password = "${var.proxmox_ssh_password}"
+    # ssh_username = "${var.proxmox_ssh_username}"
+    # ssh_password = "${var.proxmox_ssh_password}"
 }
 
 ### Build definition to create the VM Template
