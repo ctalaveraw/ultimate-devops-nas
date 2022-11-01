@@ -19,7 +19,7 @@ proxmox_target_node = "" # This is the name of the destination "node" on Proxmox
 
 ## SSH configuration
 
-# proxmox_ssh_keyfile_path = ""
+proxmox_ssh_keyfile_path = ""
 # OR
-proxmox_ssh_username = ""
-proxmox_ssh_password = ""
+# proxmox_ssh_username = ""
+# proxmox_ssh_password = ""
