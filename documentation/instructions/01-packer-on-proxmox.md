@@ -1,28 +1,41 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
-- [How to install `packer` on Proxmox](#how-to-install-packer-on-proxmox)
-- [Prerequisite files for the `packer` project](#prerequisite-files-for-the-packer-project)
+- [Prerequisites](#prerequisites)
+  - [Local environment](#local-environment)
+    - [OS](#os)
+      - [Mac/Linux](#maclinux)
+      - [Windows](#windows)
+    - [Apps to install](#apps-to-install)
+      - [`openssh`](#openssh)
+      - [`packer`](#packer)
+  - [Host enviornment](#host-enviornment)
+    - [OS](#os-1)
+      - [Proxmox VE](#proxmox-ve)
+- [Instructions on deployment](#instructions-on-deployment)
+- [Files used in `packer` project](#files-used-in-packer-project)
   - [Using the `secrets.pkr.hcl` file](#using-the-secretspkrhcl-file)
   - [Using the `ubuntu-server-jammy.pkr.hcl` file](#using-the-ubuntu-server-jammypkrhcl-file)
-    - [Variable Definitions](#variable-definitions)
-    - [Resource Definitions](#resource-definitions)
-      - [Add Proxmox Connection Settings](#add-proxmox-connection-settings)
       - [TLS Verification](#tls-verification)
-      - [Add VM General Settings](#add-vm-general-settings)
-      - [Setting the ISO source](#setting-the-iso-source)
-      - [Adding VM OS, System and Hard Disk Settings](#adding-vm-os-system-and-hard-disk-settings)
-      - [Adding VM CPU, Memory and Network Settings](#adding-vm-cpu-memory-and-network-settings)
+      - [Specifying VM Settings](#specifying-vm-settings)
+        - [System settings](#system-settings)
+        - [Hard disk settings](#hard-disk-settings)
+        - [CPU settings](#cpu-settings)
+        - [Memory settings](#memory-settings)
+        - [Network settings](#network-settings)
       - [Adding VM `cloud-init` settings](#adding-vm-cloud-init-settings)
       - [Adding `packer` boot commands](#adding-packer-boot-commands)
+- [Below documentation will need to be rewritten](#below-documentation-will-need-to-be-rewritten)
       - [Setting up `packer` auto-install HTTP server](#setting-up-packer-auto-install-http-server)
         - [Setting static IP for temporary HTTP server](#setting-static-ip-for-temporary-http-server)
       - [Setting up SSH authentication](#setting-up-ssh-authentication)
+- [Above documentation will need to be rewritten](#above-documentation-will-need-to-be-rewritten)
     - [VM Template Build Definition](#vm-template-build-definition)
       - [Bootstrap provisioner script for `cloud-init` integration](#bootstrap-provisioner-script-for-cloud-init-integration)
       - [Sourcing configuration file for `cloud-init` integration](#sourcing-configuration-file-for-cloud-init-integration)
       - [Injecting configuration file for `cloud-init` integration](#injecting-configuration-file-for-cloud-init-integration)
       - [(Optional) Add any additional scripts at boot time here](#optional-add-any-additional-scripts-at-boot-time-here)
       - [Add script to template to install `docker`](#add-script-to-template-to-install-docker)
+- [Below documentation will need to be rewritten](#below-documentation-will-need-to-be-rewritten-1)
   - [Using the `http/user-data` file](#using-the-httpuser-data-file)
     - [Defining the `autoinstall` block](#defining-the-autoinstall-block)
     - [Defining the `ssh` block](#defining-the-ssh-block)
@@ -31,20 +44,61 @@
     - [Defining the `user-data` block](#defining-the-user-data-block)
       - [Defining the `users` block](#defining-the-users-block)
 
-# How to install `packer` on Proxmox
+# Prerequisites
 
-First, install the `packer` application on the Proxmox Hypervisor:
+## Local environment
+A local machine will be used to connect to the NAS via `ssh` and run a `packer` deploy to create a VM template with software pre-baked into the image.
+
+### OS
+
+#### Mac/Linux
+
+Use the built-in terminal to run commands
+
+#### Windows
+
+Use `cmd` or PowerShell prompt to run commands
+
+### Apps to install
+
+#### `openssh`
+
+This will allow connecting to the hypervisor host for troubleshooting if needed.
+
+#### `packer`
+
+`packer` is a tool used for automated provisioning of machine images. HashiCorp provides [official instructions](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli) on how to install `packer` locally
+
+
+## Host enviornment
+
+The target NAS machine will need to have Proxmox VE installed, and will need to be on the same network as the local machine.
+
+### OS
+
+#### Proxmox VE
+
+Proxmox VE is an open-source hypervisor that will be used to manage VMs.
+Proxmox offers [official instructions](https://www.proxmox.com/en/proxmox-ve/get-started) on how to install if needed.
+
+# Instructions on deployment
+
+To run the `packer` deployment, a local machine will be used to connect to a seperate host on the same network. The destination host is assumed to have Proxmox VE installed.
+
+Once the all variables and connection settings are defined, the deployment can be executed by navigating to one of the `packer` project folders and run the following commands:
 
 ```bash
-apt-get -y install packer
+cd proxmox/ubuntu-server-jammy
 ```
 
-This will connect to the server to begin the creation of a standardized VMI (Virtual Machine Image) that contains `cloud-init`.
+```bash
+packer build -var-file=secrets.pkr.hcl ubuntu-server-jammy.pkr.hcl
+```
 
-# Prerequisite files for the `packer` project
+# Files used in `packer` project
 
-- `secrets.pkr.hcl` - contains the connection settings for the Proxmox server
-  - These credentials can be created and retrieved from "Proxmox>Permissions>API Tokens"
+- `secrets.pkr.hcl` - contains the connection settings and variables for the deployment
+  - These credentials can be created and retrieved from the Proxmox VE web console, under "Proxmox>Permissions>API Tokens"
 - `ubuntu-server-jammy.pkr.hcl` - this is the main project file, and will contain the following:
   - Variables
   - Defined resources for the VM
@@ -54,140 +108,164 @@ This will connect to the server to begin the creation of a standardized VMI (Vir
 
 The unique secrets that need to be plugged into the project can be defined here:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/secrets.pkr.hcl#L1-L3
+- **ISO path configuration**
+  - `proxmox_ubuntu_iso_url` - input the URL that points to the latest Ubuntu image release
+  - `proxmox_ubuntu_iso_checksum` - input the checksum of the latest Ubuntu image release
+
+  ~~OR~~
+  
+  ~~- `proxmox_ubuntu_iso_local_path` - input the path of an already downloaded ISO image~~
+
+- **HTTP server configuration**
+  - `http_host_ip` - input the static IP of the Proxmox host
+  - `http_host_port` - input a port for the `cloud-init` HTTP server to bind to
+
+- **Proxmox connection configuration**
+  - `proxmox_target_node` - input the name of the destination "node" on Proxmox
+  - `proxmox_api_url` - input the Proxmox server's API endpoint; format is:
+    
+    ```
+    https://{PROXMOX_IP}:{PROXMOX_PORT}/api2/json
+    ```
+  
+  - `proxmox_api_token_id` - input the API Token ID; format is:
+
+    ```
+    root@pam!{TOKEN_NAME}
+    ```
+
+  - `proxmox_api_token_secret` - input the API Token Secret; format is:
+    
+    ```
+    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    ```
+    
+
+- **SSH configuration**
+  - `proxmox_ssh_username` - input the user to connect via SSH on the Proxmox host; default is `root` 
+  - `proxmox_ssh_keyfile_path` - input the path on the local machine that contains the authorized SSH key to connect to the Proxmox host
+  
+  ~~OR~~
+  
+  ~~- `proxmox_ssh_password` - input the password for the root user on Proxmox host~~
+
 
 ## Using the `ubuntu-server-jammy.pkr.hcl` file
 
-[In-depth documentation](v) is available for configuring the Packer project file to your specific needs; a short-breakdown of each part of the project file is listed below:
-
-### Variable Definitions
-
-The variables related to the connecting to the Proxmox server must first be defined at the beginning of the file; the actual values will be set in the `secrets.pkr.hcl` file:
-
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L9-L21
-
-### Resource Definitions
-
-Begin the `proxmox` resource block:
-
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L23-L25
-
-#### Add Proxmox Connection Settings
-
-The variables previously defined will be used for the Proxmox connection settings:
-
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L26-L29
+[In-depth documentation](https://developer.hashicorp.com/packer/plugins/builders/proxmox/iso) is available for configuring the Packer project file to your specific needs; reasonable default configs have been given with the following specifications, but can be changed if required for a unique configuration:
 
 #### TLS Verification
 
-If the Proxmox hypervisor has any self-signed  certificates, be sure to use this line to disable TLS verification:
-
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L31-L32
-
-#### Add VM General Settings
-
-User-specific input:
-
-- `node` - the name of the destination node" on Proxmox
-
-This is where the metadata of the VM template is defined:
-
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L34-L38
-
-#### Setting the ISO source
-
-User-specific input:
-
-- `iso_url` - the URL of the lastest Ubuntu LTS ISO image; this may change in the future and may need to be updated
-- `iso_checksum` - the checksum of the defined Ubuntu LTS ISO image; this may change in the future and may need to be updated
-
-OR
-
-- `iso_file` - the local location of the target ISO file
-
-Two options are available for the base ISO:
-
-`option 1` - the base ISO is downloaded from a remote URL:
+Skip TLS verification should be left as `true` by default unless using self-signed certificates on the Proxmox hypervisor:
 
 ```HCL
- VM Template Resource Definition
+
+### VM Template Resource Definition
 source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-     VM ISO source (Choose ONLY ONE)
-    
-     Download ISO (Option 1)
-    iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
-    iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
-    
-     Local ISO File (Option 2)
-     iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
-  ...
-  ...
-  ...
-}
+
+    ....
+    ....
+    ....
+    ....
+    ....
+        
+    ## TLS Verification Skip (If needed)
+    insecure_skip_tls_verify = true
+
 ```
 
-`option 2` - the base ISO is retrieved locally:
+#### Specifying VM Settings
+
+Sensible defaults have been provided for the following VM configurations but can be changed if needed
+
+
+##### System settings
+
+`qemu_agent` is required for this deployment and should be set to `true`:
 
 ```HCL
- VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
-  ...
-  ...
-  ...
-     VM ISO source (Choose ONLY ONE)
-    
-     Download ISO (Option 1)
-     iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
-     iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
-    
-     Local ISO File (Option 2)
-    iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
-  ...
-  ...
-  ...
-}
+    ## VM System Settings
+    qemu_agent = true
 ```
 
-#### Adding VM OS, System and Hard Disk Settings
+##### Hard disk settings
 
-Set the base configuration for the following components using personal preferences:
+This deployment configured to use a `zfs` disk pool, but any storage can be used:
 
-- OS settings
-- System settings
-- Hard disk settings
+```HCL
+    ## VM Hard Disk Settings
+    scsi_controller = "virtio-scsi-pci"
+    disks {
+        disk_size = "50G"
+        format = "raw"
+        storage_pool = "vm_os_storage" # This is the name of the target storage pool in Proxmox
+        storage_pool_type = "zfspool"
+        type = "virtio"
+    }
+```
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L49-L64
+##### CPU settings
 
-#### Adding VM CPU, Memory and Network Settings
+Sensible defaults are provided, but can be modified if needed:
 
-Set the base configuration for the following components using personal preferences:
+```HCL
+    ## VM CPU Settings
+    cores = "1"
+```
 
-- CPU settings
-- Memory settings
-- Network settings
+##### Memory settings
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L66-L77
+
+Sensible defaults are provided, but can be modified if needed:
+
+```HCL
+    ## VM Memory Settings
+    memory = "10240"
+```
+
+##### Network settings
+
+Sensible defaults is to use a bridged connection from the VM to the hypervisor, but can be modified if needed:
+
+```HCL
+    ## VM Network Settings
+    network_adapters {
+        model = "virtio"
+        bridge = "vmbr0"
+        firewall = "false"
+    } 
+```
 
 #### Adding VM `cloud-init` settings
 
-Set the base configuration use with `cloud-init`:
+Set the base configuration use with `cloud-init`; default configuration uses `zfs` but can be modified if needed:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L79-L81
-
+```HCL
+    ## VM Cloud-Init Settings
+    cloud_init = true
+    cloud_init_storage_pool = "local-zfs"
+```
 #### Adding `packer` boot commands
 
-User-specific input:
+There is additional `packer` [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot; see the [documentation](https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html) for more context on how Ubuntu uses a local `cloud-init` configuration.
 
-- `HTTPIP` - the static IP of the HTTP auto-install server
-- `HTTPPort` - the port of the HTTP auto-install server
+These key presses allows an unattended Ubuntu install without manual input. Sensible defaults have been provided; this may change with new version updates of Ubuntu:
+```HCL
+    ## Packer Boot Commands
+    boot_command = [
+        "<esc><wait>",
+        "e<wait>",
+        "<down><down><down><end>",
+        "<bs><bs><bs><bs><wait>",
+        "autoinstall ds=nocloud-net\\;s=http://${var.http_host_ip}:${var.http_host_port}/ ---<wait>",
+        "<f10><wait>"
+    ]
+    boot = "c"
+    boot_wait = "5s"
 
-There is additional `packer` [documentation](https://www.packer.io/plugins/builders/proxmox/iso#boot-command) detailing how Packer runs commands at boot; see the [documentation](https://cloudinit.readthedocs.io/en/latest/topics/datasources/nocloud.html) for more context on how Ubuntu uses a local `cloud-init` configuration. These key presses allows an unattended Ubuntu install without manual input.
+```
 
-
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L83-L92
+# Below documentation will need to be rewritten
 
 #### Setting up `packer` auto-install HTTP server
 
@@ -266,41 +344,95 @@ source "proxmox" "ubuntu-server-jammy" {
 }
 ```
 
+# Above documentation will need to be rewritten
+
 ### VM Template Build Definition
 
-Lastly, the `build` block can defined for the image:
+Sensible defaults for each of the provisioner blocks have been provided, but can be modified if needed.
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L114-L117
+
+The `build` block is pre-defined:
+
+```HCL
+### Build definition to create the VM Template
+build {
+    name = "ubuntu-server-jammy"
+    sources = ["source.proxmox.ubuntu-server-jammy"]
+  }
+```
 
 #### Bootstrap provisioner script for `cloud-init` integration
 
 This first script executes the commands that prepares the ISO for `cloud-init` integration:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L119-L132
+```HCL
+    ## Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
+    provisioner "shell" {
+        inline = [
+            "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
+            "sudo rm /etc/ssh/ssh_host_*",
+            "sudo truncate -s 0 /etc/machine-id",
+            "sudo apt -y autoremove --purge",
+            "sudo apt -y clean",
+            "sudo apt -y autoclean",
+            "sudo cloud-init clean",
+            "sudo rm -f /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg",
+            "sudo sync"
+        ]
+    }
+```
 
 #### Sourcing configuration file for `cloud-init` integration
 
 This sources the configuration that prepares the ISO for `cloud-init` integration:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L134-L138
+```HCL
+    ## Provisioning the VM Template for Cloud-Init Integration in Proxmox #2
+    provisioner "file" {
+        source = "files/99-pve.cfg"
+        destination = "/tmp/99-pve.cfg"
+    }
+```
 
 #### Injecting configuration file for `cloud-init` integration
 
 This injects the configuration that prepares the ISO for `cloud-init` integration:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L140-L143
+```HCL
+    ## Provisioning the VM Template for Cloud-Init Integration in Proxmox #3
+    provisioner "shell" {
+        inline = [ "sudo cp /tmp/99-pve.cfg /etc/cloud/cloud.cfg.d/99-pve.cfg" ]
+    }
+```
 
 #### (Optional) Add any additional scripts at boot time here
 
 Any additional commands that should be run during ISO build can be added here:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L145-L146
+```HCL
+    ## Add additional provisioning scripts here
+    # ...
+```
 
 #### Add script to template to install `docker` 
 
 A provisioner will be made to run all the commands to install the `docker` daemon:
 
-https://github.com/ctalaveraw/ultimate-devops-k8s-nas/blob/5a0e9a2fd20164f5eaa90866dd36535ad6b0f4e6/project/environments/01-dev/init-pipeline-runner-vm/infra/image/packer/proxmox/ubuntu-server-jammy/ubuntu-server-jammy.pkr.hcl#L148-L158
+```HCL
+   ## Provisioning the VM Template for Docker Installation #4
+    provisioner "shell" {
+        inline = [ 
+            "sudo apt-get install -y ca-certificates curl gnupg lsb-release",
+            "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
+            "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+            "sudo apt-get -y update",
+            "sudo apt-get install -y docker-ce docker-ce-cli containerd.io"
+        ]
+    }
+```
+
+# Below documentation will need to be rewritten
+
 ## Using the `http/user-data` file
 
 This is the configuration file that `cloud-init` will reference.
