@@ -2,13 +2,19 @@
 # ---
 # Create a new VM from a clone
 
-resource "proxmox_vm_qemu" "your-vm" {
+# VMID generator
+resource "random_integer" "vmid" {
+  min = 100
+  max = 199
+}
+
+resource "proxmox_vm_qemu" "pipeline-runner" {
     
     # VM General Settings
-    target_node = "your-proxmox-node"
-    vmid = "100"
-    name = "vm-name"
-    desc = "Description"
+    target_node = "${var.proxmox_target_node}"
+    vmid = random_integer.vmid
+    name = "pipeline-runner"
+    desc = "VM to host containers for running GitLab, which will host the CI/CD pipeline"
 
     # VM Advanced General Settings
     onboot = true 
