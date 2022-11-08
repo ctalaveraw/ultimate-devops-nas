@@ -13,6 +13,7 @@ autoinstall:
   packages:
     - qemu-guest-agent
     - sudo
+    - python
   late-commands:
     - curtin in-target --target=/target -- systemctl start qemu-guest-agent
     - curtin in-target --target=/target -- systemctl enable qemu-guest-agent
