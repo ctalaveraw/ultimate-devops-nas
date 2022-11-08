@@ -16,14 +16,14 @@ These are an assortment of `bash` scripts to spin up the configuration of the Pr
 
 This VM will run Ubuntu, with a GitLab self-hosted instance in Docker. This will allow for the stand-up of a CI/CD pipeline to orchestrate the "Ultimate NAS" VM.
 
-- `packer` deployment to create `proxmox` VM template with `ubuntu` as the OS, and both `ansible` and `docker` baked-in
+- `packer` deployment to create `proxmox` VM template with `ubuntu` as the OS, and `docker` baked-in
 - `terraform` deployment to create VM using template from `packer` deployment from previous step
-- `ansible` deployment to spin up a `docker` container running a self-hosted `gitlab` instance
+- `ansible` deployment, with created VM as the target, to spin up a `docker` container running a self-hosted `gitlab` instance
 
 ## 02 - Ultimate NAS VM
 
 This VM will host a assortment of self-hosted apps contanerized in Docker
 
-- `packer` deployment to create `proxmox` VM template with `ubuntu` as the OS, and both `ansible` and `docker` baked-in
+- `packer` deployment to create `proxmox` VM template with `ubuntu` as the OS, and `docker` baked-in
 - `terraform` deployment to create VM using template from `packer` deployment from previous step
-- `ansible` deployment to spin up several `docker` containers running a suite of self-hosted applications that will make up the "Ultimate NAS"
+- `ansible` deployment, with created VM as the target, to spin up several `docker` containers running a suite of self-hosted applications that will make up the "Ultimate NAS"
