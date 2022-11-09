@@ -17,6 +17,7 @@ These are an assortment of `bash` scripts to spin up the configuration of the Pr
 This VM will run Ubuntu, with a GitLab self-hosted instance in Docker. This will allow for the stand-up of a CI/CD pipeline to orchestrate the "Ultimate NAS" VM.
 
 - `packer` deployment to create `proxmox` VM template with `ubuntu` as the OS, and `docker` baked-in
+- run `bash` script to generate SSH keypair for `terraform` deployment
 - `terraform` deployment to create VM using template from `packer` deployment from previous step
 - `ansible` deployment, with created VM as the target, to spin up a `docker` container running a self-hosted `gitlab` instance
 
