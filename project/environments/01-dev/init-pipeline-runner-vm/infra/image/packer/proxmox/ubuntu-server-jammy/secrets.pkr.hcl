@@ -2,7 +2,6 @@
 
 proxmox_iso_checksum = "" # This is the checksum of the ISO used for the template
 proxmox_iso_storage_pool = "" # This is the location where Proxmox will store the VM ISO image
-
 ## ISO path configuration
 
 proxmox_ubuntu_iso_url = "" # This is the URL of the ISO Image used for the template
@@ -14,12 +13,14 @@ proxmox_ubuntu_iso_url = "" # This is the URL of the ISO Image used for the temp
 http_host_ip = "" # This is the IP of the current machine used for the temporary HTTP server for hosting cloud-init script
 http_host_port = "" # This is the open port on the current machine used for the temporary HTTP server for hosting cloud-init script
 
+## Proxmox VM configuration
+
+proxmox_vm_disk_storage_pool = "" # This is the location where Proxmox will store the VM hard disk
+proxmox_vm_template_name = "" # This is the name of the VM Template that will be created
+
 ## Proxmox connection configuration
 
-proxmox_vm_template_name = "" # This is the name of the VM Template that will be created
 proxmox_target_node = "" # This is the name of the destination "node" on Proxmox
-
-## Proxmox secrets
 proxmox_api_url = "" # This is the Proxmox server's API endpoint, format is "https://{PROXMOX_IP}:{PROXMOX_PORT}/api2/json"
 proxmox_api_token_id = "" # This is the API Token ID, format is "root@pam!{TOKEN_NAME}"
 proxmox_api_token_secret = "" # This is the API Token Secret, format is "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"

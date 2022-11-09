@@ -18,23 +18,25 @@
 ## HTTP server configuration
 variable "http_host_ip" {
     type = string
+    sensitive = false
 }
 
 variable "http_host_port" {
     type = string
+    sensitive = false
     default = "8021"
 }
 
 ## ISO configuration
-
 variable "proxmox_iso_checksum" {
     type = string
-    default = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
     sensitive = false
+    default = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
 }
 
 variable "proxmox_iso_storage_pool" {
     type = string
+    sensitive = false
     default = "local"
 
 }
@@ -42,6 +44,7 @@ variable "proxmox_iso_storage_pool" {
 ## ISO path configuration
 variable "proxmox_ubuntu_iso_url" {
     type = string
+    sensitive = false
     default = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
 }
 
@@ -50,6 +53,7 @@ variable "proxmox_ubuntu_iso_url" {
 /*
 variable "proxmox_ubuntu_iso_local_path" {
     type = string
+    sensitive = false
     default = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
 }
 */
@@ -80,6 +84,12 @@ variable "proxmox_vm_template_name" {
     type = string
     sensitive = false
     default = "ubuntu-server-jammy"
+}
+
+variable "proxmox_vm_disk_storage_pool" {
+    type = string
+    sensitive = false
+    default = "local-zfs"
 }
 
 ## SSH configuration
@@ -163,8 +173,8 @@ source "proxmox" "ubuntu-server-jammy" {
     } 
     
     ## VM Cloud-Init Settings
+    cloud_init_storage_pool = "${var.proxmox_vm_disk_storage_pool}"
     cloud_init = true
-    cloud_init_storage_pool = "local-zfs"
     
     ## Packer Boot Commands
     boot_command = [
@@ -202,7 +212,7 @@ source "proxmox" "ubuntu-server-jammy" {
 
 ### Build definition to create the VM Template
 build {
-    name = "ubuntu-server-jammy"
+    name = "${var.proxmox_vm_template_name}"
     sources = ["source.proxmox.ubuntu-server-jammy"]
     
     ## Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
