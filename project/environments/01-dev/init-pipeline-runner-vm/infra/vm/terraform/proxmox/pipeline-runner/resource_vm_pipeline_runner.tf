@@ -1,12 +1,4 @@
-# Proxmox Full-Clone
-# ---
-# Create a new VM from a clone
-
-# VMID generator
-resource "random_integer" "vmid" {
-  min = 101
-  max = 109
-}
+# Creates a new VM from a previously-created VM template
 
 resource "proxmox_vm_qemu" "pipeline-runner" {
     /*
@@ -18,7 +10,7 @@ resource "proxmox_vm_qemu" "pipeline-runner" {
     # VM General Settings
     target_node = "${var.proxmox_target_node}"
     name = "${var.proxmox_vm_name}"
-    vmid = random_integer.vmid
+    vmid = 101
     desc = "VM to host containers for running GitLab, which will host the CI/CD pipeline"
 
     # VM OS Settings
