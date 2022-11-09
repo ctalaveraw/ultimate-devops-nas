@@ -57,10 +57,12 @@ variable "proxmox_ubuntu_iso_local_path" {
 ## Proxmox connection configuration
 variable "proxmox_api_url" {
     type = string
+    sensitive = false
 }
 
 variable "proxmox_api_token_id" {
     type = string
+    sensitive = true
 }
 
 variable "proxmox_api_token_secret" {
@@ -70,22 +72,26 @@ variable "proxmox_api_token_secret" {
 
 variable "proxmox_target_node" {
     type = string
+    sensitive = false
     default = "pve"
 }
 
 variable "proxmox_vm_template_name" {
     type = string
+    sensitive = false
     default = "ubuntu-server-jammy"
 }
 
 ## SSH configuration
 variable "proxmox_ssh_username" {
     type = string
+    sensitive = false
     default = "root"
 }
 
 variable "proxmox_ssh_keyfile_path" {
     type = string
+    sensitive = false
     default = "~/.ssh/id_rsa"
 }
 
