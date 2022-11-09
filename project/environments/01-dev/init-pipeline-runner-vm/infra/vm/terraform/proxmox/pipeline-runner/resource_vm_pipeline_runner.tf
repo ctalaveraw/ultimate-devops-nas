@@ -4,13 +4,14 @@
 
 # VMID generator
 resource "random_integer" "vmid" {
-  min = 100
-  max = 199
+  min = 101
+  max = 109
 }
 
 resource "proxmox_vm_qemu" "pipeline-runner" {
     /*
-    Minimum system requirements for self-hosting GitLab can be found here:
+    Sensible defaults for VM settings are used
+    Documentation on minimum system requirements for self-hosting GitLab can be found here:
     https://docs.gitlab.com/ee/install/requirements.html
     */
 
@@ -24,7 +25,7 @@ resource "proxmox_vm_qemu" "pipeline-runner" {
     onboot = true 
 
     # VM OS Settings
-    clone = "your-clone"
+    clone = "${var.proxmox_vm_template_name}"
 
     # VM System Settings
     agent = 1 # Set to "1" to enable QEMU Guest Agent
@@ -32,7 +33,7 @@ resource "proxmox_vm_qemu" "pipeline-runner" {
     # VM CPU Settings
     cores = 4
     sockets = 1
-    cpu = "host"    
+    cpu = "host" # Set to "host" for best CPU emulation performance
     
     # VM Memory Settings
     memory = 4096
