@@ -1,6 +1,6 @@
 ## HTTP server configuration
 
-http_host_ip = "10.69.69.100" # This is the IP of the current machine used for the temporary HTTP server for hosting cloud-init script
+http_host_ip = "" # This is the IP of the current machine used for the temporary HTTP server for hosting cloud-init script
 http_gateway_ip = "" # This is the IP of the current network gateway used for the temporary HTTP server for hosting cloud-init script
 
 ## Proxmox connection configuration
