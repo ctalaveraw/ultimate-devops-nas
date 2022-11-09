@@ -4,7 +4,6 @@ http_host_ip = "" # This is the IP of the current machine used for the temporary
 http_gateway_ip = "" # This is the IP of the current network gateway used for the temporary HTTP server for hosting cloud-init script
 http_host_port = "" # This is the open port on the current machine used for the temporary HTTP server for hosting cloud-init script
 
-
 ## Proxmox connection configuration
 
 proxmox_vm_name = "" # This is the name of the VM being created
