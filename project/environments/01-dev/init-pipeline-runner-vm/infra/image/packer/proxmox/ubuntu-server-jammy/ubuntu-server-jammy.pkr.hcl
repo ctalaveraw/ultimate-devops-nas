@@ -25,16 +25,24 @@ variable "http_host_port" {
     default = "8021"
 }
 
+## ISO configuration
+
+variable "proxmox_iso_checksum" {
+    type = string
+    default = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
+    sensitive = false
+}
+
+variable "proxmox_iso_storage_pool" {
+    type = string
+    default = "local"
+
+}
+
 ## ISO path configuration
 variable "proxmox_ubuntu_iso_url" {
     type = string
     default = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
-}
-
-variable "proxmox_ubuntu_iso_checksum" {
-    type = string
-    default = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
-    sensitive = false
 }
 
 # OR
@@ -62,6 +70,12 @@ variable "proxmox_api_token_secret" {
 
 variable "proxmox_target_node" {
     type = string
+    default = "pve"
+}
+
+variable "proxmox_vm_template_name" {
+    type = string
+    default = "ubuntu-server-jammy"
 }
 
 ## SSH configuration
@@ -98,14 +112,14 @@ source "proxmox" "ubuntu-server-jammy" {
     
     ## VM General Settings
     vm_id = "100"
-    vm_name = "ubuntu-server-jammy"
-    template_description = "Ubuntu Server LTS 22.04.1 Jammy Jellyfish VMI"
+    vm_name = "${var.proxmox_vm_template_name}"
+    template_description = "Template for an Ubuntu Server LTS 22.04.1 Jammy Jellyfish VM, with Docker built-in"
     
     ## VM ISO source (Choose ONLY ONE)
     
     ## Download ISO (Option 1)
     iso_url = "${var.proxmox_ubuntu_iso_url}"
-    iso_checksum = "${var.proxmox_ubuntu_iso_checksum}"
+    iso_checksum = "${var.proxmox_iso_checksum}"
     
     # OR
 
@@ -113,7 +127,7 @@ source "proxmox" "ubuntu-server-jammy" {
     # iso_file = "${var.proxmox_ubuntu_iso_local_path}"
     
     ## VM OS Settings
-    iso_storage_pool = "local" # This is where Proxmox is installed; change if images need storage elsewhere
+    iso_storage_pool = "${var.proxmox_iso_storage_pool}" # This is where Proxmox is installed; change if images need storage elsewhere
     unmount_iso = true # Dismount's the ISO after build is done
     
     ## VM System Settings
