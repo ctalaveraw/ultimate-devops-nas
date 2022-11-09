@@ -10,12 +10,6 @@ variable "http_gateway_ip" {
     default = "192.168.1.1"
 }
 
-variable "http_host_port" {
-    type = string
-    sensitive = false
-    default = "8021"
-}
-
 # Proxmox connection configuration
 variable "proxmox_vm_name" {
     type = string
