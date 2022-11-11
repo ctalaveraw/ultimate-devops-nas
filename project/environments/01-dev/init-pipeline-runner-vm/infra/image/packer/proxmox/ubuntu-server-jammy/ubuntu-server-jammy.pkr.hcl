@@ -42,10 +42,10 @@ variable "proxmox_iso_storage_pool" {
 }
 
 ## ISO path configuration
-variable "proxmox_ubuntu_iso_url" {
+variable "proxmox_ubuntu_iso_version" {
     type = string
     sensitive = false
-    default = "https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
+    default = "22.04.1"
 }
 
 # OR
@@ -134,7 +134,7 @@ source "proxmox" "ubuntu-server-jammy" {
     ## VM ISO source (Choose ONLY ONE)
     
     ## Download ISO (Option 1)
-    iso_url = "${var.proxmox_ubuntu_iso_url}"
+    iso_url = "https://releases.ubuntu.com/${var.proxmox_ubuntu_iso_version}/ubuntu-${var.proxmox_ubuntu_iso_version}-live-server-amd64.iso"
     iso_checksum = "${var.proxmox_iso_checksum}"
     
     # OR

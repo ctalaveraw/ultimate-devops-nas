@@ -4,7 +4,7 @@ proxmox_iso_checksum = "" # This is the checksum of the ISO used for the templat
 proxmox_iso_storage_pool = "" # This is the location where Proxmox will store the VM ISO image
 ## ISO path configuration
 
-proxmox_ubuntu_iso_url = "" # This is the URL of the ISO Image used for the template
+proxmox_ubuntu_iso_version = "" # This is the version of Ubuntu used in the URL of the ISO Image used for this template
 # OR
 # proxmox_ubuntu_iso_local_path = "" # This is the local path of the ISO Image used for the template
 
