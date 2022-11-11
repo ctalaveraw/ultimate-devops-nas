@@ -12,7 +12,7 @@ proxmox_ubuntu_iso_version = "" # This is the version of Ubuntu used in the URL 
 ## HTTP server configuration
 
 http_host_ip = "" # This is the IP of the current machine used for the temporary HTTP server for hosting cloud-init script
-http_host_port = "" # This is the open port on the current machine used for the temporary HTTP server for hosting cloud-init script
+# http_host_port = "" # This is the open port on the current machine used for the temporary HTTP server for hosting cloud-init script (uncomment and define if port 8021 is blocked)
 
 ## Proxmox VM configuration
 
