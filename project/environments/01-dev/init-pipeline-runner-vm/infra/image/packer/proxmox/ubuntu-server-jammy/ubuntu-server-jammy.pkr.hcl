@@ -199,7 +199,7 @@ source "proxmox" "ubuntu-server-jammy" {
     http_port_max = "${var.http_host_port}"
     
     ## Authentication (CHOOSE ONLY ONE)
-    ssh_timeout = "20m" # Raise the timeout, when installation takes longer
+    ssh_timeout = "60m" # Raise the timeout, when installation takes longer
     
     ## Use private SSH Key file (Option 1 - RECOMMENDED)
     ssh_username = "${var.proxmox_ssh_username}"
