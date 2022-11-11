@@ -1,7 +1,7 @@
-## ISO configuration
+##  Optional ISO configuration
 
-proxmox_iso_storage_pool = "" # This is the location where Proxmox will store the VM ISO image
 # proxmox_iso_checksum = "" # This is the checksum of the ISO used for the template (optional)
+# proxmox_iso_storage_pool = "" # This is the location where Proxmox will store the VM ISO image (uncomment and define if not default location of "local")
 
 ## ISO path configuration
 
@@ -16,8 +16,8 @@ http_host_port = "" # This is the open port on the current machine used for the 
 
 ## Proxmox VM configuration
 
-proxmox_vm_disk_storage_pool = "" # This is the location where Proxmox will store the VM hard disk
 proxmox_vm_template_name = "" # This is the name of the VM Template that will be created
+# proxmox_vm_disk_storage_pool = "" # This is the location where Proxmox will store the VM hard disk (uncomment and define if not using "local-zfs")
 
 ## Proxmox connection configuration
 

@@ -28,7 +28,6 @@ variable "http_host_port" {
 }
 
 ## ISO configuration
-
 /*
 variable "proxmox_iso_checksum" {
     type = string
