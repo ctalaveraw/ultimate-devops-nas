@@ -10,6 +10,18 @@ variable "http_gateway_ip" {
   default   = "192.168.1.1"
 }
 
+## cloud-init configuration
+variable "cloudinit_ssh_username" {
+  type      = string
+  sensitive = false
+  default   = "root"
+}
+
+variable "cloudinit_ssh_key" {
+  type      = string
+  sensitive = true
+}
+
 # Proxmox connection configuration
 variable "proxmox_vm_name" {
   type      = string
@@ -33,18 +45,6 @@ variable "proxmox_target_node" {
   type      = string
   sensitive = false
   default   = "pve"
-}
-
-## cloud-init configuration
-variable "cloudinit_ssh_username" {
-  type      = string
-  sensitive = false
-  default   = "root"
-}
-
-variable "cloudinit_ssh_key" {
-  type      = string
-  sensitive = true
 }
 
 # Proxmox Secrets
