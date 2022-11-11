@@ -28,13 +28,12 @@ variable "http_host_port" {
 }
 
 ## ISO configuration
-/*
 variable "proxmox_iso_checksum" {
     type = string
     sensitive = false
     default = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
 }
-*/
+
 
 variable "proxmox_iso_storage_pool" {
     type = string
@@ -137,7 +136,7 @@ source "proxmox" "ubuntu-server-jammy" {
     
     ## Download ISO (Option 1)
     iso_url = "https://releases.ubuntu.com/${var.proxmox_ubuntu_iso_version}/ubuntu-${var.proxmox_ubuntu_iso_version}-live-server-amd64.iso"
-    # iso_checksum = "${var.proxmox_iso_checksum}"
+    iso_checksum = "${var.proxmox_iso_checksum}"
     
     # OR
 

@@ -1,6 +1,6 @@
-##  Optional ISO configuration
+##  ISO configuration
 
-# proxmox_iso_checksum = "" # This is the checksum of the ISO used for the template (optional)
+proxmox_iso_checksum = "" # This is the checksum of the ISO used for the template (required)
 # proxmox_iso_storage_pool = "" # This is the location where Proxmox will store the VM ISO image (uncomment and define if not default location of "local")
 
 ## ISO path configuration
