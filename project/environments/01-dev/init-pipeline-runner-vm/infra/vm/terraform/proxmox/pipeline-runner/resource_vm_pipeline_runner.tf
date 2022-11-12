@@ -10,7 +10,7 @@ resource "proxmox_vm_qemu" "pipeline-runner" {
   # VM General Settings
   target_node = var.proxmox_target_node
   name        = var.proxmox_vm_name
-  vmid        = 101
+  vmid        = 201
   desc        = "VM to host containers for running GitLab, which will host the CI/CD pipeline"
 
   # VM OS Settings
