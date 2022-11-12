@@ -2,7 +2,7 @@
 
 echo -e '\n Making SSH Key... \n'
 sleep 1s
-ssh-keygen -f ~/.ssh/pipeline_runner -t ed25519 -P ""
+ssh-keygen -f ~/.ssh/pipeline_runner -t rsa -P ""
 
 echo -e '\n Key saved to "~/.ssh/pipeline_runner"... \n'
 sleep 1s

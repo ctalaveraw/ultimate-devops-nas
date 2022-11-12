@@ -6,7 +6,7 @@ autoinstall:
     layout: de
   ssh:
     install-server: true
-    allow-pw: false
+    allow-pw: true
     disable_root: true
     ssh_quiet_keygen: true
     allow_public_ssh_keys: true
@@ -29,7 +29,7 @@ autoinstall:
       - name: pipeline
         shell: /bin/bash
         sudo: ALL=(ALL) NOPASSWD:ALL
-        lock-passwd: true
+        lock-passwd: false
         groups: [adm, sudo]
         ssh_authorized_keys: 
           - your-ssh-key
