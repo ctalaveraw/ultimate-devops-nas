@@ -48,7 +48,7 @@ resource "proxmox_vm_qemu" "pipeline-runner" {
   os_type = "cloud-init"
 
   # IP Address and Gateway
-  ipconfig0  = "ip=${var.http_host_ip}/24,gw=${var.http_gateway_ip}"
+  ipconfig0  = "ip=${var.vm_host_ip}/24,gw=${var.gateway_ip}"
   nameserver = var.http_gateway_ip
 
   # Default User

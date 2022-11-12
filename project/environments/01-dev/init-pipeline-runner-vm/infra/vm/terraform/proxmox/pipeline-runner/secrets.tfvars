@@ -1,7 +1,7 @@
 ## HTTP server configuration
 
-vm_host_ip      = "" # This is the IP to be assigned to the VM
-http_gateway_ip = "" # This is the IP of the current network gateway
+vm_host_ip = "" # This is the IP to be assigned to the VM
+gateway_ip = "" # This is the IP of the current network gateway
 
 
 ## Proxmox connection configuration

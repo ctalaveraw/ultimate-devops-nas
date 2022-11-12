@@ -1,10 +1,10 @@
 ## HTTP server configuration
-variable "http_host_ip" {
+variable "vm_host_ip" {
   type      = string
   sensitive = false
 }
 
-variable "http_gateway_ip" {
+variable "gateway_ip" {
   type      = string
   sensitive = false
   default   = "192.168.1.1"
