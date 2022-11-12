@@ -35,4 +35,12 @@ autoinstall:
           - your-ssh-key
         #  OR
         # passwd: your-password
-        
+      - name: ansible
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        lock_passwd: true
+        groups: users,admin,wheel
+        ssh_authorized_keys:
+          - your-ssh-key
+        #  OR
+        # passwd: your-password
