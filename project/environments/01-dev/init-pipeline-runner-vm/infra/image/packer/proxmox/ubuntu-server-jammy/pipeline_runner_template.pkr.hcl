@@ -84,7 +84,7 @@ variable "proxmox_target_node" {
 variable "proxmox_vm_template_name" {
     type = string
     sensitive = false
-    default = "ubuntu-server-jammy"
+    default = "pipeline-runner-template"
 }
 
 variable "proxmox_vm_disk_storage_pool" {
@@ -116,7 +116,7 @@ variable "proxmox_ssh_password" {
 */
 
 ### VM Template Resource Definition
-source "proxmox" "ubuntu-server-jammy" {
+source "proxmox" "pipeline-runner-template" {
 
     ## Proxmox Connection Settings
     username = "${var.proxmox_api_token_id}"
@@ -214,7 +214,7 @@ source "proxmox" "ubuntu-server-jammy" {
 ### Build definition to create the VM Template
 build {
     name = "${var.proxmox_vm_template_name}"
-    sources = ["source.proxmox.ubuntu-server-jammy"]
+    sources = ["source.proxmox.pipeline-runner-template"]
     
     ## Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
     provisioner "shell" {
