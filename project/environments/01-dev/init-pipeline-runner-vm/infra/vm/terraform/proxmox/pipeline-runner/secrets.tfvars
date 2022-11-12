@@ -2,7 +2,7 @@
 
 vm_host_ip = "" # This is the IP to be assigned to the VM
 gateway_ip = "" # This is the IP of the current network gateway
-
+dns_ip     = "" # This is the DNS IP
 
 ## Proxmox connection configuration
 

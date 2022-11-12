@@ -10,6 +10,12 @@ variable "gateway_ip" {
   default   = "192.168.1.1"
 }
 
+variable "dns_ip" {
+  type      = string
+  sensitive = false
+  default   = "1.1.1.1"
+}
+
 ## cloud-init configuration
 variable "cloudinit_ssh_username" {
   type      = string
