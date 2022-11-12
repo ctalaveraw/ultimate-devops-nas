@@ -49,7 +49,7 @@ resource "proxmox_vm_qemu" "pipeline-runner" {
 
   # IP Address and Gateway
   ipconfig0  = "ip=${var.vm_host_ip}/24,gw=${var.gateway_ip}"
-  nameserver = var.http_gateway_ip
+  nameserver = var.gateway_ip
 
   # Default User
   ciuser = var.cloudinit_ssh_username
