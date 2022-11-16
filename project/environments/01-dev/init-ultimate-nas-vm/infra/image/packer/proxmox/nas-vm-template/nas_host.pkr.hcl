@@ -128,7 +128,7 @@ source "proxmox" "nas-host-template" {
     insecure_skip_tls_verify = true
     
     ## VM General Settings
-    vm_id = "101"
+    vm_id = "102"
     vm_name = "${var.proxmox_vm_template_name}"
     template_description = "Template for an Ubuntu Server LTS 22.04.1 Jammy Jellyfish VM, with Docker built-in"
     
