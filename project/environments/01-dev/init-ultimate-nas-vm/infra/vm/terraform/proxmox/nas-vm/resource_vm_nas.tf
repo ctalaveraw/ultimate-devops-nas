@@ -11,7 +11,7 @@ resource "proxmox_vm_qemu" "nas-host" {
   target_node = var.proxmox_target_node
   name        = var.proxmox_vm_name
   vmid        = 202
-  desc        = "VM to host containers for running GitLab, which will host the CI/CD pipeline"
+  desc        = "VM to host containers for running all services for Ultimate NAS"
 
   # VM OS Settings
   clone = var.proxmox_vm_template_name
