@@ -1,7 +1,0 @@
-{
-  "label": "Dashboards",
-  "link": {
-    "type": "generated-index",
-    "description": "All of the dashboards available for installation with Ansible-NAS."
-  }
-}
