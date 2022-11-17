@@ -26,7 +26,7 @@ autoinstall:
     package_upgrade: false
     timezone: America/New York
     users:
-      - name: pipeline
+      - name: nas
         shell: /bin/bash
         sudo: ALL=(ALL) NOPASSWD:ALL
         lock-passwd: false
