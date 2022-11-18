@@ -3,12 +3,6 @@
 
   roles:
     ###
-    ### The following packages need to be added to this Ansible project:
-    ### grafana, prometheus, bunkerized-nginx, pihole+unbound 
-    ### unifi-controller, duckdns, vaultwarden, wireguard
-    ### authelia, mariadb, arch-delugevpn, photoprism
-    ### mergerfs, snapraid, zfs-support
-    ###
     ### Requirements
     ###
     - role: ansible-nas-users
