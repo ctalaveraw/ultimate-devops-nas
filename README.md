@@ -37,7 +37,7 @@
   - [Documentation](#documentation)
   - [Requirements](#requirements)
 
-# Ultimate NAS - DevOps Edition
+# Ultimate NAS - DevOps Edition (in-development)
 
 ## About
 
