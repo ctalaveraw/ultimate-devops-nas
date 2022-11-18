@@ -37,7 +37,6 @@
   - [Documentation](#documentation)
   - [Requirements](#requirements)
 
-
 # Ultimate NAS - DevOps Edition
 
 ## About
@@ -46,13 +45,14 @@
 
 This project draws inspiration from:
 
-- [Ansible NAS](https://github.com/davestephens/ansible-nas) - NAS project by David Stephens
-- [Wolfgang's Home Server Playbook](https://github.com/notthebee/infra) - Automated Home Server by Linux YouTuber [Wolfgang](https://www.youtube.com/c/WolfgangsChannel)
-- [proxmox-build-template](https://github.com/mfin/proxmox-build-template) - Project by Matjaž Finžgar that builds a cloud-init VM on Proxmox with Packer
+- [Perfect Media Server](https://perfectmediaserver.com/) - Open-source media server framework by [Alex Kretzschmar](https://github.com/ironicbadger), using Linux paired with `mergerfs` and `snapraid` as an OOS alternative for proprietary NAS solutions such as unRAID, OpenMediaVault, etc. 
+- [Ansible NAS](https://github.com/davestephens/ansible-nas) - NAS project by [David Stephens](https://github.com/davestephens), forking his project as the core Ansible deployment
+- [Wolfgang's Home Server Ansible Playbook](https://github.com/notthebee/infra) - Ansible playbook for home server by Linux YouTuber [Wolfgang](https://www.youtube.com/c/WolfgangsChannel), pulling some application and config ideas from this project
+- [DevOps Boilerplate Code](https://github.com/ChristianLempa/boilerplates) - Boilerplates for Terraform and Proxmox deployments by [Christian Lempa](https://github.com/ChristianLempa)
 
 ## What Ultimate DevOps NAS Does
 
-This intends to be a self-contained and automated provisioning and configuring of a feature-rich NAS host, with a flexible and modular cofiguration.
+This intends to be a self-contained and automated provisioning and configuring of a feature-rich NAS host, with a flexible and modular configuration.
 
 All services will be containerized in `docker` with the goal of migrating to `kubernetes` at a later point.
 
