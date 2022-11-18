@@ -136,7 +136,7 @@
     - role: gitlab
       tags:
         - gitlab
-      when: (gitlab_enabled | default(True))
+      when: (gitlab_enabled | default(False))
 
     - role: glances
       tags:
@@ -146,12 +146,12 @@
     - role: gotify
       tags:
         - gotify
-      when: (gotify_enabled | default(True))
+      when: (gotify_enabled | default(False))
 
     - role: guacamole
       tags:
         - guacamole
-      when: (guacamole_enabled | default(True))
+      when: (guacamole_enabled | default(False))
 
     - role: healthchecks.io
       tags:
@@ -170,7 +170,7 @@
     - role: homeassistant
       tags:
         - homeassistant
-      when: (homeassistant_enabled | default(True))
+      when: (homeassistant_enabled | default(False))
 
     - role: homebridge
       tags:
@@ -180,12 +180,12 @@
     - role: jackett
       tags:
         - jackett
-      when: (jackett_enabled | default(True))
+      when: (jackett_enabled | default(False))
 
     - role: jellyfin
       tags:
         - jellyfin
-      when: (jellyfin_enabled | default(True))
+      when: (jellyfin_enabled | default(False))
 
     - role: joomla
       tags:
@@ -205,7 +205,7 @@
     - role: lidarr
       tags:
         - lidarr
-      when: (lidarr_enabled | default(True))
+      when: (lidarr_enabled | default(False))
 
     - role: mealie
       tags:
@@ -230,12 +230,12 @@
     - role: mosquitto
       tags:
         - mosquitto
-      when: (mosquitto_enabled | default(True))
+      when: (mosquitto_enabled | default(False))
 
     - role: mylar
       tags:
         - mylar
-      when: (mylar_enabled | default(True))
+      when: (mylar_enabled | default(False))
 
     - role: mymediaforalexa
       tags:
@@ -265,7 +265,7 @@
     - role: nextcloud
       tags:
         - nextcloud
-      when: (nextcloud_enabled | default(True))
+      when: (nextcloud_enabled | default(False))
 
     - role: nomad
       tags:
@@ -319,17 +319,17 @@
     - role: portainer
       tags:
         - portainer
-      when: (portainer_enabled | default(True))
+      when: (portainer_enabled | default(False))
 
     - role: prowlarr
       tags:
         - prowlarr
-      when: (prowlarr_enabled | default(True))
+      when: (prowlarr_enabled | default(False))
 
     - role: pyload
       tags:
         - pyload
-      when: (pyload_enabled | default(True))
+      when: (pyload_enabled | default(False))
 
     - role: pytivo
       tags:
@@ -339,7 +339,7 @@
     - role: radarr
       tags:
         - radarr
-      when: (radarr_enabled | default(True))
+      when: (radarr_enabled | default(False))
 
     - role: route53_ddns
       tags:
@@ -364,7 +364,7 @@
     - role: sonarr
       tags:
         - sonarr
-      when: (sonarr_enabled | default(True))
+      when: (sonarr_enabled | default(False))
 
     - role: speedtest-tracker
       tags:
@@ -379,7 +379,7 @@
     - role: syncthing
       tags:
         - syncthing
-      when: (syncthing_enabled | default(True))
+      when: (syncthing_enabled | default(False))
 
     - role: tautulli
       tags:
@@ -404,12 +404,12 @@
     - role: traefik
       tags:
         - traefik
-      when: (traefik_enabled | default(True))
+      when: (traefik_enabled | default(False))
 
     - role: transmission
       tags:
         - transmission
-      when: (transmission_enabled | default(True))
+      when: (transmission_enabled | default(False))
 
     - role: transmission-with-openvpn
       tags:
@@ -454,7 +454,7 @@
     - role: youtubedlmaterial
       tags:
         - youtubedlmaterial
-      when: (youtubedlmaterial_enabled | default(True))
+      when: (youtubedlmaterial_enabled | default(False))
 
     - role: znc
       tags:
