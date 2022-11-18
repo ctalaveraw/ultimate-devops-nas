@@ -45,7 +45,7 @@
 
 This project draws inspiration from:
 
-- [Perfect Media Server](https://perfectmediaserver.com/) - Open-source media server framework by [Alex Kretzschmar](https://github.com/ironicbadger), using Linux paired with `mergerfs` and `snapraid` as an OOS alternative for proprietary NAS solutions such as unRAID, OpenMediaVault, etc. 
+- [Perfect Media Server](https://perfectmediaserver.com/) - Open-source media server framework by [Alex Kretzschmar](https://github.com/ironicbadger), using Linux paired with `mergerfs` and `snapraid` as an FOSS alternative for proprietary NAS solutions such as unRAID, OpenMediaVault, etc. 
 - [Ansible NAS](https://github.com/davestephens/ansible-nas) - NAS project by [David Stephens](https://github.com/davestephens), forking his project as the core Ansible deployment
 - [Wolfgang's Home Server Ansible Playbook](https://github.com/notthebee/infra) - Ansible playbook for home server by Linux YouTuber [Wolfgang](https://www.youtube.com/c/WolfgangsChannel), pulling some application and config ideas from this project
 - [DevOps Boilerplate Code](https://github.com/ChristianLempa/boilerplates) - Boilerplates for Terraform and Proxmox deployments by [Christian Lempa](https://github.com/ChristianLempa)
