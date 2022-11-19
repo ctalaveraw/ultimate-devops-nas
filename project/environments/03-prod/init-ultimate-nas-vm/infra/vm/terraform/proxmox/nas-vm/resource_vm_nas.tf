@@ -10,8 +10,8 @@ resource "proxmox_vm_qemu" "nas-host" {
   # VM General Settings
   target_node = var.proxmox_target_node
   name        = var.proxmox_vm_name
-  vmid        = 201
-  desc        = "VM to host containers for running GitLab, which will host the CI/CD pipeline"
+  vmid        = 202
+  desc        = "VM to host containers for running all services for Ultimate NAS"
 
   # VM OS Settings
   clone = var.proxmox_vm_template_name
@@ -23,10 +23,10 @@ resource "proxmox_vm_qemu" "nas-host" {
   onboot = true
 
   # VM Memory Settings
-  memory = 4096
+  memory = 8192
 
   # VM CPU Settings
-  cores   = 4
+  cores   = 6
   sockets = 1
   cpu     = "host" # Set to "host" for best CPU emulation performance
 

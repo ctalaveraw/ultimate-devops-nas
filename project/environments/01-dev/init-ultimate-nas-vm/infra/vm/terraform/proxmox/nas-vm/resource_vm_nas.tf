@@ -23,10 +23,10 @@ resource "proxmox_vm_qemu" "nas-host" {
   onboot = true
 
   # VM Memory Settings
-  memory = 4096
+  memory = 8192
 
   # VM CPU Settings
-  cores   = 4
+  cores   = 6
   sockets = 1
   cpu     = "host" # Set to "host" for best CPU emulation performance
 
