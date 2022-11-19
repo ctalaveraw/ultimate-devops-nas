@@ -130,7 +130,7 @@ source "proxmox" "pipeline-runner-template" {
     ## VM General Settings
     vm_id = "101"
     vm_name = "${var.proxmox_vm_template_name}"
-    template_description = "Template for an Ubuntu Server LTS 22.04.1 Jammy Jellyfish VM, with Docker built-in"
+    template_description = "Template for an Ubuntu Server LTS 22.04.1 Jammy Jellyfish VM, ready for use with Ansible"
     
     ## VM ISO source (Choose ONLY ONE)
     
@@ -245,14 +245,11 @@ build {
     ## Add additional provisioning scripts here
     # ...
 
-    ## Provisioning the VM Template for Docker Installation #4
+    ## Provisioning the VM Template for use with Ansible #4
     provisioner "shell" {
         inline = [ 
-            "sudo apt-get install -y ca-certificates curl gnupg lsb-release",
-            "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-            "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
             "sudo apt-get -y update",
-            "sudo apt-get install -y docker-ce docker-ce-cli containerd.io"
+            "sudo apt-get install -y python3"
         ]
     }
 }
