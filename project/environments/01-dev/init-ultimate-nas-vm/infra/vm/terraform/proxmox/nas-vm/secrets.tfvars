@@ -6,9 +6,10 @@ dns_ip     = "" # This is the DNS IP
 
 ## Proxmox connection configuration
 
-proxmox_vm_name          = "" # This is the name of the VM being created
-proxmox_vm_template_name = "" # This is the name of the template used to create the VM
-proxmox_target_node      = "" # This is the name of the destination "node" on Proxmox
+proxmox_vm_name              = "" # This is the name of the VM being created
+proxmox_vm_template_name     = "" # This is the name of the template used to create the VM
+proxmox_vm_disk_storage_pool = "" # This is the name of the storage pool used to hold the VM's HDD
+proxmox_target_node          = "" # This is the name of the destination "node" on Proxmox
 
 ## Proxmox secrets
 
