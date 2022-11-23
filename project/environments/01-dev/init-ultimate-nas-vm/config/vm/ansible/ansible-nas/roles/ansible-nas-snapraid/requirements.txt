@@ -6,11 +6,11 @@
 #
 ansi2html==1.6.0
     # via molecule
+ansible==3.2.0
+    # via molecule
 ansible-base==2.10.7
     # via ansible
 ansible-lint==5.0.7
-    # via molecule
-ansible==3.2.0
     # via molecule
 apipkg==1.5
     # via execnet
@@ -41,16 +41,16 @@ chardet==4.0.0
     # via
     #   binaryornot
     #   requests
-click-completion==0.5.2
-    # via molecule
-click-help-colors==0.9
-    # via molecule
 click==7.1.2
     # via
     #   click-completion
     #   click-help-colors
     #   cookiecutter
     #   molecule
+click-completion==0.5.2
+    # via molecule
+click-help-colors==0.9
+    # via molecule
 colorama==0.4.4
     # via rich
 commonmark==0.9.1
@@ -85,8 +85,6 @@ idna==2.10
     # via requests
 iniconfig==1.1.1
     # via pytest
-jinja2-time==0.2.0
-    # via cookiecutter
 jinja2==2.11.3
     # via
     #   ansible-base
@@ -94,18 +92,20 @@ jinja2==2.11.3
     #   cookiecutter
     #   jinja2-time
     #   molecule
+jinja2-time==0.2.0
+    # via cookiecutter
 markupsafe==1.1.1
     # via
     #   cookiecutter
     #   jinja2
 mccabe==0.6.1
     # via flake8
-molecule-docker==0.2.4
-    # via molecule
 molecule[ansible,docker,lint,test]==3.3.0
     # via
     #   -r requirements.in
     #   molecule-docker
+molecule-docker==0.2.4
+    # via molecule
 more-itertools==8.7.0
     # via pytest-plus
 nodeenv==1.6.0
@@ -148,6 +148,19 @@ pynacl==1.4.0
     # via paramiko
 pyparsing==2.4.7
     # via packaging
+pytest==6.2.3
+    # via
+    #   molecule
+    #   pytest-cov
+    #   pytest-forked
+    #   pytest-helpers-namespace
+    #   pytest-html
+    #   pytest-metadata
+    #   pytest-mock
+    #   pytest-plus
+    #   pytest-testinfra
+    #   pytest-verbose-parametrize
+    #   pytest-xdist
 pytest-cov==2.11.1
     # via molecule
 pytest-forked==1.3.0
@@ -168,19 +181,6 @@ pytest-verbose-parametrize==1.7.0
     # via molecule
 pytest-xdist==2.2.1
     # via molecule
-pytest==6.2.3
-    # via
-    #   molecule
-    #   pytest-cov
-    #   pytest-forked
-    #   pytest-helpers-namespace
-    #   pytest-html
-    #   pytest-metadata
-    #   pytest-mock
-    #   pytest-plus
-    #   pytest-testinfra
-    #   pytest-verbose-parametrize
-    #   pytest-xdist
 python-dateutil==2.8.1
     # via arrow
 python-slugify==4.0.1
@@ -201,9 +201,7 @@ rich==10.1.0
     #   ansible-lint
     #   enrich
     #   molecule
-ruamel.yaml.clib==0.2.2
-    # via ruamel.yaml
-ruamel.yaml==0.17.4
+ruamel-yaml==0.17.4
     # via ansible-lint
 selinux==0.2.1
     # via
@@ -234,7 +232,7 @@ toml==0.10.2
     #   pytest
 typing-extensions==3.7.4.3
     # via rich
-urllib3==1.26.4
+urllib3==1.26.5
     # via requests
 virtualenv==20.4.3
     # via pre-commit
