@@ -1,0 +1,30 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    snapraid_data_disks:
+      - name: data1
+        path: /mnt/data1
+      - name: data2
+        path: /mnt/data2
+      - name: data3
+        path: /mnt/data3
+        smartctl_options: -d sat %s
+    snapraid_parity_disks:
+      - path: /mnt/parity1
+      - path: /mnt/parity2
+        smartctl_options: -d areca,1/1 /dev/sg0
+    snapraid_content_files:
+      - /mnt/data1/snapraid.content
+      - /mnt/data2/snapraid.content
+      - /mnt/data3/snapraid.content
+    snapraid_exclude_hidden: true
+    snapraid_excludes:
+      - /tmp/
+      - /lost+found/
+    snapraid_blocksize: 512
+    snapraid_hashsize: 16
+    snapraid_autosave: 1
+    snapraid_pool: /mypool
+  roles:
+    - role: ansible-nas-snapraid

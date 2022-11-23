@@ -1,0 +1,20 @@
+---
+- name: Install dirmngr
+  become: true
+  apt:
+    name: dirmngr
+    state: present
+    update_cache: true
+
+- name: Add SnapRAID repository
+  become: true
+  apt_repository:
+    repo: ppa:syprat/snapraid
+    filename: snapraid
+
+- name: Install SnapRAID
+  become: true
+  apt:
+    name: snapraid
+    state: present
+    update_cache: true

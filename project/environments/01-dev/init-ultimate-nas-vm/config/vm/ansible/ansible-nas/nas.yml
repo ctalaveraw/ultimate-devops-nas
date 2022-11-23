@@ -38,6 +38,16 @@
         - ansible-nas-docker
         - ansible-nas
 
+    - role: ansible-nas-mergerfs
+      tags:
+        - mergerfs
+      when: (mergerfs_enabled | default(False))
+
+    - role: ansible-nas-snapraid
+      tags:
+        - snapraid
+      when: (snapraid_enabled | default(False))
+
     ###
     ### Applications
     ###
