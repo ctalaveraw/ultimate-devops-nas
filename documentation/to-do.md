@@ -30,3 +30,9 @@ Progress on manual setup:
 - The end-to-end architecture of the GitLab CI/CD pipeline
 - The network architecture (including reverse proxy (might need VM), SSL certificates, DDNS, port forwarding, etc)
 - Create different Ansible playbooks for each VM, and within each VM, each task needing provisioning, container infrastructure provisioning, etc.
+
+### Ansible tasks
+
+- for the `init-ultimate-nas-vm` deployment:
+  - mounting the passed through disks within the VM
+  
