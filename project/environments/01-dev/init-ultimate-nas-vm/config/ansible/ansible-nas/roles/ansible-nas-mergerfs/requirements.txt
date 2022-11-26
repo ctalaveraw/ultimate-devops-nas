@@ -128,9 +128,9 @@ pre-commit==2.12.0
     # via molecule
 ptyprocess==0.7.0
     # via pexpect
-py==1.10.0
+# py==1.10.0 ### commenting this out due to vulnerability CVE-2022-42969
     # via
-    #   pytest
+    #   pytest # upgraded pytest from 6.2.3 --> 7.2.0
     #   pytest-forked
 pycodestyle==2.7.0
     # via flake8
@@ -144,7 +144,7 @@ pynacl==1.4.0
     # via paramiko
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.3
+pytest==7.2.0 # upgraded from 6.2.3 --> 7.2.0 which should remove vulnerability
     # via
     #   molecule
     #   pytest-cov
