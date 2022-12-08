@@ -34,5 +34,10 @@ Progress on manual setup:
 ### Ansible tasks
 
 - for the `init-ultimate-nas-vm` deployment:
-  - mounting the passed through disks within the VM
-  
+  - editing the `/etc/fstab` file to include mounting the passthrough disks (via their disk id)
+  - mounting the passed through disks within the VM, targeted at the hypervisor host
+    - The order of this is: 
+      1. Power off the Ultimate NAS VM
+      2. [Unmount](https://forum.proxmox.com/threads/remove-virtual-machine-options-with-qm.37122/) all the disks on the NAS that are attached to the Ultimate NAS VM
+      3. Start the VM and wait until the VM tries to mount the disks, which hangs the boot process
+      4. [Mount](https://pve.proxmox.com/pve-docs/qm.1.html) the disks, which allows the boot to continue
