@@ -30,11 +30,13 @@
         enabled: yes
   when: nomad_enabled is true
 
-- name: Stop Nomad
-  block:
-    - name: Stop Nomad
-      ansible.builtin.systemd:
-        name: "{{ nomad_service_name }}"
-        state: stopped
-        enabled: no
-  when: nomad_enabled is false
+## # UNCOMMENT IF YOU NEED NOMAD
+##
+##  - name: Stop Nomad
+##    block:
+##      - name: Stop Nomad
+##        ansible.builtin.systemd:
+##          name: "{{ nomad_service_name }}"
+##          state: stopped
+##          enabled: no
+##    when: nomad_enabled is false
