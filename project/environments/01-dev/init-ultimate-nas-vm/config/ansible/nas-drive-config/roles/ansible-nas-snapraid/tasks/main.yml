@@ -1,0 +1,13 @@
+---
+- name: Install
+  import_tasks: install_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+    - snapraid
+    - snapraid_install
+
+- name: Configure
+  import_tasks: configure.yml
+  tags:
+    - snapraid
+    - snapraid_configure

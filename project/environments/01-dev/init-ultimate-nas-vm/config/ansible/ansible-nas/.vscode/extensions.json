@@ -1,8 +1,0 @@
-{
-    "recommendations": [
-        "redhat.ansible",
-        "redhat.vscode-yaml",
-        "ybaumes.highlight-trailing-white-spaces",
-        "bungcip.better-toml"
-    ]
-}

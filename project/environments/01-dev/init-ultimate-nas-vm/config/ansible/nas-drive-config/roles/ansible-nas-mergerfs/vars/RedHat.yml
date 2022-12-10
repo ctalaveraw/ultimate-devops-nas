@@ -1,0 +1,7 @@
+---
+mergerfs_prerequisites:
+  - fuse
+mergerfs_dist: "{{ 'fc' if ansible_distribution == 'Fedora' else 'el' }}{{ ansible_distribution_major_version }}"
+mergerfs_arch: "{{ ansible_userspace_architecture }}"
+mergerfs_pkg_prefix: "mergerfs-"
+mergerfs_pkg_suffix: "-1.{{ mergerfs_dist }}.{{ mergerfs_arch }}.rpm"
