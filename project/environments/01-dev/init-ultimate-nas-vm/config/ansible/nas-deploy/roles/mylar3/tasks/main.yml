@@ -10,7 +10,7 @@
 - name: Mylar Docker Container
   docker_container:
     name: mylar
-    image: linuxserver/mylar
+    image: linuxserver/mylar3
     pull: true
     volumes:
       - "{{ mylar_comics_directory }}:/comics:rw"

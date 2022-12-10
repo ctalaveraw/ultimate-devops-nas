@@ -179,34 +179,3 @@ samba_shares:
     writable: yes
     browseable: yes
     path: "{{ code_root }}"
-
-###
-### NFS
-###
-# Data you want published over NFS. More info on the NFS config format can be found at
-# https://help.ubuntu.com/community/SettingUpNFSHowTo#Shares
-# WARNING: Weird things might happen if you share the same data over Samba and NFS and allow writes on both!
-
-nfs_shares_root: /mnt/Volume3
-
-nfs_exports:
-  - "{{ nfs_shares_root }}/public *(rw,sync,no_root_squash)"
-
-###
-### Samba
-###
-# Seems to break browsing of the \\server-name shares root when enabled
-samba_mitigate_cve_2017_7494: false
-
-# Enable apple exentensions for compatibility with apple clients
-samba_apple_extensions: yes
-
-# The account used when Samba shares are accessed. Shouldn't need to change this unless you want to
-# mess with Samba user permissions.
-samba_guest_account: ansible-nas
-
-# How Samba behaves when an unknown user connects, see Samba docs for more info
-samba_map_to_guest: Bad Password
-
-# The NetBIOS hostname used by Samba on your network
-samba_netbios_name: "{{ ansible_nas_hostname }}"
