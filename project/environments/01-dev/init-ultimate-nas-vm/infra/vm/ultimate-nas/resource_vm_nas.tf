@@ -12,7 +12,6 @@ resource "proxmox_vm_qemu" "nas-host" {
   name        = var.proxmox_vm_name
   vmid        = 202
   desc        = "VM to host containers for running all services for Ultimate NAS"
-  boot        = "c" # Set to boot from disk
 
   ## VM OS Settings
   clone = var.proxmox_vm_template_name
@@ -39,13 +38,12 @@ resource "proxmox_vm_qemu" "nas-host" {
 
   ## VM Disk Settings
 
-  # OS Disk  
+  # OS Disk
   disk { # This block must mirror the storage used in VM template
     type    = "virtio"
     size    = "50G"
     storage = var.proxmox_vm_disk_storage_pool
     format  = "raw"
-    iothread = 1
   }
 
   ## VM Cloud-Init Settings
