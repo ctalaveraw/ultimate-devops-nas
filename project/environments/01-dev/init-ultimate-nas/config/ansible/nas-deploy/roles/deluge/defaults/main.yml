@@ -6,6 +6,7 @@ deluge_available_externally: false
 deluge_config_directory: "{{ docker_home }}/deluge/config"
 deluge_download_directory: "{{ downloads_root }}"
 deluge_watch_directory: "{{ torrents_root }}"
+deluge_access_directory: "{{ samba_shares_root }}"
 
 # uid / gid
 deluge_user_id: "0"
