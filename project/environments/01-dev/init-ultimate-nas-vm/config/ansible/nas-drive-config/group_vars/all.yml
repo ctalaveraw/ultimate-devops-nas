@@ -101,23 +101,23 @@ snapraid_excludes:
   - /lost+found/
 
 # Defines the block size in kibi bytes (1024 bytes)
-# snapraid_blocksize: 256
+snapraid_blocksize: 256
 
 # Defines the hash size in bytes.
 # WARNING: Changing this value is for experts only!
-# snapraid_hashsize: 16
+snapraid_hashsize: 16
 
 # Automatically save the state when syncing after the specified amount
 # of GB processed.
 # This option is useful to avoid to restart from scratch long 'sync'
 # commands interrupted by a machine crash.
 # It also improves the recovering if a disk break during a 'sync'.
-# snapraid_autosave: 0
+snapraid_autosave: 0
 
 # Defines the pooling directory where the virtual view of the disk
 # array is created using the "pool" command.
 # The files are not really copied here, but just linked using
 # symbolic links.
 # This directory must be outside the array.
-# snapraid_pool: /pool
+snapraid_pool: /pool
 snapraid_pool_permissions: '0755'

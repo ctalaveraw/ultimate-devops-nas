@@ -6,12 +6,6 @@
     state: present
     update_cache: true
 
-- name: Add SnapRAID repository
-  become: true
-  apt_repository:
-    repo: ppa:syprat/snapraid
-    filename: snapraid
-
 - name: Install SnapRAID
   become: true
   apt:
