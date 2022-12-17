@@ -25,27 +25,42 @@
 
 # Add your all.yml config overrides to this file. See group_vars/all.yml for all possible settings.
 
-# Drive Mount UUIDs
-parity0_disk_uuid: ""
-disk0_disk_uuid: ""
-disk1_disk_uuid: ""
-disk2_disk_uuid: ""
-disk3_disk_uuid: ""
+# Drive Mounts
+
+### Parity Disk 0
+parity0_mount_path: "/mnt/parity0"
+parity0_uuid: ""
+
+### Data Disk 0
+disk0_mount_path: "/mnt/disk0"
+disk0_uuid: ""
+
+### Data Disk 1
+disk1_mount_path: "/mnt/disk1"
+disk1_uuid: ""
+
+### Data Disk 2
+disk2_mount_path: "/mnt/disk2"
+disk2_uuid: ""
+
+### Data Disk 3
+disk3_mount_path: "/mnt/disk3"
+disk3_uuid: ""
 
 # Define the path for mergerfs storage mount
-ansible_nas_mergerfs_mount_path: /mnt/mergerfs_storage
+mergerfs_mount_path: "/mnt/mergerfs_storage"
 
 # mergerfs storage configuration
 mergerfs_enabled: false
 
 # Mergerfs mountpoints to create. For example:
 ##  mergerfs_mounts:
-##    - path: "{{ ansible_nas_mergerfs_mount_path }}"
+##    - path: "{{ mergerfs_mount_path }}"
 ##      branches:
-##        - /mnt/disk0
-##        - /mnt/disk1
-##        - /mnt/disk2
-##        - /mnt/disk3
+##        - {{ disk0_mount_path }}
+##        - {{ disk1_mount_path }}
+##        - {{ disk2_mount_path }}
+##        - {{ disk3_mount_path }}
 ##      options: defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,fsname=mergerfs
 mergerfs_mounts: []
 
@@ -59,13 +74,13 @@ snapraid_enabled: false
 # e.g.
 ##  snapraid_data_disks: 
 ##    - name: disk0
-##      path: /mnt/disk0
+##      path: {{ disk0_mount_path }}
 ##    - name: disk1
-##      path: /mnt/disk1
+##      path: {{ disk1_mount_path }}
 ##    - name: disk2
-##      path: /mnt/disk2
+##      path: {{ disk2_mount_path }}
 ##    - name: disk3
-##      path: /mnt/disk3
+##      path: {{ disk3_mount_path }}
 ##      smartctl_options: -d usbjmicron %s
 snapraid_data_disks: []
 
@@ -75,7 +90,7 @@ snapraid_data_disks: []
 # protection from two to six level of parity.
 # e.g.
 ##  snapraid_parity_disks:
-##    - path: /mnt/parity0
+##    - path: {{ parity0_mount_path }}
 ##      smartctl_options: -d areca,1/1 /dev/sg0
 snapraid_parity_disks: []
 
@@ -85,10 +100,10 @@ snapraid_parity_disks: []
 # in a different disk
 # e.g.
 ##  snapraid_content_files:
-##    - /mnt/disk0/snapraid.content
-##    - /mnt/disk1/snapraid.content
-##    - /mnt/disk2/snapraid.content
-##    - /mnt/disk3/snapraid.content
+##    - "{{ disk0_mount_path }}snapraid.content"
+##    - "{{ disk1_mount_path }}snapraid.content"
+##    - "{{ disk2_mount_path }}snapraid.content"
+##    - "{{ disk3_mount_path }}snapraid.content"
 snapraid_content_files: []
 
 # Excludes hidden files and directories
