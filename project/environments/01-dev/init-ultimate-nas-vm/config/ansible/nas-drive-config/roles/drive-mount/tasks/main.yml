@@ -1,47 +1,35 @@
 ---
-- name: Set login banner
-  copy:
-    src: motd.txt
-    dest: /etc/motd
+- name: edit fstab to mount parity disk 0 on boot
+  ansible.posix.mount:
+    path: /mnt/parity0
+    state: mounted
+    fstype: ext4
+    src: "UUID={{ parity0_disk_uuid }}"
 
-- name: Update apt-cache
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
-  register: result
-  until: result is succeeded
+- name: edit fstab to mount data disk 0 on boot
+  ansible.posix.mount:
+    path: /mnt/disk0
+    state: mounted
+    fstype: ext4
+    src: "UUID={{ disk0_disk_uuid }}"
 
-- name: Upgrade all packages # noqa package-latest
-  apt:
-    upgrade: yes
-    state: latest
-  when: keep_packages_updated
-  tags:
-    - skip_ansible_lint
+- name: edit fstab to mount data disk 1 on boot
+  ansible.posix.mount:
+    path: /mnt/disk1
+    state: mounted
+    fstype: ext4
+    src: "UUID={{ disk1_disk_uuid }}"
 
-- name: Install some packages
-  apt:
-    name: "{{ ansible_nas_extra_packages }}"
-    state: present
-  register: result
-  until: result is succeeded
+- name: edit fstab to mount data disk 2 on boot
+  ansible.posix.mount:
+    path: /mnt/disk2
+    state: mounted
+    fstype: ext4
+    src: "UUID={{ disk2_disk_uuid }}"
 
-#  - name: Configure smartmontools
-
-- name: "Set hostname to {{ ansible_nas_hostname }}"
-  hostname:
-    name: "{{ ansible_nas_hostname }}"
-
-- name: "Set timezone to {{ ansible_nas_timezone }}"
-  timezone:
-    name: "{{ ansible_nas_timezone }}"
-
-- name: "Permission share directories"
-  file:
-    path: "{{ item.path }}"
-    state: directory
-    owner: ansible-nas
-    group: ansible-nas
-    mode: "u=rwX,g=rwX,o=rX"
-    recurse: false
-  loop: "{{ samba_shares }}"
+- name: edit fstab to mount data disk 3 on boot
+  ansible.posix.mount:
+    path: /mnt/disk3
+    state: mounted
+    fstype: ext4
+    src: "UUID={{ disk3_disk_uuid }}"

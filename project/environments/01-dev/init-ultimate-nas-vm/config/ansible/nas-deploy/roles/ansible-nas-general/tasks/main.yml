@@ -16,8 +16,8 @@
     upgrade: yes
     state: latest
   when: keep_packages_updated
-  tags:
-    - skip_ansible_lint
+  # tags:
+  #  - skip_ansible_lint
 
 - name: Install some packages
   apt:
