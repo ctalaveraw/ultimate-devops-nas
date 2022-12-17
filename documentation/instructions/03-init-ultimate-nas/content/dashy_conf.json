@@ -1,0 +1,501 @@
+{
+  "pageInfo": {
+    "title": "Dashy",
+    "description": "Welcome to your new dashboard!",
+    "navLinks": [
+      {
+        "title": "GitHub",
+        "path": "https://github.com/Lissy93/dashy"
+      },
+      {
+        "title": "Documentation",
+        "path": "https://dashy.to/docs"
+      }
+    ],
+    "footerText": ""
+  },
+  "appConfig": {
+    "theme": "lissy",
+    "layout": "auto",
+    "iconSize": "large",
+    "language": "en"
+  },
+  "sections": [
+    {
+      "name": "Content Management",
+      "displayData": {
+        "sortBy": "alphabetical",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Mylar",
+          "description": "Comics download manager",
+          "icon": "https://github.com/evilhero/mylar/raw/master/data/images/mylarlogo.png",
+          "url": "http://[INSERT_VM_IP_HERE]:8585",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_1784_mylar"
+        },
+        {
+          "title": "Lidarr",
+          "description": "Music download manager",
+          "icon": "https://avatars.githubusercontent.com/u/28475832?s=280&v=4",
+          "url": "http://[INSERT_VM_IP_HERE]:8686",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "1_1784_lidarr"
+        },
+        {
+          "title": "Bazarr",
+          "description": "Subtitle download manager",
+          "icon": "https://user-images.githubusercontent.com/26902309/41456760-be00043e-7081-11e8-9646-1b724037b4ff.png",
+          "url": "http://[INSERT_VM_IP_HERE]:6767",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "2_1784_bazarr"
+        },
+        {
+          "title": "Prowlarr",
+          "description": "Torrent indexing manager",
+          "icon": "https://avatars.githubusercontent.com/u/73049443?s=400&v=4",
+          "url": "http://[INSERT_VM_IP_HERE]:9696",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "3_1784_prowlarr"
+        },
+        {
+          "title": "Radarr",
+          "description": "Movie download manager",
+          "icon": "https://avatars.githubusercontent.com/u/25025331?s=280&v=4",
+          "url": "http://[INSERT_VM_IP_HERE]:7878",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "4_1784_radarr"
+        },
+        {
+          "title": "Sonarr",
+          "description": "Shows download manager",
+          "icon": "https://avatars.githubusercontent.com/u/1082903?s=280&v=4",
+          "url": "http://[INSERT_VM_IP_HERE]:8989",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "5_1784_sonarr"
+        },
+        {
+          "title": "YouTubeDL-Material",
+          "description": "YouTube download manager",
+          "icon": "https://user-images.githubusercontent.com/36028424/40152563-39953898-59b8-11e8-8353-03a1f78265aa.png",
+          "url": "http://[INSERT_VM_IP_HERE]:8998",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "6_1784_youtubedlmaterial"
+        },
+        {
+          "title": "Airsonic",
+          "description": "Music manager",
+          "icon": "https://airsonic.github.io/favicon-200x200.png",
+          "url": "http://[INSERT_VM_IP_HERE]:4040",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "7_1784_airsonic"
+        }
+      ]
+    },
+    {
+      "name": "Private Cloud",
+      "displayData": {
+        "sortBy": "alphabetical",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "NextCloud",
+          "description": "Self-hosted file storage",
+          "icon": "https://iconarchive.com/download/i106074/papirus-team/papirus-apps/nextcloud.ico",
+          "url": "http://[INSERT_VM_IP_HERE]:8080",
+          "target": "newtab",
+          "provider": "NextCloud",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_1266_nextcloud"
+        },
+        {
+          "title": "PhotoPrism",
+          "description": "Self-hosted photo storage",
+          "icon": "https://dl.photoprism.app/img/logo/logo.svg",
+          "id": "1_1266_photoprism"
+        }
+      ]
+    },
+    {
+      "name": "Microservices",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Mosquitto",
+          "description": "Message queue service",
+          "icon": "https://mosquitto.org/stickers/mosquitto-mono.png",
+          "url": "https://[INSERT_VM_IP_HERE]:1883",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_1374_mosquitto"
+        },
+        {
+          "title": "Gotify",
+          "description": "Push notifications",
+          "icon": "https://gotify.net/img/logo.png",
+          "url": "http://[INSERT_VM_IP_HERE]:2346",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "1_1374_gotify"
+        }
+      ]
+    },
+    {
+      "name": "Monitoring",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Grafana",
+          "description": "Analytics visualization",
+          "icon": "https://seeklogo.com/images/G/grafana-logo-15BA0AFA8A-seeklogo.com.png",
+          "url": "http://[INSERT_VM_IP_HERE]:3000",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "0_1062_grafana"
+        },
+        {
+          "title": "Portainer",
+          "description": "Container monitoring",
+          "icon": "https://cdn.worldvectorlogo.com/logos/portainer.svg",
+          "url": "http://[INSERT_VM_IP_HERE]:9000",
+          "statusCheck": true,
+          "id": "1_1062_portainer"
+        },
+        {
+          "title": "Prometheus",
+          "description": "Application monitoring",
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/2066px-Prometheus_software_logo.svg.png",
+          "url": "http://[INSERT_VM_IP_HERE]:9090",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "2_1062_prometheus"
+        }
+      ]
+    },
+    {
+      "name": "Remote Access",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Guacamole",
+          "description": "Remote desktop gateway; supports VNC, RDP and SSH",
+          "icon": "https://appcenter.software-univention.de/meta-inf/4.4/guacamole/logo.svg",
+          "url": "http://[INSERT_VM_IP_HERE]:8090",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_1246_guacamole"
+        },
+        {
+          "title": "PiKVM",
+          "description": "Remote KVM access to host",
+          "icon": "https://pikvm.org/img/logo.png",
+          "url": "http://10.69.69.121",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "1_1246_pikvm"
+        }
+      ]
+    },
+    {
+      "name": "Streaming",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Jellyfin",
+          "description": "Media server",
+          "icon": "https://static-00.iconduck.com/assets.00/jellyfin-icon-512x512-jcuy5qbi.png",
+          "url": "http://[INSERT_VM_IP_HERE]:8896",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_938_jellyfin"
+        },
+        {
+          "title": "Calibre",
+          "description": "eBook library",
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Calibre_logo_3.png",
+          "url": "http://[INSERT_VM_IP_HERE]:8084",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "1_938_calibre"
+        },
+        {
+          "title": "Komga",
+          "description": "Comic & manga reader",
+          "icon": "https://komga.org/assets/media/logo.svg",
+          "url": "http://[INSERT_VM_IP_HERE]:8088",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "2_938_komga"
+        },
+        {
+          "title": "NaviDrome",
+          "description": "Music streamer",
+          "icon": "https://yunohost.org/user/images/navidrome_logo.png",
+          "url": "http://[INSERT_VM_IP_HERE]:4533",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "3_938_navidrome"
+        }
+      ]
+    },
+    {
+      "name": "Home Management",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Home Assistant",
+          "description": "Home automation",
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_Logo.svg/1200px-Home_Assistant_Logo.svg.png",
+          "url": "http://[INSERT_VM_IP_HERE]:8123",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "0_1446_homeassistant"
+        }
+      ]
+    },
+    {
+      "name": "Security",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "BitWarden",
+          "description": "Password manager",
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/5/55/Bitwarden_Logo_2018.png",
+          "url": "http://[INSERT_VM_IP_HERE]:19080",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_856_bitwarden"
+        },
+        {
+          "title": "Authelia",
+          "description": "Authentication portal",
+          "icon": "https://www.authelia.com/images/branding/logo-cropped.png",
+          "target": "newtab",
+          "id": "1_856_authelia"
+        },
+        {
+          "title": "WireGuard",
+          "description": "VPN",
+          "icon": "https://static-00.iconduck.com/assets.00/wireguard-icon-512x512-7suxjlbo.png",
+          "id": "2_856_wireguard"
+        },
+        {
+          "title": "SWAG",
+          "description": "Secure Web Application Gateway",
+          "icon": "https://avatars.githubusercontent.com/u/12324908?v=4&s=400",
+          "target": "newtab",
+          "id": "3_856_swag"
+        },
+        {
+          "title": "Bunkerized NGINX",
+          "description": "Hardened NGINX instance",
+          "icon": "https://w7.pngwing.com/pngs/262/242/png-transparent-nginx-phusion-passenger-application-software-proxy-server-reverse-proxy-creativo-logo-de-marca-angle-text-trademark.png",
+          "id": "4_856_bunkerizednginx"
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Syncthing",
+          "description": "File sync between devices",
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/8/83/SyncthingAugustLogo.png",
+          "url": "http://[INSERT_VM_IP_HERE]:8384",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "0_956_syncthing"
+        }
+      ]
+    },
+    {
+      "name": "Downloading",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Deluge",
+          "description": "Torrent client",
+          "icon": "https://banner2.cleanpng.com/20180320/qhw/kisspng-blue-angle-brand-computer-wallpaper-app-deluge-5ab0ced5ade030.3583177115215367257122.jpg",
+          "url": "http://[INSERT_VM_IP_HERE]:8112",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "0_1142_deluge"
+        },
+        {
+          "title": "Transmission",
+          "description": "Torrent client",
+          "icon": "https://avatars.githubusercontent.com/u/223312?s=280&v=4",
+          "url": "http://[INSERT_VM_IP_HERE]:9092",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "1_1142_transmission"
+        }
+      ]
+    },
+    {
+      "name": "Networking",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "UniFi Controller",
+          "description": "Ubiquiti network dashboard",
+          "icon": "https://www.axonius.com/hubfs/Adapter%20Logos/ubiquiti_networks_unifi_adapter.png",
+          "id": "0_1064_unificontroller"
+        },
+        {
+          "title": "PiHole",
+          "description": "Ad-blocker & DNS black hole",
+          "icon": "https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Pi-hole_vector_logo.svg/1200px-Pi-hole_vector_logo.svg.png",
+          "url": "http://10.69.69.21/admin/login.php",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "1_1064_pihole"
+        },
+        {
+          "title": "Edge Switch",
+          "description": "",
+          "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeWgtMVHfKDHc_8PlIohOospH5Q3-ZqYbQ6dWn6v28aWJ4i5WEXhxRY2kJy92V4lsHY0s&usqp=CAU",
+          "url": "http://10.69.69.20",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "2_1064_edgeswitch"
+        },
+        {
+          "title": "Basement Switch",
+          "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeWgtMVHfKDHc_8PlIohOospH5Q3-ZqYbQ6dWn6v28aWJ4i5WEXhxRY2kJy92V4lsHY0s&usqp=CAU",
+          "url": "http://10.69.69.30",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "3_1064_basementswitch"
+        }
+      ]
+    },
+    {
+      "name": "Administration",
+      "displayData": {
+        "sortBy": "default",
+        "rows": 1,
+        "cols": 1,
+        "collapsed": false,
+        "hideForGuests": false
+      },
+      "items": [
+        {
+          "title": "Proxmox VE",
+          "description": "Hypervisor",
+          "icon": "https://avatars.githubusercontent.com/u/2678585?s=200&v=4",
+          "url": "https://10.69.69.169:8006",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "0_1478_proxmoxve"
+        },
+        {
+          "title": "OPNSense",
+          "description": "Home router & firewall",
+          "icon": "https://avatars.githubusercontent.com/u/9979117?s=280&v=4",
+          "url": "http://10.69.69.1",
+          "target": "newtab",
+          "statusCheck": true,
+          "statusCheckAllowInsecure": true,
+          "id": "1_1478_opnsense"
+        },
+        {
+          "title": "Traefik",
+          "description": "Load balancer & reverse proxy",
+          "icon": "https://www.instana.com/media/Traefik-01-1.svg",
+          "url": "http://[INSERT_VM_IP_HERE]:8083",
+          "target": "newtab",
+          "statusCheck": true,
+          "id": "2_1478_traefik"
+        }
+      ]
+    }
+  ]
+}
