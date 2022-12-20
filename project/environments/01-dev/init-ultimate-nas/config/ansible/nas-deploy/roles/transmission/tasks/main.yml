@@ -23,6 +23,8 @@
       - "{{ transmission_external_port }}:51413"
       - "{{ transmission_external_port }}:51413/udp"
     env:
+      TRANSMISSION_DOWNLOAD_QUEUE_SIZE: "10"
+      TRANSMISSION_WEB_UI: "transmission-web-control"
       TZ: "{{ transmission_timezone }}"
       PUID: "{{ transmission_user_id }}"
       PGID: "{{ transmission_group_id }}"
