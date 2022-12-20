@@ -1,0 +1,39 @@
+---
+- name: "(Windows) {{ conf_name_prefix }} Create temporary file"
+  win_tempfile:
+    state: file
+    path: "{{ temp_runner_config_dir.path }}"
+    prefix: "gitlab-runner.{{ runner_config_index }}."
+  register: temp_runner_config
+  check_mode: no
+  changed_when: false
+
+- name: "(Windows) {{ conf_name_prefix }} Isolate runner configuration"
+  win_copy:
+    dest: "{{ temp_runner_config.path }}"
+    content: "{{ runner_config }}"
+  check_mode: no
+  changed_when: false
+
+- include_tasks: update-config-runner-windows.yml
+  vars:
+    runn_name_prefix: "{{ conf_name_prefix }} runner[{{ (gitlab_runner_index|int) + 1 }}/{{ gitlab_runner_runners|length }}]:"
+  when:
+    - ('name = "'+gitlab_runner.name|default(ansible_hostname+'-'+gitlab_runner_index|string)+'"') in runner_config
+    - gitlab_runner.state|default('present') == 'present'
+  loop: "{{ gitlab_runner_runners }}"
+  loop_control:
+    index_var: gitlab_runner_index
+    loop_var: gitlab_runner
+
+- name: "(Windows) {{ conf_name_prefix }} Remove runner config"
+  win_file:
+    path: "{{ temp_runner_config.path }}"
+    state: absent
+  when:
+    - ('name = "'+gitlab_runner.name|default(ansible_hostname+'-'+gitlab_runner_index|string)+'"') in runner_config
+    - gitlab_runner.state|default('present') == 'absent'
+  loop: "{{ gitlab_runner_runners }}"
+  loop_control:
+    index_var: gitlab_runner_index
+    loop_var: gitlab_runner
