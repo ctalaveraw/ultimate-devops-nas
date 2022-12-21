@@ -44,3 +44,4 @@
 
       [certificatesResolvers.letsencrypt.acme.dnsChallenge]
         provider = "{{ traefik_dns_provider }}"
+        resolvers = ["{ trafik_dns_resolver_ip_1 }", "{ trafik_dns_resolver_ip_2 }"]
