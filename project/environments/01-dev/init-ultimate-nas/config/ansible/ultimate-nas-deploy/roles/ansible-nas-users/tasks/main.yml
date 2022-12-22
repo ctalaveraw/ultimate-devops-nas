@@ -8,6 +8,7 @@
   user:
     name: ansible-nas
     state: present
+    uid: 990
     system: yes
     update_password: on_create
     create_home: no
