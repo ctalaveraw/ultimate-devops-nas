@@ -1,0 +1,46 @@
+{{ ansible_managed | comment }}
+
+{% for disk in snapraid_data_disks %}
+data {{ disk.name }} {{ disk.path }}
+{% endfor %}
+
+{% for disk in snapraid_parity_disks %}
+{% set disk_name = '%d-parity' % loop.index if loop.index > 1 else 'parity' %}
+{{ disk_name }} {{ disk.path }}/snapraid.{{ disk_name }}
+{% endfor %}
+
+{% for file in snapraid_content_files %}
+content {{ file }}
+{% endfor %}
+
+{% if snapraid_exclude_hidden | bool %}
+nohidden
+{% endif %}
+{% for exclude in snapraid_excludes %}
+exclude {{ exclude }}
+{% endfor %}
+
+{% if snapraid_blocksize is defined %}
+blocksize {{ snapraid_blocksize }}
+{% endif %}
+{% if snapraid_hashsize is defined %}
+hashsize {{ snapraid_hashsize }}
+{% endif %}
+{% if snapraid_autosave is defined %}
+autosave {{ snapraid_autosave }}
+{% endif %}
+{% if snapraid_pool is defined %}
+pool {{ snapraid_pool }}
+{% endif %}
+
+{% for disk in snapraid_data_disks %}
+{% if disk.smartctl_options is defined %}
+smartctl {{ disk.name }} {{ disk.smartctl_options }}
+{% endif %}
+{% endfor %}
+{% for disk in snapraid_parity_disks %}
+{% if disk.smartctl_options is defined %}
+{% set disk_name = '%d-parity' % loop.index if loop.index > 1 else 'parity' %}
+smartctl {{ disk_name }} {{ disk.smartctl_options }}
+{% endif %}
+{% endfor %}

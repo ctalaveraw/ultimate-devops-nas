@@ -1,0 +1,7 @@
+---
+- name: Install mergerfs package with package manager
+  become: true
+  package:
+    name: mergerfs
+    state: present
+    update_cache: true
