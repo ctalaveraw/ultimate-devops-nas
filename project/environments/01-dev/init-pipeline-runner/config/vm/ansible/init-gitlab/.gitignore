@@ -1,0 +1,19 @@
+tests/test.yml
+site
+.vagrant
+*.retry
+*.log
+inventories
+.cache
+roles/bertvv.samba
+roles/geerlingguy.docker
+roles/geerlingguy.nfs
+
+# Vim
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# IntelliJ
+/.idea/
