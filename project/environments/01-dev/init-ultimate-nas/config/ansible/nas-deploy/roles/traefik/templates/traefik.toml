@@ -20,6 +20,9 @@
   [entryPoints.traefik]
     address = ":{{ traefik_port_ui }}"
 
+[serversTransport]
+  insecureSkipVerify = true
+
 [providers]
   providersThrottleDuration = "2s"
   [providers.docker]
@@ -44,4 +47,4 @@
 
       [certificatesResolvers.letsencrypt.acme.dnsChallenge]
         provider = "{{ traefik_dns_provider }}"
-        resolvers = ["{ trafik_dns_resolver_ip_1 }", "{ trafik_dns_resolver_ip_2 }"]
+      
