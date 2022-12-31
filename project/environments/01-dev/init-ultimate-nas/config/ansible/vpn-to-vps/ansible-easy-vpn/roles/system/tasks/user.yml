@@ -1,0 +1,57 @@
+---
+- name: Ensure group sudo exists
+  ansible.builtin.group:
+    name: sudo
+    state: present
+
+- name: Allow sudo group to have passwordless sudo
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^%sudo"
+    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+  when: enable_passwordless_sudo | default(False)
+
+- name: Create a login user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    password: "{{ user_password | string | password_hash('sha512') }}"
+    groups:
+      - sudo
+      - users
+    state: present
+    append: true
+    shell: "{{ user_shell }}"
+  when: enable_username_creation | default(False)
+
+- name: Ensure group "{{ username }}" exists
+  ansible.builtin.group:
+    name: "{{ username }}"
+    state: present
+  when: enable_username_creation | default(False)
+
+- name: Chmod the user home directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}"
+    state: directory
+    mode: 0755
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
+  when: enable_username_creation | default(False)
+
+- name: Check if the Ansible playbook is copied to the new user directory
+  ansible.builtin.stat:
+    path: "/home/{{ username }}/ansible-easy-vpn"
+  register: playbook_copied
+
+- name: Copy the Ansible playbook to the new user
+  ansible.builtin.copy:
+    src: "/{{ lookup('env', 'HOME') }}/ansible-easy-vpn"
+    dest: "/home/{{ username }}"
+    owner: "{{ username }}"
+    decrypt: no
+    group: "{{ username }}"
+    mode: 0750
+  when: not playbook_copied.stat.exists
