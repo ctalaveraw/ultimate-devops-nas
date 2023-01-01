@@ -1,5 +1,0 @@
----
-healthchecks_enabled: false
-healthchecks_ping_minutes: 15
-
-healthchecks_url: ""
