@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    mergerfs_mounts:
+      - path: /mnt/storage
+        branches:
+          - /mnt/data*
+        options: allow_other,use_ino
+  roles:
+    - role: ansible-nas-mergerfs

@@ -1,0 +1,15 @@
+---
+- name: Configure SnapRAID
+  become: true
+  template:
+    src: etc/snapraid.conf.j2
+    dest: /etc/snapraid.conf
+    mode: 0644
+
+- name: Create the pool directory
+  become: true
+  file:
+    path: "{{ snapraid_pool }}"
+    state: directory
+    mode: "{{ snapraid_pool_permissions }}"
+  when: snapraid_pool is defined

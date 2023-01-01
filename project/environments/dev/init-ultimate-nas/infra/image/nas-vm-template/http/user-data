@@ -1,0 +1,46 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: de
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: true
+    ssh_quiet_keygen: true
+    allow_public_ssh_keys: true
+  packages:
+    - qemu-guest-agent
+    - sudo
+    - python3
+  late-commands:
+    - curtin in-target --target=/target -- systemctl start qemu-guest-agent
+    - curtin in-target --target=/target -- systemctl enable qemu-guest-agent
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0
+  user-data:
+    package_upgrade: false
+    timezone: America/New York
+    users:
+      - name: nas
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        lock-passwd: false
+        groups: [adm, sudo]
+        ssh_authorized_keys: 
+          - your-ssh-key
+        #  OR
+        # passwd: your-password
+      - name: ansible
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        lock_passwd: true
+        groups: users,admin,wheel
+        ssh_authorized_keys:
+          - your-ssh-key
+        #  OR
+        # passwd: your-password

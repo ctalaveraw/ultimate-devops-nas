@@ -1,0 +1,11 @@
+tests/test.yml
+site
+.vagrant
+*.retry
+*.log
+inventories
+.cache
+
+.DS_Store
+secret.yml
+.vscode

@@ -1,0 +1,76 @@
+---
+- name: Check if there's authorized_keys
+  ansible.builtin.stat:
+    path: /home/{{ username }}/.ssh/authorized_keys
+  register: authorized_keys
+  changed_when: (not authorized_keys.stat.exists) or (authorized_keys.stat.size == 0)
+
+- name: Install cryptography
+  ansible.builtin.pip:
+    name: cryptography
+    state: latest
+
+- name: Create the SSH directory
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.ssh"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0700
+
+- name: Generate and install a public key pair
+  when: (not authorized_keys.stat.exists or authorized_keys.stat.size == 0) and not (ssh_public_key is defined) and not aws
+  block:
+    - name: Generate an SSH key pair
+      community.crypto.openssh_keypair:
+        path: /tmp/id_ssh_ed25519
+        type: ed25519
+        passphrase: "{{ user_password }}"
+
+    - name: Install the public key
+      ansible.builtin.copy:
+        src: /tmp/id_ssh_ed25519.pub
+        dest: "/home/{{ username }}/.ssh/authorized_keys"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: 0600
+
+- name: Install the existing public key
+  when: ssh_public_key is defined
+  ansible.posix.authorized_key:
+    user: "{{ username }}"
+    key: "{{ ssh_public_key }}"
+
+- name: Copy the existing public key to a new user (AWS)
+  when: aws
+  ansible.builtin.copy:
+    src: "/home/ubuntu/.ssh/authorized_keys"
+    dest: "/home/{{ username }}/.ssh/authorized_keys"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0600
+
+- name: Update SSH configuration to be more secure
+  register: ssh_config
+  ansible.builtin.lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    validate: "sshd -T -f %s"
+    mode: 0644
+  with_items:
+    - regexp: "^#?PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^#?PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^#?Port"
+      line: "Port {{ ssh_port }}"
+    - regexp: "^#?PermitEmptyPasswords"
+      line: "PermitEmptyPasswords no"
+    - regexp: "^#?X11Forwarding"
+      line: "X11Forwarding no"
+
+- name: Notify user about changes
+  when: (ssh_config.changed or authorized_keys.changed)
+  ansible.builtin.import_tasks: notify_user.yml

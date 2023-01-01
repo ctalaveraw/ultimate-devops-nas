@@ -1,0 +1,138 @@
+---
+##    
+##    ██╗   ██╗██╗  ████████╗██╗███╗   ███╗ █████╗ ████████╗███████╗
+##    ██║   ██║██║  ╚══██╔══╝██║████╗ ████║██╔══██╗╚══██╔══╝██╔════╝
+##    ██║   ██║██║     ██║   ██║██╔████╔██║███████║   ██║   █████╗  
+##    ██║   ██║██║     ██║   ██║██║╚██╔╝██║██╔══██║   ██║   ██╔══╝  
+##    ╚██████╔╝███████╗██║   ██║██║ ╚═╝ ██║██║  ██║   ██║   ███████╗
+##     ╚═════╝ ╚══════╝╚═╝   ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
+##                                                                  
+##    ██████╗ ███████╗██╗   ██╗ ██████╗ ██████╗ ███████╗            
+##    ██╔══██╗██╔════╝██║   ██║██╔═══██╗██╔══██╗██╔════╝            
+##    ██║  ██║█████╗  ██║   ██║██║   ██║██████╔╝███████╗            
+##    ██║  ██║██╔══╝  ╚██╗ ██╔╝██║   ██║██╔═══╝ ╚════██║            
+##    ██████╔╝███████╗ ╚████╔╝ ╚██████╔╝██║     ███████║            
+##    ╚═════╝ ╚══════╝  ╚═══╝   ╚═════╝ ╚═╝     ╚══════╝            
+##                                                                  
+##    ███╗   ██╗ █████╗ ███████╗                                    
+##    ████╗  ██║██╔══██╗██╔════╝                                    
+##    ██╔██╗ ██║███████║███████╗                                    
+##    ██║╚██╗██║██╔══██║╚════██║                                    
+##    ██║ ╚████║██║  ██║███████║                                    
+##    ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝   
+##       ultimate-devops-nas      https://github.com/ctalaveraw/ultimate-devops-nas
+
+
+# Add your all.yml config overrides to this file. See group_vars/all.yml for all possible settings.
+
+# Drive Mounts
+
+### Parity Disk 0
+parity0_mount_path: "/mnt/parity0"
+parity0_uuid: ""
+
+### Data Disk 0
+disk0_mount_path: "/mnt/disk0"
+disk0_uuid: ""
+
+### Data Disk 1
+disk1_mount_path: "/mnt/disk1"
+disk1_uuid: ""
+
+### Data Disk 2
+disk2_mount_path: "/mnt/disk2"
+disk2_uuid: ""
+
+### Data Disk 3
+disk3_mount_path: "/mnt/disk3"
+disk3_uuid: ""
+
+# Define the path for mergerfs storage mount
+mergerfs_mount_path: "/mnt/mergerfs_storage"
+
+# mergerfs storage configuration
+mergerfs_enabled: false
+
+# Mergerfs mountpoints to create. For example:
+##  mergerfs_mounts:
+##    - path: "{{ mergerfs_mount_path }}"
+##      branches:
+##        - {{ disk0_mount_path }}
+##        - {{ disk1_mount_path }}
+##        - {{ disk2_mount_path }}
+##        - {{ disk3_mount_path }}
+##      options: defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,fsname=mergerfs
+mergerfs_mounts: []
+
+# snapraid storage configuration
+snapraid_enabled: false
+
+# Defines the data disks to use.
+# The name and mount point association is relevant for parity, do not change it
+# WARNING: Adding here your /home, /var or /tmp disks is NOT a good idea!
+# SnapRAID is better suited for files that rarely changes!
+# e.g.
+##  snapraid_data_disks: 
+##    - name: disk0
+##      path: {{ disk0_mount_path }}
+##    - name: disk1
+##      path: {{ disk1_mount_path }}
+##    - name: disk2
+##      path: {{ disk2_mount_path }}
+##    - name: disk3
+##      path: {{ disk3_mount_path }}
+##      smartctl_options: -d usbjmicron %s
+snapraid_data_disks: []
+
+# Defines the disks to use as parity storage.
+# It must NOT be a data disk
+# If more than one parity disk is specified, they enable the multiple failures
+# protection from two to six level of parity.
+# e.g.
+##  snapraid_parity_disks:
+##    - path: {{ parity0_mount_path }}
+##      smartctl_options: -d areca,1/1 /dev/sg0
+snapraid_parity_disks: []
+
+# Defines the files to use as content list
+# You must have least one copy for each parity file plus one. Some more don't hurt
+# They can be in the disks used for data, parity or boot, but each file must be
+# in a different disk
+# e.g.
+##  snapraid_content_files:
+##    - "{{ disk0_mount_path }}snapraid.content"
+##    - "{{ disk1_mount_path }}snapraid.content"
+##    - "{{ disk2_mount_path }}snapraid.content"
+##    - "{{ disk3_mount_path }}snapraid.content"
+snapraid_content_files: []
+
+# Excludes hidden files and directories
+snapraid_exclude_hidden: false
+
+# Defines files and directories to exclude
+snapraid_excludes:
+  - "*.unrecoverable"
+  - /tmp/
+  - /lost+found/
+
+# Defines the block size in kibi bytes (1024 bytes)
+snapraid_blocksize: 256
+
+# Defines the hash size in bytes.
+# WARNING: Changing this value is for experts only!
+snapraid_hashsize: 16
+
+# Automatically save the state when syncing after the specified amount
+# of GB processed.
+# This option is useful to avoid to restart from scratch long 'sync'
+# commands interrupted by a machine crash.
+# It also improves the recovering if a disk break during a 'sync'.
+snapraid_autosave: 0
+
+# Defines the pooling directory where the virtual view of the disk
+# array is created using the "pool" command.
+# The files are not really copied here, but just linked using
+# symbolic links.
+# This directory must be outside the array.
+snapraid_pool: /pool
+snapraid_pool_permissions: '0755'
