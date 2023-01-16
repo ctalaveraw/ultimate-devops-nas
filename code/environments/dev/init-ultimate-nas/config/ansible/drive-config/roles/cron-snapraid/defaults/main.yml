@@ -5,7 +5,7 @@ snapraid_cron_enabled: false
 snapraid_cron_minute: "0"
 
 # Defines "hour (0-23)"
-snapraid_cron_hour: "*"
+snapraid_cron_hour: "*/2"
 
 # Defines "day of the month (1-31)"
 snapraid_cron_day_of_month: "*"

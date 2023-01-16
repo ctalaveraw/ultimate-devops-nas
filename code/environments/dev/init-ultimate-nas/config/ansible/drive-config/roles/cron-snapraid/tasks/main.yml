@@ -1,10 +1,10 @@
 ---
-- name: Schedule SnapRAID array sync every hour and output log to home/log/snapraid_hourly.log
+- name: Schedule SnapRAID array sync every other hour and output log to ~/snapraid_log.txt
   ansible.builtin.cron:
-    name: "hourly snapraid array sync"
+    name: "semi-hourly snapraid array sync"
     minute: "{{ snapraid_cron_minute }}"
     hour: "{{ snapraid_cron_hour }}"
     day: "{{ snapraid_cron_day_of_month }}"
     month: "{{ snapraid_cron_month }}"
     weekday: "{{ snapraid_cron_day_of_week }}"
-    job: "snapraid sync >> $HOME/snapraid_hourly.log 2>&1"
+    job: "snapraid sync >> $HOME/snapraid_log.txt 2>&1"
