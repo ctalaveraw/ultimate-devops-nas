@@ -1,0 +1,18 @@
+---
+snapraid_cron_enabled: false
+
+# Defines "minute (0-59)"
+snapraid_cron_minute: "0"
+
+# Defines "hour (0-23)"
+snapraid_cron_hour: "*"
+
+# Defines "day of the month (1-31)"
+snapraid_cron_day_of_month: "*"
+
+# Defines "month (1-12)"
+snapraid_cron_month: "*"
+
+# Defines "day of the week (0-6)"
+snapraid_cron_day_of_week: "*"
+

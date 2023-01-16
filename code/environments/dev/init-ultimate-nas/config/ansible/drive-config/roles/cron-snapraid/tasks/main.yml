@@ -1,0 +1,11 @@
+---
+- name: Schedule SnapRAID array sync every hour
+  ansible.builtin.cron:
+    become: yes
+    name: "daily snapraid array sync"
+    minute: "{{ snapraid_cron_minute }}"
+    hour: "{{ snapraid_cron_hour }}"
+    day: "{{ snapraid_cron_day_of_month }}"
+    month: "{{ snapraid_cron_month }}"
+    weekday: "{{ snapraid_cron_day_of_week }}"
+    job: "snapraid sync"

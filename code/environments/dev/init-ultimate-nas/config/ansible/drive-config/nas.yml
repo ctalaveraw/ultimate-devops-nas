@@ -25,3 +25,14 @@
       tags:
         - snapraid
       when: (snapraid_enabled | default(False))
+
+    ###
+    ### snapRAID cron scheduling
+    ###
+    - role: cron-snapraid
+      tags:
+        - cron
+        - cron-snapraid
+        - snapraid-cron
+        - snapraid-scheduling
+      when: (snapraid_cron_enabled | default(False))
