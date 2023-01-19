@@ -7,4 +7,4 @@
     day: "{{ snapraid_cron_day_of_month }}"
     month: "{{ snapraid_cron_month }}"
     weekday: "{{ snapraid_cron_day_of_week }}"
-    job: "snapraid sync >> $HOME/snapraid_log.txt 2>&1"
+    job: "snapraid sync >> $HOME/snapraid_log.txt"
