@@ -29,10 +29,20 @@
     ###
     ### snapRAID cron scheduling
     ###
-    - role: cron-snapraid
+    - role: snapraid-cron-sync
       tags:
-        - cron
-        - cron-snapraid
         - snapraid-cron
-        - snapraid-scheduling
-      when: (snapraid_cron_enabled | default(False))
+        - snapraid-cron-sync
+        - cron-snapraid
+        - cron-snapraid-sync
+        - snapraid-sync-scheduling
+      when: (snapraid_cron_sync_enabled | default(False))
+
+    - role: snapraid-cron-scrub
+      tags:
+        - snapraid-cron
+        - snapraid-cron-scrub
+        - cron-snapraid
+        - cron-snapraid-scrub
+        - snapraid-scrub-scheduling
+      when: (snapraid_cron_scrub_enabled | default(False))

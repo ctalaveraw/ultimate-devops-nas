@@ -1,0 +1,13 @@
+---
+- name: Schedule SnapRAID array weekly scrub every Friday at 5:00AM, log output in home directory
+## Each scrub is 8% of data to prevent disk wear; it will only scrub data older than 3 months
+## Using this schedule will allow for 100% of the data to be scrubbed every 90 days, in weekly 8% intervals
+  ansible.builtin.cron:
+    name: "Weekly snapraid array scrub"
+    minute: "{{ snapraid_cron_scrub_minute }}"
+    hour: "{{ snapraid_cron_scrub_hour }}"
+    day: "{{ snapraid_cron_scrub_day_of_month }}"
+    month: "{{ snapraid_cron_scrub_month }}"
+    weekday: "{{ snapraid_cron_scrub_day_of_week }}"
+    job: "snapraid -p 8 -90 scrub --log $HOME/snapraid_scrub_weekly.log"
+
