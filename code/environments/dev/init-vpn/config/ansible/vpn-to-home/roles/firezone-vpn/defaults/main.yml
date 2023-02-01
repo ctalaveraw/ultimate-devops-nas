@@ -10,10 +10,10 @@ firezone_vpn_hostname: "firezone"
 firezone_vpn_memory: 2g
 
 # docker
-firezone_vpn_container_name: "firezone"
+firezone_vpn_container_name: "{{ firezone_vpn_hostname }}"
 
 # env variables
-firezone_vpn_database_name: "{{ firezone_vpn_container_name }}"
+firezone_vpn_database_name: "{{ firezone_vpn_hostname }}"
 firezone_vpn_database: "postgres"
 firezone_vpn_install_directory: "."
 firezone_vpn_container_tls: ""
