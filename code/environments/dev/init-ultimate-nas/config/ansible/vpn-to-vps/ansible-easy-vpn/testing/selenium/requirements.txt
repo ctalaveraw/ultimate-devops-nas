@@ -1,3 +1,0 @@
-pexpect
-selenium
-pyotp

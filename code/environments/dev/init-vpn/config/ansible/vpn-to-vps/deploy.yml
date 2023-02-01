@@ -1,0 +1,47 @@
+---
+- hosts: all
+
+  roles:
+    ###
+    ### Requirements
+    ###
+
+    - role: geerlingguy.docker
+      tags:
+        - docker
+        - skip_ansible_lint
+
+    ###
+    ### Required Roles
+    ###
+
+    - role: create-admin-user
+      tags:
+        - create-user
+        - create-admin-user
+        - create-admin
+
+    - role: docker-install
+      tags:
+        - docker
+        - docker-install
+
+    ###
+    ### Applications
+    ###
+    - role: traefik
+      tags:
+        - traefik
+      when: (traefik_enabled | default(False))
+
+    - role: cloudflare_ddns
+      tags:
+        - cloudflare_ddns
+      when: (cloudflare_ddns_enabled | default(False))
+
+    - role: firezone-vpn
+      tags:
+        - firezone
+        - firezone-vpn
+        - vpn
+      when: (firezone_vpn_enabled | default(False))

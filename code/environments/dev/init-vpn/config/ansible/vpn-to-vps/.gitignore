@@ -1,0 +1,8 @@
+tests/test.yml
+site
+*.retry
+*.log
+inventories
+.cache
+roles/geerlingguy.docker
+
