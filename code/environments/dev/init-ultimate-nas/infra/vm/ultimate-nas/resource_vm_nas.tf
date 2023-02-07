@@ -15,7 +15,8 @@ resource "proxmox_vm_qemu" "nas-host" {
 
   ## VM OS Settings
   clone = var.proxmox_vm_template_name
-  boot = "order=virtio0" # by default, VM disk is type "virtio", named "virtio0"
+  boot  = "order=virtio0" # by default, VM disk is type "virtio", named "virtio0"
+  bios  = "seabios"       # use 'omvf" for PCI-e passthrough
 
   ## VM System Settings
   agent = 1 # Set to "1" to enable QEMU Guest Agent
@@ -40,7 +41,8 @@ resource "proxmox_vm_qemu" "nas-host" {
   ## VM Disk Settings
 
   # OS Disk
-  disk { # This block must mirror the storage used in VM template
+  disk {        # This block must mirror the storage used in VM template
+    ssd     = "0" # set to "1" if disk is SSD
     type    = "virtio"
     size    = "50G"
     storage = var.proxmox_vm_disk_storage_pool
