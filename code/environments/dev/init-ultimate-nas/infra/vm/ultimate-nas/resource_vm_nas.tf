@@ -15,6 +15,7 @@ resource "proxmox_vm_qemu" "nas-host" {
 
   ## VM OS Settings
   clone = var.proxmox_vm_template_name
+  boot = "order=virtio0" # by default, VM disk is type "virtio", named "virtio0"
 
   ## VM System Settings
   agent = 1 # Set to "1" to enable QEMU Guest Agent
