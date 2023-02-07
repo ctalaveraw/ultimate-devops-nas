@@ -42,11 +42,11 @@ resource "proxmox_vm_qemu" "nas-host" {
 
   # OS Disk
   disk {        # This block must mirror the storage used in VM template
-    ssd     = "0" # set to "1" if disk is SSD
     type    = "virtio"
-    size    = "50G"
+    size    = "75G"
     storage = var.proxmox_vm_disk_storage_pool
     format  = "raw"
+    cache = "writeback" # improves performance for media handling
   }
 
   ## VM Cloud-Init Settings
