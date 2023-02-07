@@ -23,7 +23,7 @@ resource "proxmox_vm_qemu" "nas-host" {
   onboot = true
 
   ## VM Memory Settings
-  memory = 28672
+  memory = 16384
 
   ## VM CPU Settings
   cores   = 6
