@@ -33,6 +33,14 @@
         - ansible-nas-general
         - ansible-nas
 
+    - role: ansible-nas-swap
+      tags:
+        - ansible-nas-swap
+        - nas-swap
+        - swap-config
+        - swap
+      when: (swap_enabled | default(False))
+
     - role: ansible-nas-docker
       tags:
         - ansible-nas-docker

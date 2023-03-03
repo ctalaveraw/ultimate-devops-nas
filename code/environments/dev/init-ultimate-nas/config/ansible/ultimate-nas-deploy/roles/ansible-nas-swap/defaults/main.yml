@@ -1,0 +1,17 @@
+---
+
+## Swap configuration
+
+swap_enabled: false
+
+# Define this as true to rebuild the swap configuration 
+swap_configure: false
+
+# Define path of swap file
+swap_file_path: /swapfile
+
+# Define swap size
+swap_file_size_mb: 4096
+
+# Define swappiness
+swappiness: 1
