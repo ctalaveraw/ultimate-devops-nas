@@ -43,7 +43,7 @@ resource "proxmox_vm_qemu" "nas-host" {
   # OS Disk
   disk {        # This block must mirror the storage used in VM template
     type    = "virtio"
-    size    = "75G"
+    size    = "100G"
     storage = var.proxmox_vm_disk_storage_pool
     format  = "raw"
     cache = "writeback" # improves performance for media handling
