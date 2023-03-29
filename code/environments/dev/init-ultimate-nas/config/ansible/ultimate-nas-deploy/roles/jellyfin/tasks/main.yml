@@ -19,8 +19,7 @@
       - "{{ jellyfin_tv_directory }}:/tv:{{ jellyfin_tv_permissions }}"
       - "{{ jellyfin_books_directory }}:/books:{{ jellyfin_books_permissions }}"
       - "{{ jellyfin_audiobooks_directory }}:/audiobooks:{{ jellyfin_audiobooks_permissions }}"
-    devices: # Uncomment to enable Intel QuickSync transcoding passthrough to container
-      - /dev/dri:/dev/dri
+    devices: "{{ jellyfin_devices | default(omit) }}"
     ports:
       - "{{ jellyfin_port_http }}:8096"
       - "{{ jellyfin_port_https }}:8920"
