@@ -93,6 +93,11 @@
       tags:
         - deluge
 
+    - role: dizquetv
+      tags:
+        - dizque
+        - dizquetv
+
     - role: dokuwiki
       tags:
         - dokuwiki

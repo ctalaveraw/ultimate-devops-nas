@@ -1,0 +1,29 @@
+---
+- name: Create dizquetv Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ dizquetv_data_directory }}"
+
+- name: Start dizqueTV container (Plex channel creator)
+  docker_container:
+    name: dizquetv
+    # image: vexorian/dizquetv:latest
+    image: vexorian/dizquetv:edge # uncomment to use cutting edge image
+    pull: true
+    volumes:
+      - "{{ dizquetv_data_directory }}:/home/node/app/.dizquetv"
+    ports:
+      - "{{ dizquetv_port }}:{{ dizquetv_port }}"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+    restart_policy: unless-stopped
+    memory: "{{ dizquetv_memory }}"
+    labels:
+      traefik.enable: "{{ dizquetv_available_externally | string }}"
+      traefik.http.routers.dizquetv.rule: "Host(`{{ dizquetv_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.dizquetv.tls.certresolver: "letsencrypt"
+      traefik.http.routers.dizquetv.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.dizquetv.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.dizquetv.loadbalancer.server.port: "{{ dizquetv_port }}"

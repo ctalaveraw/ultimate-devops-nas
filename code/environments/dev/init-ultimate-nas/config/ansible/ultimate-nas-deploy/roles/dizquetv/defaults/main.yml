@@ -1,0 +1,13 @@
+---
+dizquetv_enabled: false
+dizquetv_available_externally: false
+
+# directories
+dizquetv_data_directory: "{{ docker_home }}/dizquetv/config"
+
+# network
+dizquetv_port: "8000"
+dizquetv_hostname: "dizquetv"
+
+# specs
+dizquetv_memory: 1g
