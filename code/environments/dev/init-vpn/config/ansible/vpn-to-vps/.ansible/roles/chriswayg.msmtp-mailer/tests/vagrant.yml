@@ -1,0 +1,9 @@
+---
+- hosts: all
+  remote_user: vagrant
+  become: true
+
+  roles:
+    - role: ../../
+      msmtp_send_test_mail: yes
+      msmtp_remove_mtas: yes

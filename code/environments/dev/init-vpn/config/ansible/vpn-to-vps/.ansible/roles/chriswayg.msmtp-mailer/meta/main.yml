@@ -1,0 +1,26 @@
+galaxy_info:
+  author: Adham Helal, Christian Wagner
+  description: "Deploy msmtp mailer on Debian and Ubuntu"
+  min_ansible_version: 2.4
+  license: Apache
+  platforms:
+  - name: Debian
+    versions:
+    - jessie
+    - stretch
+    - buster
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+    - bionic
+  - name: ArchLinux
+    versions:
+    - any
+  - name: Alpine
+    versions:
+    - any
+  tags:
+  - mail
+  - system
+  - networking

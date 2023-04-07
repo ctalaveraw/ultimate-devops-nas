@@ -1,0 +1,8 @@
+---
+# tests run by travis
+- hosts: all
+
+  roles:
+    - role: role_under_test
+      # test mail works in a local docker container, but not on travis
+      msmtp_send_test_mail: no

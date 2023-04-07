@@ -1,0 +1,64 @@
+---
+- name: Switch between encrypted and unencrypted DNS depending on the user choice
+  ansible.builtin.set_fact:
+    wg_dns: >-
+      {%- if enable_adguard_unbound_doh -%}
+        {%- set wg_dns = "10.8.2.2" -%}
+      {%- else -%}
+        {%- if "cloudflare" in dns_nameservers -%}
+          {%- set wg_dns = "1.1.1.1,1.0.0.1" -%}
+        {%- elif "quad9" in dns_nameservers -%}
+          {%- set wg_dns = "9.9.9.9,149.112.112.112" -%}
+        {%- else -%}
+          {%- set wg_dns = "8.8.8.8,8.8.4.4" -%}
+        {%- endif -%}
+      {%- endif -%}
+      {{- wg_dns -}}
+
+- name: Load the iptable_nat module (CentOS)
+  when: 'ansible_os_family == "RedHat"'
+  community.general.modprobe:
+    name: iptable_nat
+    persistent: present
+
+- name: Make sure the Wireguard container is created and running
+  register: wireguard_result
+  retries: 5
+  until: wireguard_result is succeeded
+  community.general.docker_container:
+    name: "wg-easy"
+    image: "weejewel/wg-easy:{{ wg_easy_version }}"
+    pull: yes
+    networks:
+      - name: wg_network
+        ipv4_address: 10.8.2.8
+    sysctls:
+      "net.ipv4.conf.all.src_valid_mark": "1"
+      "net.ipv4.ip_forward": "1"
+    capabilities:
+      - net_admin
+      - sys_module
+    state: "started"
+    env:
+      "WG_HOST": "{{ wireguard_host }}"
+      "WG_DEFAULT_DNS": "{{ wg_dns }}"
+      "WG_PORT": "{{ wireguard_port }}"
+      "WG_PERSISTENT_KEEPALIVE": "25"
+    ports:
+      - "{{ wireguard_port }}:51820/udp"
+    volumes:
+      - "{{ docker_dir }}/wg-easy:/etc/wireguard"
+    restart_policy: unless-stopped
+    labels:
+      traefik.enable: "{{ wireguard_available_externally | string }}" #fix
+      traefik.http.routers.wireguard.rule: "Host(`{{ wireguard_hostname }}.{{ vps_vpn_domain }}`)"
+      traefik.http.routers.wireguard.tls.certresolver: "letsencrypt"
+      traefik.http.routers.wireguard.tls.domains[0].main: "{{ vps_vpn_domain }}"
+      traefik.http.routers.wireguard.tls.domains[0].sans: "*.{{ vps_vpn_domain }}"
+      traefik.http.services.wireguard.loadbalancer.server.port: "8989"
+      traefik.udp.routers.wireguard.rule: "Host(`{{ wireguard_hostname }}.{{ vps_vpn_domain }}`)"
+      traefik.udp.routers.wireguard.tls.certresolver: "letsencrypt"
+      traefik.udp.routers.wireguard.tls.domains[0].main: "{{ vps_vpn_domain }}"
+      traefik.udp.routers.wireguard.tls.domains[0].sans: "*.{{ vps_vpn_domain }}"
+      traefik.udp.services.wireguard.loadbalancer.server.port: "{{ wireguard_udp_port }}"
+

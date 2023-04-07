@@ -1,0 +1,53 @@
+# {{ ansible_managed }}
+
+# Default settings that all others accounts inherit
+defaults
+auth   on
+tls    on
+{% if msmtp_tls_starttls is defined %}
+tls_starttls {{msmtp_tls_starttls}}
+{% else %}
+tls_starttls   on
+{% endif %}
+{% if msmtp_tls_trust_file is defined %}
+tls_trust_file {{msmtp_tls_trust_file}}
+{% else %}
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+{% endif %}
+
+# Logging
+{% if msmtp_log is defined %}
+{% if msmtp_log == "syslog" %}
+syslog {{ msmtp_syslog_facility }}
+{% elif msmtp_log == "file" and msmtp_logfile is defined %}
+logfile  {{msmtp_logfile}}
+{% endif %}
+{% endif %}
+
+# default is localhost. Use domain part of your email address or FQDN of host.
+domain {{msmtp_domain}}
+# default is off. When on, an envelope-from address of the form user@domain will be generated.
+auto_from off
+# The default is to remove BCC headers.
+# remove_bcc_headers  on|off
+
+{% if msmtp_accounts is defined %}
+{% for msmtp_account in msmtp_accounts %}
+#
+account  {{msmtp_account.account}}
+host     {{msmtp_account.host}}
+port     {{msmtp_account.port}}
+auth     {{msmtp_account.auth}}
+from     {{msmtp_account.from}}
+user     {{msmtp_account.user}}
+password {{msmtp_account.password}}
+{% if msmtp_account.tls_starttls is defined %}
+tls_starttls {{msmtp_account.tls_starttls}}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+# Default account to use
+account default : {{msmtp_default_account}}
+
+aliases /etc/aliases

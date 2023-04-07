@@ -1,0 +1,20 @@
+---
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- hosts: localhost
+  connection: local
+  vars:
+    docker_skip_cleanup: true
+
+  tasks:
+    - name: Remove docker packages
+      action: "{{ ansible_facts.pkg_mgr }}"
+      args:
+        name:
+          - docker
+          - docker-ce
+          - docker-ce-cli
+        state: absent
+      when: not docker_skip_cleanup

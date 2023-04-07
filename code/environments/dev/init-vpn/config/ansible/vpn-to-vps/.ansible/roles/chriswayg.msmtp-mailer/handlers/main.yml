@@ -1,0 +1,8 @@
+---
+# sending test mail using 'mail' command to root and test recipient
+- name: test mail
+  shell: echo "Test mail from new/updated mSTMP\n\n $(uname -a)" | mail -s "Test mSMTP at $(hostname -f)" root "{{ msmtp_test_mail_recipient }}"
+  tags: mail
+  when: msmtp_send_test_mail
+  async: 30
+  poll: 5

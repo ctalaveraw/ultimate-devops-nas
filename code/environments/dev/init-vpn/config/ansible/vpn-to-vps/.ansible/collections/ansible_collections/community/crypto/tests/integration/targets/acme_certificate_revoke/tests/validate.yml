@@ -1,0 +1,20 @@
+---
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- name: Check that certificate 1 was revoked
+  assert:
+    that:
+      - cert_1_revoke is changed
+      - cert_1_revoke is not failed
+- name: Check that certificate 2 was revoked
+  assert:
+    that:
+      - cert_2_revoke is changed
+      - cert_2_revoke is not failed
+- name: Check that certificate 3 was revoked
+  assert:
+    that:
+      - cert_3_revoke is changed
+      - cert_3_revoke is not failed

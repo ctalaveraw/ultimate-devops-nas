@@ -1,0 +1,25 @@
+---
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+####################################################################
+# WARNING: These are designed specifically for Ansible tests       #
+# and should not be used as examples of how to write Ansible roles #
+####################################################################
+
+- name: Generate CSR for {{ certificate.name }}
+  openssl_csr:
+    path: '{{ remote_tmp_dir }}/{{ certificate.name }}.csr'
+    privatekey_path: '{{ remote_tmp_dir }}/{{ certificate.name }}.key'
+    subject: '{{ certificate.subject }}'
+    useCommonNameForSAN: false
+
+- name: Generate certificate for {{ certificate.name }}
+  x509_certificate:
+    path: '{{ remote_tmp_dir }}/{{ certificate.name }}.pem'
+    csr_path: '{{ remote_tmp_dir }}/{{ certificate.name }}.csr'
+    privatekey_path: '{{ remote_tmp_dir }}/{{ certificate.name }}.key'
+    provider: '{{ "selfsigned" if certificate.parent is not defined else "ownca" }}'
+    ownca_path: '{{ (remote_tmp_dir ~ "/" ~ certificate.parent ~ ".pem") if certificate.parent is defined else omit }}'
+    ownca_privatekey_path: '{{ (remote_tmp_dir ~ "/" ~ certificate.parent ~ ".key") if certificate.parent is defined else omit }}'

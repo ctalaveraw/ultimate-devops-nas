@@ -1,0 +1,22 @@
+---
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- name: Create private key
+  community.crypto.openssl_privatekey:
+    path: "{{ output_path }}/cert.key"
+    type: ECC
+    curve: secp256r1
+
+- name: Create CSR
+  community.crypto.openssl_csr:
+    path: "{{ output_path }}/cert.csr"
+    privatekey_path: "{{ output_path }}/cert.key"
+
+- name: Create certificate
+  community.crypto.x509_certificate:
+    path: "{{ output_path }}/cert.pem"
+    csr_path: "{{ output_path }}/cert.csr"
+    privatekey_path: "{{ output_path }}/cert.key"
+    provider: selfsigned

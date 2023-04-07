@@ -1,0 +1,92 @@
+---
+# Deploy msmtp
+
+# TODO:
+# Fix: Check if mailserver is ready, as Test mail will only work,
+# if msmtp is setup after the mailserver is already configured
+
+- name: Update apt cache.
+  apt:
+    update_cache: yes
+    upgrade: "no"
+    cache_valid_time: 14400 # 4 hours
+  tags: mail
+  when: ansible_os_family == "Debian"
+
+- name: Remove other MTAs.
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    autoremove: yes
+    purge: yes
+  vars:
+    packages:
+    - exim4*
+    - postfix*
+    - sendmail*
+  tags:
+    - mail
+  when:
+    - msmtp_remove_mtas
+    - ansible_os_family == "Debian"
+
+- name: Install msmtp and mailx on Debian.
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - msmtp-mta
+    - bsd-mailx
+  tags: mail
+  notify: test mail
+  when: ansible_os_family == "Debian"
+
+- name: Install msmtp and s-nail on Archlinux.
+  pacman:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - msmtp
+    - msmtp-mta
+    - s-nail
+  when: ansible_os_family == "Archlinux"
+
+- name: Install msmtp and mailx on Alpine.
+  apk:
+    name: "{{ packages }}"
+    state: present
+    update_cache: no
+  vars:
+    packages:
+    - msmtp
+    - mailx
+  when: ansible_os_family == "Alpine"
+
+- name: Overwrite busybox sendmail link to point to mSMTP.
+  file:
+    src: /usr/bin/msmtp
+    dest: /usr/sbin/sendmail
+    state: link
+  when: ansible_os_family == "Alpine"
+
+- name: Copy mstprc conf file.
+  template:
+     src: msmtprc.j2
+     dest: /etc/msmtprc
+     owner: "{{ msmtprc_owner }}"
+     group: "{{ msmtprc_group }}"
+     mode: "{{ msmtprc_mode }}"
+  tags: mail
+  notify: test mail
+
+- name: Copy aliases conf file.
+  template:
+    src: aliases.j2
+    dest: /etc/aliases
+    owner: root
+    group: root
+    mode: 0644
+  tags: mail
+  notify: test mail
