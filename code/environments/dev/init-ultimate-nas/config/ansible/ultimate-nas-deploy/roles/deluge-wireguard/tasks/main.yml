@@ -1,0 +1,68 @@
+---
+- name: Start Deluge
+  block:
+    - name: Create Deluge Directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ deluge_wireguard_config_directory }}"
+        - "{{ deluge_wireguard_data_directory }}"
+        - "{{ deluge_wireguard_download_directory }}"
+        - "{{ deluge_wireguard_watch_directory }}"
+
+    - name: Deluge w/ WireGuard Docker Container running Arch Linux
+      docker_container:
+        name: "{{ deluge_wireguard_container_name }}"
+        image: binhex/arch-delugevpn
+        pull: true
+        volumes:
+          - "/etc/localtime:/etc/localtime:ro "
+          - "{{ deluge_wireguard_config_directory }}:/config:rw"
+          - "{{ deluge_wireguard_data_directory }}:/data:rw"
+          - "{{ deluge_wireguard_download_directory }}:/downloads:rw"
+          - "{{ deluge_wireguard_watch_directory }}:/watch:rw"
+        ports:
+          - "{{ deluge_wireguard_port_torrent_connection }}:{{ deluge_wireguard_port_torrent_connection }}"
+          - "{{ deluge_wireguard_port_torrent_client }}:{{ deluge_wireguard_port_torrent_client }}"
+          - "{{ deluge_wireguard_port_privoxy }}:{{ deluge_wireguard_port_privoxy }}"
+          - "{{ deluge_wireguard_port_vpn }}:{{ deluge_wireguard_port_vpn }}"
+        env:
+          TZ: "{{ deluge_wireguard_timezone }}"
+          PUID: "{{ deluge_wireguard_user_id }}"
+          PGID: "{{ deluge_wireguard_group_id }}"
+          DELUGE_wireguard_DAEMON_LOG_LEVEL: "{{ deluge_wireguard_log_level_daemon }}"
+          DELUGE_wireguard_WEB_LOG_LEVEL: "{{ deluge_wireguard_log_level_web }}" 
+          DEBUG: "{{ deluge_wireguard_debugging }}"
+          LAN_NETWORK: "{{ deluge_wireguard_lan_network }}"
+          NAME_SERVERS: "{{ deluge_wireguard_dns_servers }}"
+          ENABLE_PRIVOXY: "{{ deluge_wireguard_privoxy_enabled }}"
+          STRICT_PORT_FORWARD: "{{ deluge_wireguard_port_forwarding_enabled }}"
+          VPN_ENABLED: "yes"
+          VPN_CLIENT: "wireguard"
+          VPN_PROV: "custom"
+          VPN_USER: "{{ deluge_wireguard_vpn_username }}"
+          VPN_PASS: "{{ deluge_wireguard_vpn_password }}"
+          DELUGE_ENABLE_WEBUI_PASSWORD: "{{ deluge_wireguard_gui_password_enabled }}"
+          # UMASK: "755" ## Optional, use if having issues with file permissions
+          # VPN_OUTPUT_PORTS: "" ## Optional
+          # VPN_INPUT_PORTS: "" ## Optional
+          # VPN_OPTIONS: "" ## use for OpenVPN clients
+        restart_policy: unless-stopped
+        memory: "{{ deluge_wireguard_memory }}"
+        labels:
+          traefik.enable: "{{ deluge_wireguard_available_externally | string }}"
+          traefik.http.routers.deluge-wireguard.rule: "Host(`{{ deluge_wireguard_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.deluge-wireguard.tls.certresolver: "letsencrypt"
+          traefik.http.routers.deluge-wireguard.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.deluge-wireguard.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.deluge-wireguard.loadbalancer.server.port: "{{ deluge_wireguard_port_torrent_client }}"
+  when: deluge_wireguard_enabled is true
+
+- name: Stop Deluge
+  block:
+    - name: Stop Deluge
+      docker_container:
+        name: "{{ deluge_wireguard_container_name }}"
+        state: absent
+  when: deluge_wireguard_enabled is false

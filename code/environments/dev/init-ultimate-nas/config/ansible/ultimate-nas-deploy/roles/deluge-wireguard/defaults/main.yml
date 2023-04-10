@@ -1,0 +1,45 @@
+---
+deluge_wireguard_enabled: false
+deluge_wireguard_available_externally: false
+deluge_wireguard_timezone: "{{ ansible_nas_timezone }}"
+
+deluge_wireguard_gui_password_enabled: "yes"
+deluge_wireguard_privoxy_enabled: "yes"
+deluge_wireguard_port_forwarding_enabled: "no"
+
+
+# Credentials
+deluge_wireguard_vpn_username: ""
+deluge_wireguard_vpn_password: ""
+
+# networking
+deluge_wireguard_lan_network: "192.168.1.0/24"
+deluge_wireguard_dns_servers: "1.1.1.1, 8.8.8.8"
+
+# directories
+deluge_wireguard_config_directory: "{{ docker_home }}/{{ deluge_wireguard_hostname }}/config"
+deluge_wireguard_data_directory: "{{ docker_home }}/{{ deluge_wireguard_hostname }}/data"
+deluge_wireguard_download_directory: "{{ downloads_root }}"
+deluge_wireguard_watch_directory: "{{ torrents_root }}"
+
+# uid / gid
+deluge_wireguard_user_id: "0"
+deluge_wireguard_group_id: "0"
+
+# error logging
+deluge_wireguard_debugging: "false"
+deluge_wireguard_log_level_daemon: "error"
+deluge_wireguard_log_level_web: "error"
+
+
+# network ports
+deluge_wireguard_port_torrent_connection: "58946"
+deluge_wireguard_port_torrent_client: "8112"
+deluge_wireguard_port_privoxy: "8118"
+deluge_wireguard_port_vpn: "58846"
+
+# specs
+deluge_wireguard_memory: 1g
+
+deluge_wireguard_hostname: "deluge-wireguard"
+deluge_wireguard_container_name: "{{ deluge_wireguard_hostname }}"
