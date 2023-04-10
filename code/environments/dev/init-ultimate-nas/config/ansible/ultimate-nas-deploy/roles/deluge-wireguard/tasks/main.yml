@@ -1,7 +1,7 @@
 ---
-- name: Start Deluge
+- name: Start Deluge w/ WireGuard
   block:
-    - name: Create Deluge Directories
+    - name: Create Deluge w/ WireGuard Directories
       file:
         path: "{{ item }}"
         state: directory
@@ -59,9 +59,9 @@
           traefik.http.services.deluge-wireguard.loadbalancer.server.port: "{{ deluge_wireguard_port_torrent_client }}"
   when: deluge_wireguard_enabled is true
 
-- name: Stop Deluge
+- name: Stop Deluge w/ WireGuard
   block:
-    - name: Stop Deluge
+    - name: Stop Deluge w/ Wireguard
       docker_container:
         name: "{{ deluge_wireguard_container_name }}"
         state: absent
