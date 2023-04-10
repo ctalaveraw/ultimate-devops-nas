@@ -7,14 +7,13 @@ deluge_wireguard_gui_password_enabled: "yes"
 deluge_wireguard_privoxy_enabled: "yes"
 deluge_wireguard_port_forwarding_enabled: "no"
 
-
 # Credentials
 deluge_wireguard_vpn_username: ""
 deluge_wireguard_vpn_password: ""
 
 # networking
 deluge_wireguard_lan_network: "192.168.1.0/24"
-deluge_wireguard_dns_servers: "1.1.1.1, 8.8.8.8"
+deluge_wireguard_dns_servers: "1.1.1.1,8.8.8.8"
 
 # directories
 deluge_wireguard_config_directory: "{{ docker_home }}/{{ deluge_wireguard_hostname }}/config"

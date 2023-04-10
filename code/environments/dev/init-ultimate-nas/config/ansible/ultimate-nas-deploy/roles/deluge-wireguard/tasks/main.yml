@@ -7,6 +7,7 @@
         state: directory
       with_items:
         - "{{ deluge_wireguard_config_directory }}"
+        - "{{ deluge_wireguard_config_directory }}/wireguard"
         - "{{ deluge_wireguard_data_directory }}"
         - "{{ deluge_wireguard_download_directory }}"
         - "{{ deluge_wireguard_watch_directory }}"
@@ -16,9 +17,12 @@
         name: "{{ deluge_wireguard_container_name }}"
         image: binhex/arch-delugevpn
         pull: true
+        sysctls:
+          - "net.ipv4.conf.all.src_valid_mark=1"
         volumes:
           - "/etc/localtime:/etc/localtime:ro "
           - "{{ deluge_wireguard_config_directory }}:/config:rw"
+          - "{{ deluge_wireguard_config_directory }}/wireguard:/config/wireguard:rw"
           - "{{ deluge_wireguard_data_directory }}:/data:rw"
           - "{{ deluge_wireguard_download_directory }}:/downloads:rw"
           - "{{ deluge_wireguard_watch_directory }}:/watch:rw"
@@ -58,6 +62,12 @@
           traefik.http.routers.deluge-wireguard.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.deluge-wireguard.loadbalancer.server.port: "{{ deluge_wireguard_port_torrent_client }}"
   when: deluge_wireguard_enabled is true
+
+- name: Copy wireguard.conf into Docker container
+  copy:
+    src: "wireguard.conf"
+    dest: "{{ deluge_wireguard_config_directory }}/wireguard/wireguard.conf"
+    remote_src: yes
 
 - name: Stop Deluge w/ WireGuard
   block:

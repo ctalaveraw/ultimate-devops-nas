@@ -93,6 +93,11 @@
       tags:
         - deluge
 
+    - role: deluge-wireguard
+      tags:
+        - deluge-wireguard
+      when: (deluge_wireguard_enabled | default(False))
+
     - role: dizquetv
       tags:
         - dizque
