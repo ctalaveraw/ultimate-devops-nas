@@ -1,0 +1,9 @@
+---
+wireguard_enabled: false
+wireguard_available_externally: false
+
+wg_easy_version: "7"
+
+# network
+wireguard_udp_port: "51820"
+wireguard_hostname: "wg-easy"

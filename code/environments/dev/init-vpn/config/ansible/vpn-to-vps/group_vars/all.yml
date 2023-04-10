@@ -25,15 +25,25 @@ admin_username: administrator
 user_password: ""
 
 # Your email and domain, used for Let's Encrypt SSL certs
-vps_vpn_email: me@example.com
+vps_vpn_email: "ctalaveraw@gmail.com"
 
 # Applications will have subdomain SSL certificates created if Traefik is enabled, e.g. ansible-nas.<your-domain>, nextcloud.<your-domain>
-vps_vpn_domain: example.com
+vps_vpn_domain: vpsvpn.osomatsu.boo
 
 # What version of python ansible should use on target system (path to spesific binary)
 ansible_python_interpreter: /usr/bin/python3
 
 docker_home: "{{ docker_dir }}"
+
+## Secrets defined here
+
+jwt_secret: "{{ authelia_jwt_token }}"
+session_secret: "{{ authelia_session_token }}"
+storage_encryption_key: "{{ authelia_storage_token }}"
+
+authelia_jwt_token: ""
+authelia_session_token: ""
+authelia_storage_token: ""
 
 ###
 ### Cloudflare
@@ -72,11 +82,30 @@ cloudflare_memory: 512MB
 cloudflare_container_name: cloudflare-ddns
 
 ###
+### Traefik Reverse Proxy Config
+###
+
+traefik_enabled: false
+
+# find the relevant name and environment variables for your DNS provider at https://go-acme.github.io/lego/dns/
+traefik_dns_provider: "cloudflare"
+traefik_environment_variables:
+  CF_DNS_API_TOKEN: "{{ cloudflare_token }}"
+  CF_ZONE_API_TOKEN: "{{ cloudflare_token }}"
+
+# Ansible-NAS requests a wildcard certificate for your domain, so there should be no reason to have to use the staging
+# letsencrypt acme server. If you do want to flip between staging/production, you might need to stop Traefik and clear
+# the "{{ docker_home }}/traefik" after changing this setting.
+# traefik_acme_server: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
+traefik_acme_server: "https://acme-v02.api.letsencrypt.org/directory" # production
+
+
+###
 ### Default variables
 ###
 
 username: "{{ admin_username }}"
-root_host: example.duckdns.org
+root_host: "{{ vps_vpn_domain }}"
 enable_username_creation: yes
 user_shell: /bin/bash
 enable_passwordless_sudo: yes

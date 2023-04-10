@@ -1,0 +1,10 @@
+---
+- name: Restart authelia
+  community.general.docker_container:
+    name: authelia
+    restart: yes
+
+- name: Restart bunkerweb
+  community.general.docker_container:
+    name: bunkerweb
+    restart: yes
