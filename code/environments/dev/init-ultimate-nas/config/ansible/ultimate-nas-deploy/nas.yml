@@ -428,6 +428,12 @@
         - ubooquity
       when: (ubooquity_enabled | default(False))
 
+    - role: unifi-controller
+      tags:
+        - unifi
+        - unifi_controller
+      when: (unifi_enabled | default(False))
+
     - role: utorrent
       tags:
         - utorrent

@@ -1,0 +1,26 @@
+---
+unifi_enabled: false
+unifi_available_externally: false
+
+# directories
+unifi_data_directory: "{{ docker_home }}/{{ unifi_hostname }}"
+
+# uid / gid
+unifi_user_id: "1000"
+unifi_group_id: "1000"
+
+# network
+unifi_hostname: "unifi-controller"
+
+unifi_port_admin_portal: "8443"
+unifi_port_stun: "3478"
+unifi_port_ap_discovery: "10001"
+unifi_port_device_communication: "8080"
+unifi_port_discover_l2: "1900"
+unifi_port_guest_https: "8843"
+unifi_port_guest_http: "8880"
+unifi_port_throughput_testing: "6789"
+unifi_port_syslog: "5514"
+
+# specs
+unifi_memory: 1g
