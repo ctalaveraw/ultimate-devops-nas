@@ -1,0 +1,72 @@
+---
+- name: Create WireGuard Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    # mode: 0755
+  with_items:
+    - "{{ transmission_wg_config_directory }}"
+
+- name: WireGuard Docker Container
+  docker_container:
+    name: wireguard
+    image: linuxserver/wireguard
+    pull: true
+    sysctls:
+      net.ipv4.conf.all.src_valid_mark: 1
+      net.ipv6.conf.all.disable_ipv6: 0
+    capabilities:
+      - "NET_ADMIN"
+      - "SYS_MODULE"
+    volumes:
+      - "{{ transmission_wg_config_directory }}:/config:rw"
+      - "/lib/modules:/lib/modules"
+    env:
+      PUID: "{{ transmission_wg_user_id }}"
+      PGID: "{{ transmission_wg_group_id }}"
+      TZ: "{{ transmission_timezone }}"
+    restart_policy: unless-stopped
+
+- name: Copy wireguard.conf into Docker container
+  copy:
+    src: "wireguard.conf"
+    dest: "{{ transmission_wg_config_directory }}/wg0.conf"
+
+- name: Create Transmission Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    # mode: 0755
+  with_items:
+    - "{{ transmission_config_directory }}"
+    - "{{ transmission_download_directory }}"
+    - "{{ transmission_watch_directory }}"
+
+- name: Transmission Docker Container
+  docker_container:
+    name: transmission
+    image: linuxserver/transmission
+    pull: true
+    volumes:
+      - "{{ transmission_config_directory }}:/config:rw"
+      - "{{ transmission_download_directory }}:/downloads:rw"
+      - "{{ transmission_watch_directory }}:/watch:rw"
+    ports:
+      - "{{ transmission_webui_port }}:{{ transmission_webui_port }}"
+    env:
+      PUID: "{{ transmission_user_id }}"
+      PGID: "{{ transmission_group_id }}"
+      TZ: "{{ transmission_timezone }}"
+      USER: "{{ transmission_client_username }}"
+      PASS: "{{ transmission_client_password }}"
+      PEERPORT: "{{ transmission_peer_port }}"
+      TRANSMISSION_WEB_HOME: "/transmissionic"
+    restart_policy: unless-stopped
+    labels:
+      traefik.enable: "{{ transmission_wg_available_externally | string }}"
+      traefik.http.routers.transmission-wg.rule: "Host(`{{ transmission_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.transmission-wg.tls.certresolver: "letsencrypt"
+      traefik.http.routers.transmission-wg.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.transmission-wg.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.transmission-wg.loadbalancer.server.port: "{{ transmission_webui_port }}"
+    memory: "{{ transmission_memory }}"

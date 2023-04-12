@@ -423,6 +423,13 @@
         - transmission
       when: (transmission_enabled | default(False))
 
+    - role: transmission-wg
+      tags:
+        - transmission-wg
+        - wg-transmission
+        - transmission-wireguard
+      when: (transmission_wg_enabled | default(False))
+
     - role: transmission-with-openvpn
       tags:
         - transmission_with_openvpn

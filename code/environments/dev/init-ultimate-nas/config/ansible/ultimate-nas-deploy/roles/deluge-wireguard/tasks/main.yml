@@ -18,9 +18,9 @@
         image: binhex/arch-delugevpn
         pull: true
         sysctls:
-          - "net.ipv4.conf.all.src_valid_mark=1"
+          net.ipv4.conf.all.src_valid_mark: 1
+        privileged: true
         volumes:
-          - "/etc/localtime:/etc/localtime:ro "
           - "{{ deluge_wireguard_config_directory }}:/config:rw"
           - "{{ deluge_wireguard_config_directory }}/wireguard:/config/wireguard:rw"
           - "{{ deluge_wireguard_data_directory }}:/data:rw"
@@ -45,10 +45,10 @@
           VPN_ENABLED: "yes"
           VPN_CLIENT: "wireguard"
           VPN_PROV: "custom"
-          VPN_USER: "{{ deluge_wireguard_vpn_username }}"
-          VPN_PASS: "{{ deluge_wireguard_vpn_password }}"
           DELUGE_ENABLE_WEBUI_PASSWORD: "{{ deluge_wireguard_gui_password_enabled }}"
-          # UMASK: "755" ## Optional, use if having issues with file permissions
+          UMASK: "000" ## Optional, use if having issues with file permissions
+          # VPN_USER: "{{ deluge_wireguard_vpn_username }}"
+          # VPN_PASS: "{{ deluge_wireguard_vpn_password }}"
           # VPN_OUTPUT_PORTS: "" ## Optional
           # VPN_INPUT_PORTS: "" ## Optional
           # VPN_OPTIONS: "" ## use for OpenVPN clients
@@ -66,8 +66,7 @@
 - name: Copy wireguard.conf into Docker container
   copy:
     src: "wireguard.conf"
-    dest: "{{ deluge_wireguard_config_directory }}/wireguard/wireguard.conf"
-    remote_src: yes
+    dest: "{{ deluge_wireguard_config_directory }}/wireguard/wg0.conf"
 
 - name: Stop Deluge w/ WireGuard
   block:

@@ -38,7 +38,7 @@ deluge_wireguard_port_privoxy: "8118"
 deluge_wireguard_port_vpn: "58846"
 
 # specs
-deluge_wireguard_memory: 1g
+deluge_wireguard_memory: 2g
 
 deluge_wireguard_hostname: "deluge-wireguard"
 deluge_wireguard_container_name: "{{ deluge_wireguard_hostname }}"
