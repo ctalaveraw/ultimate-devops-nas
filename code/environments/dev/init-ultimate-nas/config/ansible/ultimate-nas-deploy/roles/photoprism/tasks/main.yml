@@ -1,0 +1,119 @@
+---
+- name: Start Photoprism
+  block:
+    - name: Create MariaDB Directory
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ photoprism_db_data_directory }}:"
+
+    - name: MariaDB Docker Container
+      docker_container:
+        name: "{{ photoprism_db_container_name }}"
+        image: "{{ photoprism_db_container_name }}:10.10"
+        pull: true
+        security_opts:
+            - "seccomp=unconfined"
+            - "apparmor=unconfined"
+        restart_policy: unless-stopped
+        ports:
+          - "{{ photoprism_db_port }}:{{ photoprism_db_port }}"
+        volumes:
+          - "{{ photoprism_db_data_directory }}:/var/lib/mysql:rw"
+        command: "mysqld --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120"
+        env:
+          TZ: "{{ photoprism_timezone }}"
+          MARIADB_AUTO_UPGRADE: "1"
+          MARIADB_INITDB_SKIP_TZINFO: "1"
+          MARIADB_DATABASE: "photoprism"
+          MARIADB_USER: "photoprism"
+          MARIADB_PASSWORD: "{{ photoprism_db_password }}"
+          MARIADB_ROOT_PASSWORD: "{{ photoprism_db_root_password }}"
+
+    - name: Photoprism Docker Container
+      docker_container:
+        name: "{{ photoprism_container_name }}"
+        image: "photoprism/{{ photoprism_container_name }}"
+        pull: true
+        user: "{{ photoprism_user_id }}:{{ photoprism_user_id }}"
+        restart_policy: unless-stopped
+        security_opts:
+          - "seccomp=unconfined"
+          - "apparmor=unconfined"
+        ports:
+          - "{{ photoprism_port }}:{{ photoprism_port }}"
+        devices:
+          - "/dev/dri:/dev/dri"                         # Intel QSV
+          # - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
+          # - "/dev/nvidia0:/dev/nvidia0"                 # Nvidia CUDA
+          # - "/dev/nvidiactl:/dev/nvidiactl"
+          # - "/dev/nvidia-modeset:/dev/nvidia-modeset"
+          # - "/dev/nvidia-nvswitchctl:/dev/nvidia-nvswitchctl"
+          # - "/dev/nvidia-uvm:/dev/nvidia-uvm"
+          # - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
+        volumes:
+          - "{{ photoprism_photos_directory }}:/photoprism/originals:rw"
+          - "{{ photoprism_download_directory }}:/photoprism/import:rw"
+          - "{{ photoprism_db_data_directory }}:/photoprism/storage:rw"
+        env:
+          TZ: "{{ photoprism_timezone }}"
+          PHOTOPRISM_UID: "{{ photoprism_user_id }}"
+          PHOTOPRISM_GID: "{{ photoprism_group_id }}"
+          PHOTOPRISM_UMASK: "0000"
+          PHOTOPRISM_ADMIN_USER: "{{ photoprism_admin_username }}"
+          PHOTOPRISM_ADMIN_PASSWORD: "{{ photoprism_admin_username }}"
+          PHOTOPRISM_AUTH_MODE: "password"
+          PHOTOPRISM_SITE_URL: "http://photoprism.me:2342/"
+          PHOTOPRISM_ORIGINALS_LIMIT: "100000"
+          PHOTOPRISM_HTTP_COMPRESSION: "gzip"
+          PHOTOPRISM_LOG_LEVEL: "info"
+          PHOTOPRISM_READONLY: "false"
+          PHOTOPRISM_EXPERIMENTAL: "true"
+          PHOTOPRISM_DISABLE_CHOWN: "false"
+          PHOTOPRISM_DISABLE_WEBDAV: "false"
+          PHOTOPRISM_DISABLE_SETTINGS: "false"
+          PHOTOPRISM_DISABLE_TENSORFLOW: "false"
+          PHOTOPRISM_DISABLE_FACES: "false"
+          PHOTOPRISM_DISABLE_CLASSIFICATION: "false"
+          PHOTOPRISM_DISABLE_RAW: "false"
+          PHOTOPRISM_RAW_PRESETS: "false"
+          PHOTOPRISM_JPEG_QUALITY: "100"
+          PHOTOPRISM_DETECT_NSFW: "true"
+          PHOTOPRISM_UPLOAD_NSFW: "true"
+          PHOTOPRISM_DATABASE_DRIVER: "mysql"
+          PHOTOPRISM_DATABASE_SERVER: "mariadb:3306"
+          PHOTOPRISM_DATABASE_NAME: "photoprism"
+          PHOTOPRISM_DATABASE_USER: "photoprism"
+          PHOTOPRISM_DATABASE_PASSWORD: "{{ photoprism_db_password }}"
+          PHOTOPRISM_SITE_CAPTION: "AI-Powered Self-Hosted Photos Server"
+          PHOTOPRISM_SITE_DESCRIPTION: "PhotoPrism, a self-hosted Photo storage solution"
+          PHOTOPRISM_SITE_AUTHOR: "https://github.com/ctalaveraw"
+          PHOTOPRISM_INIT: "https gpu tensorflow"
+          PHOTOPRISM_FFMPEG_ENCODER: "intel"
+          PHOTOPRISM_FFMPEG_BITRATE: "50"
+        memory: "{{ photoprism_memory }}"
+        labels:
+          traefik.enable: "{{ photoprism_available_externally | string }}"
+          traefik.http.routers.photoprism.rule: "Host(`{{ photoprism_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.photoprism.tls.certresolver: "letsencrypt"
+          traefik.http.routers.photoprism.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.photoprism.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.photoprism.loadbalancer.server.port: "{{ photoprism_port }}"
+  when: photoprism_enabled is true
+
+- name: Stop PhotoPrism
+  block:
+    - name: Stop PhotoPrism
+      docker_container:
+        name: "{{ photoprism_container_name }}"
+        state: absent
+  when: photoprism_enabled is false
+
+- name: Stop MariaDB
+  block:
+    - name: Stop MariaDB
+      docker_container:
+        name: "{{ photoprism_db_container_name }}"
+        state: absent
+  when: photoprism_db_enabled is false
