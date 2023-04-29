@@ -1,0 +1,31 @@
+---
+- name: Create ersatztv Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ ersatztv_data_directory }}"
+
+- name: Start ersatztv container (ersatztv/Plex channel creator)
+  docker_container:
+    name: "{{ ersatztv_hostname }}"
+    # image: "jasongdove/{{ ersatztv_hostname }}:latest-vaapi" # uncomment for VAAPI transcoding
+    image: "jasongdove/{{ ersatztv_hostname }}:latest"
+    pull: true
+    volumes:
+      - "{{ ersatztv_data_directory }}:/root/.local/share/ersatztv"
+      - "{{ ersatztv_movies_directory }}:/movies:ro"
+      - "{{ ersatztv_tv_directory }}:/tv:ro"
+    ports:
+      - "{{ ersatztv_port }}:{{ ersatztv_port }}"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+    restart_policy: unless-stopped
+    memory: "{{ ersatztv_memory }}"
+    labels:
+      traefik.enable: "{{ ersatztv_available_externally | string }}"
+      traefik.http.routers.ersatztv.rule: "Host(`{{ ersatztv_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.ersatztv.tls.certresolver: "letsencrypt"
+      traefik.http.routers.ersatztv.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.ersatztv.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.ersatztv.loadbalancer.server.port: "{{ ersatztv_port }}"

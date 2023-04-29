@@ -1,0 +1,16 @@
+---
+## ErsatzTV
+ersatztv_enabled: false
+ersatztv_available_externally: false
+
+# directories
+ersatztv_data_directory: "{{ docker_home }}/ersatztv/config"
+ersatztv_movies_directory: "{{ movies_root }}"
+ersatztv_tv_directory: "{{ tv_root }}"
+
+# network
+ersatztv_port: "8409"
+ersatztv_hostname: "ersatztv"
+
+# specs
+ersatztv_memory: 1g

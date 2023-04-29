@@ -123,6 +123,11 @@
       tags:
         - emby
 
+    - role: ersatztv
+      tags:
+        - ersatztv
+      when: (ersatztv_enabled | default(False))
+
     - role: esphome
       tags:
         - esphome
