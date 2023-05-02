@@ -36,6 +36,17 @@
         - gitlab
       when: (gitlab_enabled | default(False))
 
+    - role: gitea
+      tags:
+        - gitea
+      when: (gitea_enabled | default(False))
+
+    - role: jenkins-controller
+      tags:
+        - jenkins-controller
+        - jenkins
+      when: (jenkins_controller_enabled | default(False))
+
     - role: traefik
       tags:
         - traefik
