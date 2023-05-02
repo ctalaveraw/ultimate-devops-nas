@@ -33,4 +33,5 @@ jellyfin_port_https: "8928"
 jellyfin_memory: "1g"
 
 # Device mappings for the docker container. E.g. To enable hardware transcoding:
-jellyfin_devices: "- /dev/dri:/dev/dri"
+# jellyfin_devices:
+#  - "/dev/dri:/dev/dri"
