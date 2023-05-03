@@ -1,12 +1,12 @@
 ---
-# Sets the hostname of your Ansible NAS
-ansible_nas_hostname: ansible-nas
+# Sets the hostname of your CI/CD pipeline runner
+pipeline_hostname: pipeline-runner
 
 # Update all apt packages when playbook is run
 keep_packages_updated: false
 
 # Extra packages to install
-ansible_nas_extra_packages:
+pipeline_extra_packages:
   - smartmontools
   - htop
   - zfsutils-linux
@@ -15,6 +15,6 @@ ansible_nas_extra_packages:
   - lm-sensors
   - ctop
 
-# Sets the timezone for your Ansible NAS
+# Sets the timezone for your CI/CD pipeline runner
 # You can find a list here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-ansible_nas_timezone: Etc/UTC
+pipeline_timezone: Etc/UTC

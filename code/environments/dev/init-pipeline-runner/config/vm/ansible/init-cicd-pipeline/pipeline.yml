@@ -5,10 +5,11 @@
     ###
     ### Requirements
     ###
-    - role: ansible-nas-users
+    - role: init-users
       tags:
-        - ansible-nas-users
-        - ansible-nas
+        - init
+        - init-users
+        - users
 
     - role: geerlingguy.docker
       tags:
@@ -16,21 +17,28 @@
         - skip_ansible_lint
 
     ###
-    ### Ansible-NAS Roles
+    ### System setup
     ###
-    - role: ansible-nas-general
+    - role: init-system
       tags:
-        - ansible-nas-general
-        - ansible-nas
+        - init
+        - init-system
+        - system
 
-    - role: ansible-nas-docker
+    - role: init-docker
       tags:
-        - ansible-nas-docker
-        - ansible-nas
+        - init
+        - init-docker
+        - docker
 
     ###
     ### Applications
     ###
+    - role: cloudflare_ddns
+      tags:
+        - cloudflare_ddns
+      when: (cloudflare_ddns_enabled | default(False))
+    
     - role: gitlab
       tags:
         - gitlab
@@ -45,7 +53,7 @@
       tags:
         - jenkins-controller
         - jenkins
-      when: (jenkins_controller_enabled | default(False))
+      when: (jenkins_enabled | default(False))
 
     - role: traefik
       tags:

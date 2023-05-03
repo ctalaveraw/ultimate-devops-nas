@@ -28,7 +28,7 @@
 
 - name: Add user account to Docker group
   user:
-    name: "{{ ansible_nas_user }}"
+    name: "{{ pipeline_user }}"
     groups: docker
     append: yes
 

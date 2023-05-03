@@ -44,7 +44,7 @@
           DB_USER: "gitea"
           DB_PASSWD: "gitea"
           RUN_MODE: "prod"
-          SSH_DOMAIN: "{{ ansible_nas_hostname }}"
+          SSH_DOMAIN: "{{ pipeline_hostname }}"
           SSH_PORT: "{{ gitea_port_ssh }}"
           ROOT_URL: "http://{{ gitea_hostname }}:{{ gitea_port_http }}/"
           USER_UID: "1000"
@@ -53,10 +53,10 @@
         memory: "{{ gitea_memory }}"
         labels:
           traefik.enable: "{{ gitea_available_externally | string }}"
-          traefik.http.routers.gitea.rule: "Host(`{{ gitea_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.gitea.rule: "Host(`{{ gitea_hostname }}.{{ pipeline_domain }}`)"
           traefik.http.routers.gitea.tls.certresolver: "letsencrypt"
-          traefik.http.routers.gitea.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.gitea.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.gitea.tls.domains[0].main: "{{ pipeline_domain }}"
+          traefik.http.routers.gitea.tls.domains[0].sans: "*.{{ pipeline_domain }}"
           traefik.http.services.gitea.loadbalancer.server.port: "3000"
   when: gitea_enabled is true
 

@@ -1,5 +1,5 @@
 ---
-ansible_nas_user: david
+pipeline_user: david
 
 # Where you want Docker to store its container data.
 docker_home: /mnt/Volume2/docker

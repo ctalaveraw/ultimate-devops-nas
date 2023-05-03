@@ -12,9 +12,9 @@
         certResolver = "letsencrypt"
 
         [entryPoints.websecure.http.tls.domains]
-          main = "{{ ansible_nas_domain }}"
+          main = "{{ pipeline_domain }}"
           sans = [
-            "*.{{ ansible_nas_domain }}"
+            "*.{{ pipeline_domain }}"
           ]
 
   [entryPoints.traefik]
@@ -41,7 +41,7 @@
 [certificatesResolvers]
   [certificatesResolvers.letsencrypt]
     [certificatesResolvers.letsencrypt.acme]
-      email = "{{ ansible_nas_email }}"
+      email = "{{ pipeline_email }}"
       storage = "/letsencrypt/acme.json"
       caserver = "{{ traefik_acme_server }}"
 

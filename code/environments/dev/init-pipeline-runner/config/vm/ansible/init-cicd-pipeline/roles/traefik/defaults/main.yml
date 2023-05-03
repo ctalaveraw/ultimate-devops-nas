@@ -2,7 +2,7 @@
 # External Access
 # Traefik will allow access to certain applications externally. To enable this you'll either; a domain name that points to your
 # home static IP address, the cloudflare with the cloudflare_ddns dynamic DNS container enabled, or use a dynamic DNS provider like no-ip.
-# You'll also need to map ports 80 and 443 from your router to your ansible-nas server, then enable the per-app "available_externally"
+# You'll also need to map ports 80 and 443 from your router to your pipeline-runner server, then enable the per-app "available_externally"
 # settings. **DON'T FORGET TO RE-MAP ROUTER GUI FROM DEFAULT PORT OF 443 TO SOMETHING ELSE TO PREVENT COLLISION**
 traefik_enabled: false
 
@@ -24,9 +24,9 @@ traefik_environment_variables:
   CF_DNS_API_TOKEN: "{{ cloudflare_token }"
   ##  OR
   ##  CF_API_KEY: "{{ cloudflare_token_global }}"
-  ##  CF_API_EMAIL: "{{ ansible_nas_email }}"
+  ##  CF_API_EMAIL: "{{ pipeline_email }}"
 
-# Ansible-NAS requests a wildcard certificate for your domain, so there should be no reason to have to use the staging
+# The CI/CD pipeline runner requests a wildcard certificate for your domain, so there should be no reason to have to use the staging
 # letsencrypt acme server. If you do want to flip between staging/production, you might need to stop Traefik and clear
 # the "{{ docker_home }}/traefik" after changing this setting.
 # traefik_acme_server: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging

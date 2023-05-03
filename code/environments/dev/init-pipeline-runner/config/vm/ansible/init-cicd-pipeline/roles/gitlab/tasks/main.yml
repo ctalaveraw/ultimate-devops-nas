@@ -42,16 +42,16 @@
       - "{{ gitlab_port_https }}:443"
       - "{{ gitlab_port_ssh }}:22"
     env:
-      TZ: "{{ ansible_nas_timezone }}"
+      TZ: "{{ pipeline_timezone }}"
       PUID: "{{ gitlab_user_id }}"
       PGID: "{{ gitlab_group_id }}"
     restart_policy: unless-stopped
-    hostname: "{{ gitlab_hostname }}.{{ ansible_nas_domain }}"
+    hostname: "{{ gitlab_hostname }}.{{ pipeline_domain }}"
     memory: "{{ gitlab_memory }}"
     labels:
       traefik.enable: "{{ gitlab_available_externally | string }}"
-      traefik.http.routers.gitlab.rule: "Host(`{{ gitlab_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.gitlab.rule: "Host(`{{ gitlab_hostname }}.{{ pipeline_domain }}`)"
       traefik.http.routers.gitlab.tls.certresolver: "letsencrypt"
-      traefik.http.routers.gitlab.tls.domains[0].main: "{{ ansible_nas_domain }}"
-      traefik.http.routers.gitlab.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.routers.gitlab.tls.domains[0].main: "{{ pipeline_domain }}"
+      traefik.http.routers.gitlab.tls.domains[0].sans: "*.{{ pipeline_domain }}"
       traefik.http.services.gitlab.loadbalancer.server.port: "80"

@@ -21,27 +21,27 @@
 
 - name: Install some packages
   apt:
-    name: "{{ ansible_nas_extra_packages }}"
+    name: "{{ pipeline_extra_packages }}"
     state: present
   register: result
   until: result is succeeded
 
 #  - name: Configure smartmontools
 
-- name: "Set hostname to {{ ansible_nas_hostname }}"
+- name: "Set hostname to {{ pipeline_hostname }}"
   hostname:
-    name: "{{ ansible_nas_hostname }}"
+    name: "{{ pipeline_hostname }}"
 
-- name: "Set timezone to {{ ansible_nas_timezone }}"
+- name: "Set timezone to {{ pipeline_timezone }}"
   timezone:
-    name: "{{ ansible_nas_timezone }}"
+    name: "{{ pipeline_timezone }}"
 
 - name: "Permission share directories"
   file:
     path: "{{ item.path }}"
     state: directory
-    owner: ansible-nas
-    group: ansible-nas
+    owner: pipeline-runner
+    group: pipeline-runner
     mode: "u=rwX,g=rwX,o=rX"
     recurse: false
   loop: "{{ samba_shares }}"

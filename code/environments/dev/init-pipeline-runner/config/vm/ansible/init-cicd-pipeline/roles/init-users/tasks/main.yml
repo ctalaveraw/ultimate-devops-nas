@@ -1,16 +1,16 @@
 ---
-- name: Create ansible-nas group
+- name: Create pipeline-runner group
   group:
-    name: ansible-nas
+    name: pipeline-runner
     state: present
 
-- name: Create ansible-nas user
+- name: Create pipeline-runner user
   user:
-    name: ansible-nas
+    name: pipeline-runner
     state: present
     uid: 990
     system: yes
     update_password: on_create
     create_home: no
-    group: ansible-nas
+    group: pipeline-runner
     shell: /usr/sbin/nologin
