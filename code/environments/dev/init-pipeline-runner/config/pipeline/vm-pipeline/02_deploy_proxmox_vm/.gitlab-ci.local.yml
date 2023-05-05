@@ -1,0 +1,26 @@
+image: hashicorp/terraform:1.5
+
+stages:
+  - initialize
+  - test
+  - deploy
+
+initialize-terraform-deployment:
+  stage: initialize
+  script:
+    - echo "Initializing Terraform deployment..."
+    - terraform init
+
+test-terraform-deployment-validate:
+  stage: test
+  script:
+    - echo "Cleaning up Terraform deployment files..."
+    - terraform fmt -recursive -diff
+    - echo "Validating Terraform deployment..."
+    - terraform validate
+
+deploy-terraform-vm:
+  stage: deploy
+  script:
+    - echo "Running Terraform deployment..."
+    - terraform apply --auto-approve --var-file=secrets.tfvars -var="proxmox_vm_template_name=../artifacts/template-pipeline-runner.qcow2"

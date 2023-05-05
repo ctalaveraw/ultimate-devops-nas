@@ -1,0 +1,26 @@
+image: python:3.9
+
+stages:
+  - initialize
+  - install
+  - deploy
+
+initialize-ansible-requirements:
+  stage: initialize
+  script:
+    - echo "Initializing Ansible prerequisites..."
+    - apt-get update && apt-get install -y python3-pip
+
+install-ansible:
+  stage: install
+  script:
+    - echo "Installing Ansible..."
+    - pip3 install ansible
+
+deploy-ansible-playbook:
+  stage: deploy
+  script:
+    - echo "Installing Ansible playbook requirements..."
+    - ansible-galaxy install -r requirements
+    - echo "Deploying Ansible playbook to VM..."
+    - ansible-playbook -i inventories/pipeline-runner/inventory pipeline.yml --private-key=<SSH_KEY_LOCATION> -b -K
