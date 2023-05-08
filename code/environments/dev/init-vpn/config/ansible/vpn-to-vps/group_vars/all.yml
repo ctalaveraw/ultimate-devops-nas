@@ -25,10 +25,10 @@ admin_username: administrator
 user_password: ""
 
 # Your email and domain, used for Let's Encrypt SSL certs
-vps_vpn_email: "ctalaveraw@gmail.com"
+vps_vpn_email: ""
 
 # Applications will have subdomain SSL certificates created if Traefik is enabled, e.g. ansible-nas.<your-domain>, nextcloud.<your-domain>
-vps_vpn_domain: vpsvpn.osomatsu.boo
+vps_vpn_domain: ""
 
 # What version of python ansible should use on target system (path to spesific binary)
 ansible_python_interpreter: /usr/bin/python3
