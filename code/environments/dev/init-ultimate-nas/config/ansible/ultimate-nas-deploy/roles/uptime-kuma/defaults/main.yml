@@ -1,0 +1,13 @@
+---
+uptime_kuma_enabled: false
+uptime_kuma_available_externally: false
+
+# directories
+uptime_kuma_data_directory: "{{ docker_home }}/uptime_kuma/uptimekuma_data"
+
+# network
+uptime_kuma_port: "3001"
+uptime_kuma_hostname: "uptime-kuma"
+
+# docker
+uptime_kuma_container_name: uptime-kuma

@@ -1,0 +1,36 @@
+---
+- name: Create Uptime Kuma Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ uptime_kuma_data_directory }}"
+
+- name: Start Uptime Kuma
+  block:
+    - name: Uptime Kuma Docker Container
+      docker_container:
+        name: "{{ uptime_kuma_container_name }}"
+        image: louislam/uptime-kuma:latest
+        pull: true
+        ports:
+          - "{{ uptime_kuma_port }}:{{ uptime_kuma_port }}"
+        volumes:
+          - "{{ uptime_kuma_data_directory }}:/app/data:rw"
+        labels:
+          traefik.enable: "{{ uptime_kuma_available_externally | string }}"
+          traefik.http.routers.uptime-kuma.rule: "Host(`{{ uptime_kuma_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.uptime-kuma.tls.certresolver: "letsencrypt"
+          traefik.http.routers.uptime-kuma.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.uptime-kuma.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.uptime-kuma.loadbalancer.server.port: "3000"
+        restart_policy: unless-stopped
+  when: uptime_kuma_enabled is true
+
+- name: Stop Uptime Kuma
+  block:
+    - name: Stop Uptime Kuma
+      docker_container:
+        name: "{{ uptime_kuma_container_name }}"
+        state: absent
+  when: uptime_kuma_enabled is false

@@ -456,6 +456,12 @@
         - unifi_controller
       when: (unifi_enabled | default(False))
 
+    - role: uptime-kuma
+      tags:
+        - uptime_kuma
+        - kuma
+      when: (uptime_kuma_enabled | default(False))
+
     - role: utorrent
       tags:
         - utorrent
