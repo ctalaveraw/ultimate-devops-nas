@@ -5,7 +5,7 @@ cloudflare_ddns_enabled: false
 cloudflare_data_directory: "{{ docker_home }}/cloudflare_ddns"
 
 # Your domain name
-cloudflare_zone: "{{ vps_vpn_domain }}"
+cloudflare_zone: "{{ vpn_home_domain }}"
 
 # The hostname you want the container to update. You shouldn't need to change this.
 cloudflare_host: "*.{{ cloudflare_zone }}"

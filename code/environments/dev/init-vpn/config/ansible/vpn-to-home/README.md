@@ -1,4 +1,4 @@
-# VPN to Home Network
+# VPN to VPS
 
 Forked from [notthebee](https://github.com/notthebee/ansible-easy-vpn).
 

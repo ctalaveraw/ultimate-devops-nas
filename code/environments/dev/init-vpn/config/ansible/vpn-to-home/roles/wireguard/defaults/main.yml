@@ -2,8 +2,11 @@
 wireguard_enabled: false
 wireguard_available_externally: false
 
-wg_easy_version: "7"
-
 # network
-wireguard_udp_port: "51820"
-wireguard_hostname: "wg-easy"
+wireguard_hostname: "wireguard"
+wireguard_host: "{{ wireguard_hostname }}.{{ root_host }}"
+wireguard_port: "51820"
+wireguard_port_ui: "51821"
+
+wireguard_client_ip: "10.8.2.8"
+wireguard_client_ip_dns: "1.1.1.1"

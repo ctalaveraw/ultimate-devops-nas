@@ -6,3 +6,4 @@ inventories
 .cache
 roles/geerlingguy.docker
 .ansible
+*.conf

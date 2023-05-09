@@ -12,38 +12,97 @@
 ### Add your customisations to inventories/<your_inventory>/group_vars/nas.yml
 ###
 
+
+###
+### Default variables
+###
+
+username: "{{ admin_username }}"
+root_host: "{{ vpn_home_domain }}"
+enable_username_creation: yes
+user_shell: /bin/bash
+enable_passwordless_sudo: yes
+# Whether or not you want to generate a public key pair for SSH auth
+# The playbook will not generate a new pair if $HOME/.ssh/authorized_keys exists and isn't empty
+enable_ssh_keygen: yes
+# Uncomment this line if you already have a public SSH key and put your public key in it
+# This overrides `enable_ssh_keygen`
+# ssh_public_key: ""
+
+wireguard_port: "51820"
+# Possible choices: cloudflare, quad9, google
+#
+# In case you've enabled Adguard, Unbound and DoH functionality,
+# this will also set upstream DoH resolvers for dnscrypt
+dns_nameservers: cloudflare
+# This will enable Adguard, Unbound and dnscrypt-proxy
+# for secure DNS resolution with ad-blocking functionality
+
+# Language and time settings
+# Check here for the list of possible locales
+# https://docs.oracle.com/cd/E23824_01/html/E26033/glset.html
+locale: en_US.UTF-8
+timezone: America/New_York
+# Set the time at which the system should reboot after installing updates (24H format)
+autoupdate_reboot_time: 03:00
+docker_dir: "/opt/docker"
+# You can set it to a different port in order to avoid automated scanner bots
+ssh_port: 22
+
+enable_firewall: true
+firewall_ports:
+  - port: "{{ wireguard_port }}"
+    proto: "udp"
+  - port: "80"
+    proto: "tcp"
+  - port: "443"
+    proto: "tcp"
+  - port: "{{ ssh_port }}"
+    proto: "tcp"
+# Fail2Ban only comes with the SSH jail by default
+enable_fail2ban: true
+pip_install_packages:
+  - name: docker
+docker_users:
+  - "{{ username }}"
+
 ###
 ### General
 ###
 
+extra_packages:
+  - smartmontools
+  - htop
+  - zfsutils-linux
+  - bonnie++
+  - unzip
+  - lm-sensors
+  - tree
+  - vim 
+  - zsh
+
 ## Wireguard config
 wireguard_enabled: true
-wireguard_available_externally: false
+wireguard_available_exterally: false
+wireguard_client_ip_dns: "1.1.1.1"
+
+wireguard_hostname: "vpn"
+wireguard_host: "{{ wireguard_hostname }}.{{ root_host }}"
 
 # Create admin username
 admin_username: administrator
 user_password: ""
 
 # Your email and domain, used for Let's Encrypt SSL certs
-vps_vpn_email: "ctalaveraw@gmail.com"
+vpn_home_email: ""
 
 # Applications will have subdomain SSL certificates created if Traefik is enabled, e.g. ansible-nas.<your-domain>, nextcloud.<your-domain>
-vps_vpn_domain: vpsvpn.osomatsu.boo
+vpn_home_domain: ""
 
 # What version of python ansible should use on target system (path to spesific binary)
 ansible_python_interpreter: /usr/bin/python3
 
 docker_home: "{{ docker_dir }}"
-
-## Secrets defined here
-
-jwt_secret: "{{ authelia_jwt_token }}"
-session_secret: "{{ authelia_session_token }}"
-storage_encryption_key: "{{ authelia_storage_token }}"
-
-authelia_jwt_token: ""
-authelia_session_token: ""
-authelia_storage_token: ""
 
 ###
 ### Cloudflare
@@ -55,7 +114,7 @@ cloudflare_ddns_enabled: false
 cloudflare_data_directory: "{{ docker_home }}/cloudflare_ddns"
 
 # Your domain name
-cloudflare_zone: "{{ vps_vpn_domain }}"
+cloudflare_zone: "{{ vpn_home_domain }}"
 
 # The hostname you want the container to update. You shouldn't need to change this.
 cloudflare_host: "*.{{ cloudflare_zone }}"
@@ -81,96 +140,21 @@ cloudflare_memory: 512MB
 # docker
 cloudflare_container_name: cloudflare-ddns
 
-###
-### Traefik Reverse Proxy Config
-###
+# ###
+# ### Traefik Reverse Proxy Config
+# ###
 
-traefik_enabled: false
+# traefik_enabled: false
 
-# find the relevant name and environment variables for your DNS provider at https://go-acme.github.io/lego/dns/
-traefik_dns_provider: "cloudflare"
-traefik_environment_variables:
-  CF_DNS_API_TOKEN: "{{ cloudflare_token }}"
-  CF_ZONE_API_TOKEN: "{{ cloudflare_token }}"
+# # find the relevant name and environment variables for your DNS provider at https://go-acme.github.io/lego/dns/
+# traefik_dns_provider: "cloudflare"
+# traefik_environment_variables:
+#   CF_DNS_API_TOKEN: "{{ cloudflare_token }}"
+#   CF_ZONE_API_TOKEN: "{{ cloudflare_token }}"
 
-# Ansible-NAS requests a wildcard certificate for your domain, so there should be no reason to have to use the staging
-# letsencrypt acme server. If you do want to flip between staging/production, you might need to stop Traefik and clear
-# the "{{ docker_home }}/traefik" after changing this setting.
-# traefik_acme_server: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
-traefik_acme_server: "https://acme-v02.api.letsencrypt.org/directory" # production
+# # Ansible-NAS requests a wildcard certificate for your domain, so there should be no reason to have to use the staging
+# # letsencrypt acme server. If you do want to flip between staging/production, you might need to stop Traefik and clear
+# # the "{{ docker_home }}/traefik" after changing this setting.
+# # traefik_acme_server: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
+# traefik_acme_server: "https://acme-v02.api.letsencrypt.org/directory" # production
 
-
-###
-### Default variables
-###
-
-username: "{{ admin_username }}"
-root_host: "{{ vps_vpn_domain }}"
-enable_username_creation: yes
-user_shell: /bin/bash
-enable_passwordless_sudo: yes
-# Whether or not you want to generate a public key pair for SSH auth
-# The playbook will not generate a new pair if $HOME/.ssh/authorized_keys exists and isn't empty
-enable_ssh_keygen: yes
-# Uncomment this line if you already have a public SSH key and put your public key in it
-# This overrides `enable_ssh_keygen`
-# ssh_public_key: ""
-authelia_host: "auth.{{ root_host }}"
-wireguard_host: "wg.{{ root_host }}"
-adguard_host: "adguard.{{ root_host }}"
-wireguard_port: "51820"
-# Possible choices: cloudflare, quad9, google
-#
-# In case you've enabled Adguard, Unbound and DoH functionality,
-# this will also set upstream DoH resolvers for dnscrypt
-dns_nameservers: cloudflare
-# This will enable Adguard, Unbound and dnscrypt-proxy
-# for secure DNS resolution with ad-blocking functionality
-#
-# The ad blocking is disabled by default, you need to navigate to
-# adguard.your_domain.com to set it up.
-enable_adguard_unbound_doh: false
-# Language and time settings
-# Check here for the list of possible locales
-# https://docs.oracle.com/cd/E23824_01/html/E26033/glset.html
-locale: en_US.UTF-8
-timezone: America/New_York
-# Set the time at which the system should reboot after installing updates (24H format)
-autoupdate_reboot_time: 03:00
-docker_dir: "/opt/docker"
-# You can set it to a different port in order to avoid automated scanner bots
-ssh_port: 22
-# Optional e-mail for notifications (unattended upgrades, banned IPs, etc.)
-# Leave everything in place if you don't want any notifications
-email_login: "{{ vps_vpn_email }}"
-email: "{{ email_login }}"
-email_recipient: "{{ email_login }}"
-email_smtp_host: smtp.localhost.com
-email_smtp_port: 465
-# MSMTP
-msmtp_accounts:
-  - account: mailbox
-    host: "{{ email_smtp_host }}"
-    port: "{{ email_smtp_port }}"
-    auth: "on"
-    from: "{{ email }}"
-    user: "{{ email_login }}"
-    password: "{{ email_password }}"
-msmtp_default_account: "mailbox"
-msmtp_alias_default: "{{ email }}"
-enable_firewall: true
-firewall_ports:
-  - port: "{{ wireguard_port }}"
-    proto: "udp"
-  - port: "80"
-    proto: "tcp"
-  - port: "443"
-    proto: "tcp"
-  - port: "{{ ssh_port }}"
-    proto: "tcp"
-# Fail2Ban only comes with the SSH jail by default
-enable_fail2ban: true
-pip_install_packages:
-  - name: docker
-docker_users:
-  - "{{ username }}"

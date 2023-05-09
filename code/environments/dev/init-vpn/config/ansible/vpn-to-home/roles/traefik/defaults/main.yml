@@ -10,8 +10,8 @@ traefik_enabled: false
 traefik_data_directory: "{{ docker_home }}/traefik"
 
 # network
-traefik_port_http: "80"
-traefik_port_https: "443"
+traefik_port_http: "180"
+traefik_port_https: "1443"
 traefik_port_ui: "8083"
 
 traefik_docker_image: traefik:latest

@@ -1,5 +1,5 @@
 ---
-# - name: Configure VPN to a VPS
+# - name: Configure VPN for home network
 - hosts: all
   become: true
 
@@ -25,13 +25,10 @@
         - docker
         - skip_ansible_lint
 
-    - role: docker_network
-      tags:
-        - docker
-
     ###
     ### Applications
     ###
+
     - role: traefik
       tags:
         - traefik
@@ -40,40 +37,17 @@
     - role: cloudflare_ddns
       tags:
         - cloudflare_ddns
+        - cloudflare
       when: (cloudflare_ddns_enabled | default(False))
 
     ###
     ### Required Roles
     ###
 
-    - role: fail2ban
-      when: enable_fail2ban | default(False)
-      tags:
-        - fail2ban
-
-    - role: dns
-      when: enable_adguard_unbound_doh | default(False)
-      tags:
-        - dns
-
-    - role: authelia
-      tags:
-        - authelia
-
-    - role: bunkerweb
-      tags:
-        - bunkerweb
-
     - role: wireguard
       tags:
         - wireguard
 
-    - role: chriswayg.msmtp-mailer
-      when: email_password is defined
-      tags:
-        - msmtp
-
     - role: ssh
       tags:
         - ssh
-

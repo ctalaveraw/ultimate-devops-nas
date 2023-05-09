@@ -12,9 +12,9 @@
         certResolver = "letsencrypt"
 
         [entryPoints.websecure.http.tls.domains]
-          main = "{{ vps_vpn_domain }}"
+          main = "{{ vpn_home_domain }}"
           sans = [
-            "*.{{ vps_vpn_domain }}"
+            "*.{{ vpn_home_domain }}"
           ]
 
   [entryPoints.traefik]
@@ -41,7 +41,7 @@
 [certificatesResolvers]
   [certificatesResolvers.letsencrypt]
     [certificatesResolvers.letsencrypt.acme]
-      email = "{{ vps_vpn_email }}"
+      email = "{{ vpn_home_email }}"
       storage = "/letsencrypt/acme.json"
       caserver = "{{ traefik_acme_server }}"
 
