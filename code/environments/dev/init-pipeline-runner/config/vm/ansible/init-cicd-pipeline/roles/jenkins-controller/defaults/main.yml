@@ -5,6 +5,11 @@ jenkins_available_externally: false
 # directories
 jenkins_data_directory: "{{ docker_home }}/jenkins"
 
+# permissions
+jenkins_user_id: "1000"
+jenkins_group_id: "1000"
+jenkins_data_chmod: "0755"
+
 # network
 jenkins_hostname: "jenkins"
 jenkins_port: "50000"

@@ -5,9 +5,12 @@
       file:
         path: "{{ item }}"
         state: directory
+        owner: "{{ jenkins_user_id }}"
+        group: "{{ jenkins_group_id }}"
+        mode: "{{ jenkins_data_chmod }}"
         recurse: yes
       with_items:
-        - "{{ jenkins_data_directory }}/jenkins"
+        - "{{ jenkins_data_directory }}/jenkins-data"
 
     - name: Create Jenkins container
       docker_container:
@@ -16,8 +19,12 @@
         pull: true
         privileged: true
         volumes:
-          - "{{ jenkins_data_directory }}/jenkins-data/:/var/jenkins_home:rw"
+          - "{{ jenkins_data_directory }}/jenkins-data/:/var/jenkins_home"
           - /var/run/docker.sock:/var/run/docker.sock
+        env:
+          TZ: "{{ pipeline_timezone }}"
+          PUID: "{{ jenkins_user_id }}"
+          PGID: "{{ jenkins_group_id }}"
         ports:
           - "{{ jenkins_port }}:{{ jenkins_port }}"
           - "{{ jenkins_port_http }}:{{ jenkins_port_http }}"
@@ -38,4 +45,4 @@
       docker_container:
         name: "{{ jenkins_container_name }}"
         state: absent
-
+  when: jenkins_enabled is false
