@@ -51,3 +51,8 @@
     - role: ssh
       tags:
         - ssh
+
+    - role: watchtower
+      tags:
+        - watchtower
+      when: (watchtower_enabled | default(False))

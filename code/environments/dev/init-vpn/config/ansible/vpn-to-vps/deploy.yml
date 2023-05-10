@@ -52,9 +52,9 @@
         - fail2ban
 
     - role: dns
-      when: enable_adguard_unbound_doh | default(False)
       tags:
         - dns
+      when: enable_adguard_unbound_doh | default(False)
 
     - role: authelia
       tags:
@@ -77,3 +77,7 @@
       tags:
         - ssh
 
+    - role: watchtower
+      tags:
+        - watchtower
+      when: (watchtower_enabled | default(False)
