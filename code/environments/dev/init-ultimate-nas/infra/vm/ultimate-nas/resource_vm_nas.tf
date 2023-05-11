@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "nas-host" {
   memory = 16384
 
   ## VM CPU Settings
-  cores   = 6
+  cores   = 10
   sockets = 1
   cpu     = "host" # Set to "host" for best CPU emulation performance
 
@@ -43,7 +43,7 @@ resource "proxmox_vm_qemu" "nas-host" {
   # OS Disk
   disk {        # This block must mirror the storage used in VM template
     type    = "virtio"
-    size    = "100G"
+    size    = "150G"
     storage = var.proxmox_vm_disk_storage_pool
     format  = "raw"
     cache = "writeback" # improves performance for media handling
