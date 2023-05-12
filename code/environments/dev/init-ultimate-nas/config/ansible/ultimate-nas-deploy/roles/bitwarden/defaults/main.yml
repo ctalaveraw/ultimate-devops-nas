@@ -18,8 +18,8 @@ bitwarden_admin_token: qwertyuiop1234567890poiuytrewq0987654321
 bitwarden_allow_signups: false
 
 # specs
-bitwarden_#memory: 1g
-bitwarden_backup_#memory: 1g
+bitwarden_memory: 1g
+bitwarden_backup_memory: 1g
 
 # docker
 bitwarden_container_name: bitwarden

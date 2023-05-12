@@ -11,4 +11,4 @@ thelounge_port_two: "9002"
 thelounge_hostname: thelounge
 
 # Container
-thelounge_#memory: 1g
+thelounge_memory: 1g

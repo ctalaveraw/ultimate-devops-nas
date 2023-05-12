@@ -19,4 +19,4 @@ krusader_port_vnc: "5900"
 krusader_hostname: "krusader"
 
 # specs
-krusader_#memory: 1g
+krusader_memory: 1g

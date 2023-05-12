@@ -13,7 +13,7 @@ gitlab_port_https: "4443"
 gitlab_port_ssh: "422"
 
 # specs
-gitlab_#memory: "4g"
+gitlab_memory: "4g"
 
 # required definitions
 gitlab_user_id: "998"

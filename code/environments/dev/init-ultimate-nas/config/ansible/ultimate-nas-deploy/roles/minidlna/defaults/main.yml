@@ -12,4 +12,4 @@ minidlna_friendly_name: "{{ ansible_nas_hostname }}"
 minidlna_port: "8201"
 
 # specs
-minidlna_#memory: "1g"
+minidlna_memory: "1g"

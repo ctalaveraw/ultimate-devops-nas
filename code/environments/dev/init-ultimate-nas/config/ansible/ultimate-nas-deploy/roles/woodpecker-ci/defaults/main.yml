@@ -12,8 +12,8 @@ woodpecker_ci_address: "http://{{ hostvars[inventory_hostname]['ansible_default_
 woodpecker_ci_hostname: woodpecker-ci
 
 # memory
-woodpecker_ci_#memory: 1g
-woodpecker_ci_agent_#memory: 1g
+woodpecker_ci_memory: 1g
+woodpecker_ci_agent_memory: 1g
 
 # Woodpecker-CI Application Config
 # the users that'll be granted admin, comma separated

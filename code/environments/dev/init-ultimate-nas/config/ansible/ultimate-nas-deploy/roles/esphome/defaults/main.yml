@@ -14,7 +14,7 @@ esphome_hostname: "esphome"
 esphome_port: "6052"
 
 # specs
-esphome_#memory: 1g
+esphome_memory: 1g
 
 # docker
 esphome_container_name: esphome

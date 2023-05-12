@@ -26,4 +26,4 @@ transmission_timezone: "{{ ansible_nas_timezone }}"
 transmission_hostname: "transmission-wg"
 
 # specs
-transmission_#memory: 1g
+transmission_memory: 1g

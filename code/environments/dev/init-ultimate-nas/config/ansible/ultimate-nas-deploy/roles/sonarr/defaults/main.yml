@@ -16,4 +16,4 @@ sonarr_port: "8989"
 sonarr_hostname: "sonarr"
 
 # specs
-sonarr_#memory: 1g
+sonarr_memory: 1g

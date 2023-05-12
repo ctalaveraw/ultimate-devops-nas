@@ -17,4 +17,4 @@ mylar_hostname: "mylar"
 mylar_port_http: "8585"
 
 # specs
-mylar_#memory: "1g"
+mylar_memory: "1g"

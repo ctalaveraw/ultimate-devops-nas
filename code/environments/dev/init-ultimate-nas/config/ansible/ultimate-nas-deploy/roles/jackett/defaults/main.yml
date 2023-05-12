@@ -12,4 +12,4 @@ jackett_hostname: "jackett"
 jackett_port: "9117"
 
 # specs
-jackett_#memory: "1g"
+jackett_memory: "1g"

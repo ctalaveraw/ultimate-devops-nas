@@ -10,4 +10,4 @@ rssbridge_port: "8091"
 rssbridge_hostname: "rssbridge"
 
 # specs
-rssbridge_#memory: 1g
+rssbridge_memory: 1g

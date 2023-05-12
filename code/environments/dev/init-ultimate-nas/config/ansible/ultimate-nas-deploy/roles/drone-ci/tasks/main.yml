@@ -37,7 +37,7 @@
           DRONE_LOGS_DEBUG: "{{ drone_ci_debug_logging | string }}"
           DRONE_SERVER_PROTO: "http"
         restart_policy: unless-stopped
-        #memory: "{{ drone_ci_memory }}"
+        memory: "{{ drone_ci_memory }}"
         labels:
           traefik.enable: "{{ drone_ci_available_externally | string }}"
           traefik.http.routers.drone_ci.rule: "Host(`{{ drone_ci_hostname }}.{{ ansible_nas_domain }}`)"
@@ -62,7 +62,7 @@
           DRONE_RUNNER_CAPACITY: "{{ drone_ci_runner_capacity | string }}"
           DRONE_RUNNER_NAME: "{{ drone_ci_runner_name }}"
         restart_policy: unless-stopped
-        #memory: "{{ drone_ci_agent_memory }}"
+        memory: "{{ drone_ci_agent_memory }}"
 
     - name: Add webhook allowed hosts to Gitea
       blockinfile:

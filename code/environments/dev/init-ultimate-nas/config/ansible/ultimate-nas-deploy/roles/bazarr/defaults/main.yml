@@ -16,7 +16,7 @@ bazarr_port: "6767"
 bazarr_hostname: "bazarr"
 
 # specs
-bazarr_#memory: 1g
+bazarr_memory: 1g
 
 # docker
 bazarr_container_name: bazarr

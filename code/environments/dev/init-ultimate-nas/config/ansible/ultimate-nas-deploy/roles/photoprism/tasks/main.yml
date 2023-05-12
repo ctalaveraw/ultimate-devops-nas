@@ -92,7 +92,7 @@
           PHOTOPRISM_INIT: "https gpu tensorflow"
           PHOTOPRISM_FFMPEG_ENCODER: "intel"
           PHOTOPRISM_FFMPEG_BITRATE: "50"
-        #memory: "{{ photoprism_memory }}"
+        memory: "{{ photoprism_memory }}"
         labels:
           traefik.enable: "{{ photoprism_available_externally | string }}"
           traefik.http.routers.photoprism.rule: "Host(`{{ photoprism_hostname }}.{{ ansible_nas_domain }}`)"

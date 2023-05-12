@@ -16,4 +16,4 @@ octoprint_enable_webcam: false
 octoprint_webcam_mountpoint: "/dev/video0"
 
 # specs
-octoprint_#memory: 1g
+octoprint_memory: 1g

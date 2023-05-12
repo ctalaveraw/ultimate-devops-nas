@@ -10,4 +10,4 @@ wallabag_port: "7780"
 wallabag_hostname: wallabag
 
 # Container
-wallabag_#memory: 1g
+wallabag_memory: 1g

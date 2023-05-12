@@ -9,4 +9,4 @@ get_iplayer_download_directory: "{{ tv_root }}/iplayer_downloads"
 get_iplayer_port: "8182"
 
 # specs
-get_iplayer_#memory: "1g"
+get_iplayer_memory: "1g"

@@ -13,4 +13,4 @@ glances_security_options:
   - "apparmor=unconfined"
 
 # specs
-glances_#memory: 1g
+glances_memory: 1g

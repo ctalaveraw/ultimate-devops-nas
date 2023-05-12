@@ -10,4 +10,4 @@ dizquetv_port: "8888"
 dizquetv_hostname: "dizquetv"
 
 # specs
-dizquetv_#memory: 1g
+dizquetv_memory: 1g

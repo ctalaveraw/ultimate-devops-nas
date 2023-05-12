@@ -7,4 +7,4 @@ mymediaforalexa_media_directory: "{{ music_root }}"
 mymediaforalexa_data_directory: "{{ docker_home }}/mymediaforalexa"
 
 # specs
-mymediaforalexa_#memory: "1g"
+mymediaforalexa_memory: "1g"

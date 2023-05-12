@@ -15,4 +15,4 @@ organizr_user_id: "1000"
 organizr_group_id: "1000"
 
 # specs
-organizr_#memory: 1g
+organizr_memory: 1g

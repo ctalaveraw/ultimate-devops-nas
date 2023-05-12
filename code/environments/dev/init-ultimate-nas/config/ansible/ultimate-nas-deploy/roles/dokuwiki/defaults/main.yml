@@ -14,7 +14,7 @@ dokuwiki_hostname: "dokuwiki"
 dokuwiki_port: "8085"
 
 # specs
-dokuwiki_#memory: 1g
+dokuwiki_memory: 1g
 
 # docker
 dokuwiki_container_name: dokuwiki

@@ -16,7 +16,7 @@ cloudcmd_hostname: "cloudcmd"
 cloudcmd_port: "7373"
 
 # specs
-cloudcmd_#memory: "1g"
+cloudcmd_memory: "1g"
 
 # docker
 cloudcmd_container_name: cloudcmd

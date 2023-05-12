@@ -27,7 +27,7 @@
           PUID: "{{ booksonic_user_id }}"
           PGID: "{{ booksonic_group_id }}"
         restart_policy: unless-stopped
-        #memory: "{{ booksonic_memory }}"
+        memory: "{{ booksonic_memory }}"
         labels:
           traefik.enable: "{{ booksonic_available_externally | string }}"
           traefik.http.routers.booksonic.rule: "Host(`{{ booksonic_hostname }}.{{ ansible_nas_domain }}`)"

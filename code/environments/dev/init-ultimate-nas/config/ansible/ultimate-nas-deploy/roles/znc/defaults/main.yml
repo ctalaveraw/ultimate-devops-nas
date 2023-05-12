@@ -15,4 +15,4 @@ znc_hostname: "znc"
 znc_port: "6677"
 
 # specs
-znc_#memory: "1g"
+znc_memory: "1g"

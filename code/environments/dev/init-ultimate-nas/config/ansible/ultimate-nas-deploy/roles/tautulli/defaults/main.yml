@@ -14,4 +14,4 @@ tautulli_hostname: "tautulli"
 tautulli_port: "8185"
 
 # specs
-tautulli_#memory: "1g"
+tautulli_memory: "1g"

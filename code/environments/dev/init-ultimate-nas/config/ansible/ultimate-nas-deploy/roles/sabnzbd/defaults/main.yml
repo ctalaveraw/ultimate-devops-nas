@@ -12,7 +12,7 @@ sabnzbd_port: "18080"
 sabnzbd_hostname: "sabnzbd"
 
 # specs
-sabnzbd_#memory: 1g
+sabnzbd_memory: 1g
 
 # uid / gid
 sabnzbd_user_id: "0"

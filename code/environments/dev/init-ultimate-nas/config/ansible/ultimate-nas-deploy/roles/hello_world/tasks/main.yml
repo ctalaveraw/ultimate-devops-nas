@@ -18,7 +18,7 @@
         ports:
           - "{{ hello_world_port }}:8000"
         restart_policy: unless-stopped
-        #memory: "{{ hello_world_memory }}"
+        memory: "{{ hello_world_memory }}"
         labels:
           traefik.enable: "{{ hello_world_available_externally | string }}"
           traefik.http.routers.hello_world.rule: "Host(`{{ hello_world_hostname }}.{{ ansible_nas_domain }}`)"

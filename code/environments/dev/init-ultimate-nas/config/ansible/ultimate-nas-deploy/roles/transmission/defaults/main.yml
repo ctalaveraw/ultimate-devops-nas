@@ -19,4 +19,4 @@ transmission_hostname: "transmission"
 transmission_timezone: "{{ ansible_nas_timezone }}"
 
 # specs
-transmission_#memory: 1g
+transmission_memory: 1g

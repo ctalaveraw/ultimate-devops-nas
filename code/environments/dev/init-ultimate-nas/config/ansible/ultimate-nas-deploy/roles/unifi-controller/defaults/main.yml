@@ -23,4 +23,4 @@ unifi_port_throughput_testing: "6789"
 unifi_port_syslog: "5514"
 
 # specs
-unifi_#memory: 1g
+unifi_memory: 1g

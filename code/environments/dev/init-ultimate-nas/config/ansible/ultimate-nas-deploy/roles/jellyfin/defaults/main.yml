@@ -30,7 +30,7 @@ jellyfin_port_http: "8896"
 jellyfin_port_https: "8928"
 
 # specs
-jellyfin_#memory: "1g"
+jellyfin_memory: "1g"
 
 # Device mappings for the docker container. E.g. To enable hardware transcoding:
 # jellyfin_devices:

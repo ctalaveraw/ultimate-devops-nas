@@ -12,4 +12,4 @@ joomla_port: "8181"
 joomla_hostname: "joomla"
 
 # specs
-joomla_#memory: 1g
+joomla_memory: 1g

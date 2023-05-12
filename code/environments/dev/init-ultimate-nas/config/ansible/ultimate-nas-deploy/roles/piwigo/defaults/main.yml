@@ -21,7 +21,7 @@ piwigo_hostname: "piwigo"
 piwigo_port: "16923"
 
 # specs
-piwigo_#memory: "1g"
-piwigo_mysql_#memory: "1g"
+piwigo_memory: "1g"
+piwigo_mysql_memory: "1g"
 
 piwigo_version: "docker"

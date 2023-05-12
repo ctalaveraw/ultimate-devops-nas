@@ -19,4 +19,4 @@ virtual_desktop_data_directory: "{{ docker_home }}/virtual_desktop"
 virtual_desktop_rdp_port: 3389
 
 # Container
-virtual_desktop_#memory: 2g
+virtual_desktop_memory: 2g

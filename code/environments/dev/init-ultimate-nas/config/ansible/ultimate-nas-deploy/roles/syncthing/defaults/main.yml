@@ -20,4 +20,4 @@ syncthing_port: 8384
 syncthing_hostname: syncthing
 
 # specs
-syncthing_#memory: 1g
+syncthing_memory: 1g

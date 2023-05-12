@@ -32,7 +32,7 @@
       MEM_STARTUP: "1024"
     restart_policy: unless-stopped
     
-    #memory: "{{ unifi_memory }}"
+    memory: "{{ unifi_memory }}"
     labels:
       traefik.enable: "{{ unifi_available_externally | string }}"
       traefik.http.routers.unifi-controller.rule: "Host(`{{ unifi_hostname }}.{{ ansible_nas_domain }}`)"

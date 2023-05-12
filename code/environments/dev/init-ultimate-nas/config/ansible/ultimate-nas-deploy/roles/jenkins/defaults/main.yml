@@ -16,7 +16,7 @@ jenkins_port: "50000"
 jenkins_port_http: "8080"
 
 # specs
-jenkins_#memory: 1g
+jenkins_memory: 1g
 
 # docker
 jenkins_container_name: jenkins

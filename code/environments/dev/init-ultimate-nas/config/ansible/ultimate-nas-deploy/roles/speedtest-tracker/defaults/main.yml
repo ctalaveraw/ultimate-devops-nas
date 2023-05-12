@@ -14,4 +14,4 @@ speedtest_tracker_port: "8765"
 speedtest_tracker_hostname: "speedtest-tracker"
 
 # specs
-speedtest_tracker_#memory: 1g
+speedtest_tracker_memory: 1g

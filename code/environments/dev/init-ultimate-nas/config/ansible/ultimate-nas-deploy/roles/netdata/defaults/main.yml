@@ -7,4 +7,4 @@ netdata_hostname: "netdata"
 netdata_port: "19999"
 
 # specs
-netdata_#memory: 1g
+netdata_memory: 1g
