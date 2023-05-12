@@ -132,6 +132,11 @@
       tags:
         - esphome
 
+    - role: file_browser
+      tags:
+        - file_browser
+      when: (file_browser_enabled | default(False))
+
     - role: firefly
       tags:
         - firefly
@@ -203,6 +208,11 @@
       tags:
         - jellyfin
       when: (jellyfin_enabled | default(False))
+
+    - role: jenkins
+      tags:
+        - jenkins
+      when: (jenkins_enabled | default(False))
 
     - role: joomla
       tags:

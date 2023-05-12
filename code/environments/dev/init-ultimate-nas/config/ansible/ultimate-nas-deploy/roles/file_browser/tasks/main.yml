@@ -1,0 +1,40 @@
+---
+- name: Start File Browser
+  block:
+    - name: Create File Browser Directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ file_browser_data_directory }}"
+
+    - name: Create File Browser Docker Container
+      docker_container:
+        name: "{{ file_browser_container_name }}"
+        image: filebrowser/filebrowser
+        pull: true
+        volumes:
+          - "{{ file_browser_browse_directory }}:/srv:rw"
+        ports:
+          - "{{ file_browser_port }}:80"
+        env:
+          TZ: "{{ ansible_nas_timezone }}"
+          PUID: "{{ file_browser_user_id }}"
+          PGID: "{{ file_browser_group_id }}"
+        restart_policy: unless-stopped
+        labels:
+          traefik.enable: "{{ file_browser_available_externally | string }}"
+          traefik.http.routers.file-browser.rule: "Host(`{{ file_browser_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.file-browser.tls.certresolver: "letsencrypt"
+          traefik.http.routers.file-browser.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.file-browser.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.file-browser.loadbalancer.server.port: "8000"
+  when: file_browser_enabled is true
+
+- name: Stop File Browser
+  block:
+    - name: Stop File Browser
+      docker_container:
+        name: "{{ file_browser_container_name }}"
+        state: absent
+  when: file_browser_enabled is false

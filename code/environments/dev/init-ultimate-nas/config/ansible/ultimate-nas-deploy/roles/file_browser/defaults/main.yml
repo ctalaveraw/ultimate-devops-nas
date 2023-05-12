@@ -1,0 +1,19 @@
+---
+# enable or disable the application
+file_browser_enabled: false
+file_browser_available_externally: false
+
+# directories
+file_browser_browse_directory: "/"
+file_browser_data_directory: "{{ docker_home }}/file_browser/config"
+
+# uid / gid
+file_browser_user_id: "0"
+file_browser_group_id: "0"
+
+# network
+file_browser_hostname: "{{ file_browser_container_name}}"
+file_browser_port: "8880"
+
+# docker
+file_browser_container_name: file-browser
