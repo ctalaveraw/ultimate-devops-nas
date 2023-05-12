@@ -18,7 +18,7 @@ calibre_port: "8084"
 calibre_hostname: "calibre"
 
 # specs
-calibre_memory: 1g
+calibre_#memory: 1g
 
 # docker
 calibre_container_name: calibre

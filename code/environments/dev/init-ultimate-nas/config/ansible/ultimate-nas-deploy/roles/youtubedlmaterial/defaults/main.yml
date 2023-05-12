@@ -14,4 +14,4 @@ youtubedlmaterial_hostname: "youtubedlmaterial"
 youtubedlmaterial_port_http: "8998"
 
 # specs
-youtubedlmaterial_memory: "1g"
+youtubedlmaterial_#memory: "1g"

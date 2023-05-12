@@ -15,4 +15,4 @@ ubooquity_port_admin: "2203"
 ubooquity_hostname: ubooquity
 
 # Container
-ubooquity_memory: 1g
+ubooquity_#memory: 1g

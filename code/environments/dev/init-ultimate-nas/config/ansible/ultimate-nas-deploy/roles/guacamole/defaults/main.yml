@@ -10,4 +10,4 @@ guacamole_port: "8090"
 guacamole_hostname: "guacamole"
 
 # specs
-guacamole_memory: 1g
+guacamole_#memory: 1g

@@ -15,4 +15,4 @@ homebridge_hostname: "homebridge"
 homebridge_port: "8087"
 
 # specs
-homebridge_memory: "1g"
+homebridge_#memory: "1g"

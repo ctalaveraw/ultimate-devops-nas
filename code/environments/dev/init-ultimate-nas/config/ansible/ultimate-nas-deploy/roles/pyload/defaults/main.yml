@@ -15,4 +15,4 @@ pyload_hostname: "pyload"
 pyload_port: "8000"
 
 # specs
-pyload_memory: "1g"
+pyload_#memory: "1g"

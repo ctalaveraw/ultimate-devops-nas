@@ -28,4 +28,4 @@
       - "{{ mosquitto_port_b }}:9001"
     restart_policy: unless-stopped
     restart: "{{ mosquitto_conf is changed }}"
-    memory: 1g
+    #memory: 1g

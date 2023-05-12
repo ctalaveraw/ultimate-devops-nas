@@ -12,8 +12,8 @@ drone_ci_address: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4'
 drone_ci_hostname: drone-ci
 
 # memory
-drone_ci_memory: 1g
-drone_ci_agent_memory: 1g
+drone_ci_#memory: 1g
+drone_ci_agent_#memory: 1g
 
 # docker
 drone_ci_container_name: drone-ci

@@ -22,7 +22,7 @@ emby_port_https: "8920"
 emby_hostname: "emby"
 
 # specs
-emby_memory: 1g
+emby_#memory: 1g
 
 # docker
 emby_container_name: emby

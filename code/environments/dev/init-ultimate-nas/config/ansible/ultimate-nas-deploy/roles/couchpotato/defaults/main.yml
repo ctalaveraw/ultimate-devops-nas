@@ -16,7 +16,7 @@ couchpotato_group_id: "0"
 couchpotato_port: "5050"
 
 # specs
-couchpotato_memory: 1g
+couchpotato_#memory: 1g
 
 # docker
 couchpotato_container_name: couchpotato

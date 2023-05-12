@@ -25,7 +25,7 @@
         volumes:
           - "{{ cloudflare_data_directory }}/config.yml:/app/config.yaml"
         restart_policy: unless-stopped
-        memory: "{{ cloudflare_memory }}"
+        #memory: "{{ cloudflare_memory }}"
         recreate: "{{ template_files_result is changed }}"
   when: cloudflare_ddns_enabled is true
 

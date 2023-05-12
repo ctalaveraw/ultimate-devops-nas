@@ -37,7 +37,7 @@
       WOODPECKER_GITEA_SECRET: "{{ woodpecker_ci_gitea_secret }}"
       WOODPECKER_LOG_LEVEL: "{{ woodpecker_ci_log_level }}"
     restart_policy: unless-stopped
-    memory: "{{ woodpecker_ci_memory }}"
+    #memory: "{{ woodpecker_ci_memory }}"
     labels:
       traefik.enable: "{{ woodpecker_ci_available_externally | string }}"
       traefik.http.routers.woodpecker_ci.rule: "Host(`{{ woodpecker_ci_hostname }}.{{ ansible_nas_domain }}`)"
@@ -58,7 +58,7 @@
       WOODPECKER_AGENT_SECRET: "{{ woodpecker_ci_agent_secret }}"
       WOODPECKER_LOG_LEVEL: "{{ woodpecker_ci_log_level }}"
     restart_policy: unless-stopped
-    memory: "{{ woodpecker_ci_agent_memory }}"
+    #memory: "{{ woodpecker_ci_agent_memory }}"
 
 - name: Add webhook allowed hosts to Gitea
   blockinfile:

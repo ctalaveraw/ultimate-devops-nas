@@ -22,4 +22,4 @@ route53_ttl: 600
 route53_schedule: "*/30 * * * *"
 
 # Container
-route53_memory: 512MB
+route53_#memory: 512MB

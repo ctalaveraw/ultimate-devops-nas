@@ -10,7 +10,7 @@ tiddlywiki_data_directory: "{{ docker_home }}/tiddlywiki"
 # tiddlywiki_password:
 
 # Node low memory
-# tiddlywiki_node_memory:
+# tiddlywiki_node_#memory:
 
 # Server debugging
 # tiddlywiki_debug_level: none # full
@@ -20,4 +20,4 @@ tiddlywiki_port: 8092
 tiddlywiki_hostname: tiddlywiki
 
 # Container
-tiddlywiki_memory: 512MB
+tiddlywiki_#memory: 512MB

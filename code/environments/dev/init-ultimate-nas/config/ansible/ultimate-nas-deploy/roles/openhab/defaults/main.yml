@@ -11,4 +11,4 @@ openhab_port_https: "7778"
 openhab_hostname: "openhab"
 
 # specs
-openhab_memory: 1g
+openhab_#memory: 1g

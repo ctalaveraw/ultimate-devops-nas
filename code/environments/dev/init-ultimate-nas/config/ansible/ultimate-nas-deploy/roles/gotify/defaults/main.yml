@@ -17,4 +17,4 @@ gotify_user_id: "0"
 gotify_group_id: "0"
 
 # specs
-gotify_memory: 200m
+gotify_#memory: 200m

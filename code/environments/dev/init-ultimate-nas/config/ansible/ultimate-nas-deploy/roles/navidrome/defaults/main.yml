@@ -11,7 +11,7 @@ navidrome_port: "4533"
 navidrome_hostname: "navidrome"
 
 # specs
-navidrome_memory: 1g
+navidrome_#memory: 1g
 
 # default config
 navidrome_scan_schedule: "@every 1m" # Cron syntax (https://en.wikipedia.org/wiki/Cron)

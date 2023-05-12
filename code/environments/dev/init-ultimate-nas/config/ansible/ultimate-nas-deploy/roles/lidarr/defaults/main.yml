@@ -16,4 +16,4 @@ lidarr_port: "8686"
 lidarr_hostname: "lidarr"
 
 # specs
-lidarr_memory: 1g
+lidarr_#memory: 1g

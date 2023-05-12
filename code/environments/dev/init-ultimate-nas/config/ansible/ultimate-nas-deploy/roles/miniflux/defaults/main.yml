@@ -15,5 +15,5 @@ miniflux_hostname: "miniflux"
 miniflux_port: "8070"
 
 # specs
-miniflux_memory: "1g"
-miniflux_postgres_memory: "1g"
+miniflux_#memory: "1g"
+miniflux_postgres_#memory: "1g"

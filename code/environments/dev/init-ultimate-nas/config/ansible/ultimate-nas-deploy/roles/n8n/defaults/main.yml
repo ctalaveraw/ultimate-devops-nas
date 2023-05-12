@@ -14,4 +14,4 @@ n8n_basic_auth_user: "n8n_user"
 n8n_basic_auth_password: "n8n_change_me"
 
 # specs
-n8n_memory: 1g
+n8n_#memory: 1g

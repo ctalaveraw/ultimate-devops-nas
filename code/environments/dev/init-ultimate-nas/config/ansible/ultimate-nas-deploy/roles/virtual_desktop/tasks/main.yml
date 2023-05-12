@@ -27,4 +27,4 @@
       - "{{ virtual_desktop_rdp_port }}:3389"
     privileged: true
     restart_policy: unless-stopped
-    memory: "{{ virtual_desktop_memory }}"
+    #memory: "{{ virtual_desktop_memory }}"

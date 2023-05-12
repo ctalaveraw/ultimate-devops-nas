@@ -13,4 +13,4 @@ ersatztv_port: "8409"
 ersatztv_hostname: "ersatztv"
 
 # specs
-ersatztv_memory: 1g
+ersatztv_#memory: 1g

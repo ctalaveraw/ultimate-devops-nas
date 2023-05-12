@@ -14,4 +14,4 @@ overseerr_webui_port: "5055"
 overseerr_hostname: "overseerr"
 
 # specs
-overseerr_memory: 1g
+overseerr_#memory: 1g

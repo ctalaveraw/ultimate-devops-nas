@@ -34,7 +34,7 @@
     ports:
       - "{{ stats_prometheus_port }}:9090"
     restart_policy: unless-stopped
-    memory: "{{ stats_prometheus_memory }}"
+    #memory: "{{ stats_prometheus_memory }}"
     restart: "{{ prometheus_config is changed }}"
     command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.retention.size={{ stats_prometheus_retention_size }} --storage.tsdb.retention.time={{ stats_prometheus_retention_time }}"
     labels:

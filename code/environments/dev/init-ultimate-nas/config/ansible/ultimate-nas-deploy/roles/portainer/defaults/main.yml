@@ -10,4 +10,4 @@ portainer_port: "9000"
 portainer_hostname: "portainer"
 
 # specs
-portainer_memory: 1g
+portainer_#memory: 1g

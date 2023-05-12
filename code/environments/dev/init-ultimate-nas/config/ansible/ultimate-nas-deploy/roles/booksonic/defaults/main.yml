@@ -16,7 +16,7 @@ booksonic_port: "4041"
 booksonic_hostname: "booksonic"
 
 # specs
-booksonic_memory: 1g
+booksonic_#memory: 1g
 
 # docker
 booksonic_container_name: booksonic

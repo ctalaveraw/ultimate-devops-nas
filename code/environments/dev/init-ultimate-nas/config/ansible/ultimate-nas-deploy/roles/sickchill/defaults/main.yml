@@ -16,4 +16,4 @@ sickchill_port: "8081"
 sickchill_hostname: "sickchill"
 
 # specs
-sickchill_memory: 1g
+sickchill_#memory: 1g

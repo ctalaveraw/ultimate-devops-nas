@@ -22,11 +22,11 @@ stats_grafana_port: "3000"
 stats_grafana_hostname: "grafana"
 
 # specs
-stats_telegraf_memory: 1g
-stats_prometheus_memory: 1g
-stats_prometheus_smartctl_memory: 1g
-stats_speedtest_exporter_memory: 256m
-stats_grafana_memory: 1g
+stats_telegraf_#memory: 1g
+stats_prometheus_#memory: 1g
+stats_prometheus_smartctl_#memory: 1g
+stats_speedtest_exporter_#memory: 256m
+stats_grafana_#memory: 1g
 
 # config
 stats_prometheus_retention_time: 365d

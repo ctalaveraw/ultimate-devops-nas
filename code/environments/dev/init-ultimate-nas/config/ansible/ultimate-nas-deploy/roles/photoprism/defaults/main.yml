@@ -24,7 +24,7 @@ photoprism_port: "2342"
 photoprism_db_port: "3306"
 
 # specs
-photoprism_memory: 2g
+photoprism_#memory: 2g
 
 photoprism_hostname: "photoprism"
 photoprism_db_container_name: "mariadb"

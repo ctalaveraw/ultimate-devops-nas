@@ -14,4 +14,4 @@ wireshark_group_id: "1000"
 wireshark_hostname: "wireshark"
 
 # specs
-wireshark_memory: "512m"
+wireshark_#memory: "512m"

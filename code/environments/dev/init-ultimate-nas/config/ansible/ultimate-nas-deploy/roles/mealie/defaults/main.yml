@@ -14,4 +14,4 @@ mealie_hostname: "mealie"
 mealie_port: "9925"
 
 # specs
-mealie_memory: 1g
+mealie_#memory: 1g

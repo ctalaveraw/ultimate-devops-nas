@@ -10,7 +10,7 @@ hello_world_port: "9999"
 hello_world_hostname: "hello_world"
 
 # specs
-hello_world_memory: 1g
+hello_world_#memory: 1g
 
 # docker
 hello_world_container_name: hello_world

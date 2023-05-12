@@ -17,4 +17,4 @@ komga_hostname: "komga"
 komga_port_http: "8088"
 
 # specs
-komga_memory: "1g"
+komga_#memory: "1g"

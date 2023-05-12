@@ -17,4 +17,4 @@ netbootxyz_user_id: "1000"
 netbootxyz_group_id: "1000"
 
 # specs
-netbootxyz_memory: 1g
+netbootxyz_#memory: 1g

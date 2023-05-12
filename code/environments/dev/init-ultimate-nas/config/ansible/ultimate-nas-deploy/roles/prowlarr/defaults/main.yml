@@ -14,4 +14,4 @@ prowlarr_port: "9696"
 prowlarr_hostname: "prowlarr"
 
 # specs
-prowlarr_memory: 1g
+prowlarr_#memory: 1g

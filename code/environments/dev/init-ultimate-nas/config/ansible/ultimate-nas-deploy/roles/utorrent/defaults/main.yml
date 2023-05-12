@@ -17,4 +17,4 @@ utorrent_port_bt: "6881"
 utorrent_hostname: "utorrent"
 
 # specs
-utorrent_memory: 1g
+utorrent_#memory: 1g

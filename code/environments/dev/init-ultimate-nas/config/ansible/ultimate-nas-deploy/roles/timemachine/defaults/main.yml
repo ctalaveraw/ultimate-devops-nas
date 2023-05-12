@@ -13,4 +13,4 @@ timemachine_data_directory: "{{ docker_home }}/timemachine"
 timemachine_port: "10445"
 
 # Container
-timemachine_memory: 1g
+timemachine_#memory: 1g

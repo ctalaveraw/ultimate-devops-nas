@@ -33,4 +33,4 @@ traefik_environment_variables:
 traefik_acme_server: "https://acme-v02.api.letsencrypt.org/directory" # production
 
 # specs
-traefik_memory: 1g
+traefik_#memory: 1g
