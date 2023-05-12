@@ -40,10 +40,12 @@
         - cloudflare
       when: (cloudflare_ddns_enabled | default(False))
 
-    - role: network
+    - role: host_network
       tags:
-        - network
+        - host_network
+        - network_host
         - network_config
+        - network
       when: (network_config_enabled | default(False))
 
     ###
