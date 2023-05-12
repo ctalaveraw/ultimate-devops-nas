@@ -14,7 +14,7 @@
         image: louislam/uptime-kuma:latest
         pull: true
         ports:
-          - "{{ uptime_kuma_port }}:{{ uptime_kuma_port }}"
+          - "{{ uptime_kuma_port }}:3001"
         volumes:
           - "{{ uptime_kuma_data_directory }}:/app/data:rw"
           - /var/run/docker.sock:/var/run/docker.sock
