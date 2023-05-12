@@ -24,7 +24,7 @@
           traefik.http.routers.uptime-kuma.tls.certresolver: "letsencrypt"
           traefik.http.routers.uptime-kuma.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.uptime-kuma.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-          traefik.http.services.uptime-kuma.loadbalancer.server.port: "3000"
+          traefik.http.services.uptime-kuma.loadbalancer.server.port: "3001"
         restart_policy: unless-stopped
   when: uptime_kuma_enabled is true
 

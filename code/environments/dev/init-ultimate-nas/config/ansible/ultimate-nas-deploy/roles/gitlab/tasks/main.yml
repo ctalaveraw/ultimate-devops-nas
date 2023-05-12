@@ -54,4 +54,4 @@
       traefik.http.routers.gitlab.tls.certresolver: "letsencrypt"
       traefik.http.routers.gitlab.tls.domains[0].main: "{{ ansible_nas_domain }}"
       traefik.http.routers.gitlab.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-      traefik.http.services.gitlab.loadbalancer.server.port: "80"
+      traefik.http.services.gitlab.loadbalancer.server.port: "443"

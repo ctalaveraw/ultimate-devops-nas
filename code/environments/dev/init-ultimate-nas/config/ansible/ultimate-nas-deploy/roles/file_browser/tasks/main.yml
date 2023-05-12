@@ -28,7 +28,7 @@
           traefik.http.routers.file-browser.tls.certresolver: "letsencrypt"
           traefik.http.routers.file-browser.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.file-browser.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-          traefik.http.services.file-browser.loadbalancer.server.port: "8000"
+          traefik.http.services.file-browser.loadbalancer.server.port: "80"
   when: file_browser_enabled is true
 
 - name: Stop File Browser

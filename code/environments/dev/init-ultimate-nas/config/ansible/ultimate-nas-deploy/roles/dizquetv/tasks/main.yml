@@ -26,4 +26,4 @@
       traefik.http.routers.dizquetv.tls.certresolver: "letsencrypt"
       traefik.http.routers.dizquetv.tls.domains[0].main: "{{ ansible_nas_domain }}"
       traefik.http.routers.dizquetv.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-      traefik.http.services.dizquetv.loadbalancer.server.port: "{{ dizquetv_port }}"
+      traefik.http.services.dizquetv.loadbalancer.server.port: "8000"
