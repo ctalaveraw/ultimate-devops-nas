@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: pihole
+    tags: pihole

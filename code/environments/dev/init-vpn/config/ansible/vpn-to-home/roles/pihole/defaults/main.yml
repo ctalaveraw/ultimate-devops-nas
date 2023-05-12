@@ -1,0 +1,22 @@
+---
+pihole_enabled: false
+pihole_available_externally: false
+
+# directories
+pihole_data_directory: "{{ docker_dir }}/pihole"
+
+pihole_hostname: "pihole"
+
+# network
+pihole_port_dns: "53"
+pihole_port_ui: "1080"
+# pihole_port_dhcp: "67"
+
+# # host network setttings
+# network_settings:
+#   ip_address: 192.168.1.100
+#   subnet_mask: 255.255.255.0
+#   gateway: 192.168.1.1
+#   dns_servers:
+#     - 127.0.0.1
+#     - 1.1.1.1

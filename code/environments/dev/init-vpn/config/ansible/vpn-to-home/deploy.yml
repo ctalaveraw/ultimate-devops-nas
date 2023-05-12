@@ -40,9 +40,20 @@
         - cloudflare
       when: (cloudflare_ddns_enabled | default(False))
 
+    - role: network
+      tags:
+        - network
+        - network_config
+      when: (network_config_enabled | default(False))
+
     ###
     ### Required Roles
     ###
+
+    - role: pihole
+      tags:
+        - pihole
+      when: (pihole_enabled | default(False))
 
     - role: wireguard
       tags:
@@ -55,4 +66,4 @@
     - role: watchtower
       tags:
         - watchtower
-      when: (watchtower_enabled | default(False))
+      when: (watchtower_enabled | default(False))  

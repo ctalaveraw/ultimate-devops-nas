@@ -1,0 +1,33 @@
+---
+- name: Create PiHole Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ pihole_data_directory }}"
+
+- name: Create PiHole container
+  docker_container:
+    name: "{{ pihole_hostname }}"
+    image: pihole/pihole
+    pull: true
+    volumes:
+      - "{{ pihole_data_directory }}/etc-pihole:/etc/pihole:rw"
+      - "{{ pihole_data_directory }}/etc-dnsmasq.d:/etc/dnsmasq.d:rw"
+    ports:
+      - "{{ pihole_port_ui }}:80"
+      - "{{ pihole_port_dns }}:{{ pihole_port_dns }}/tcp"
+      - "{{ pihole_port_dns }}:{{ pihole_port_dns }}/udp"
+      # - "{{ pihole_port_dhcp }}:{{ pihole_port_dhcp }}"
+    env:
+      TZ: "{{ timezone }}"
+    restart_policy: unless-stopped
+    labels:
+      traefik.enable: "{{ pihole_available_externally | string }}"
+      traefik.http.routers.pihole.rule: "Host(`{{ pihole_hostname }}.{{ root_host }}`)"
+      traefik.http.routers.pihole.tls.certresolver: "letsencrypt"
+      traefik.http.routers.pihole.tls.domains[0].main: "{{ root_host }}"
+      traefik.http.routers.pihole.tls.domains[0].sans: "*.{{ root_host }}"
+      traefik.http.services.pihole.loadbalancer.server.port: "{{ pihole_port_ui }}"
+    # capabilities:
+    #   - NET_ADMIN
