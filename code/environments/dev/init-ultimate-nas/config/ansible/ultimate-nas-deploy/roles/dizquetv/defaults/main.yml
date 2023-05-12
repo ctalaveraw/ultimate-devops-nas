@@ -6,7 +6,7 @@ dizquetv_available_externally: false
 dizquetv_data_directory: "{{ docker_home }}/dizquetv/config"
 
 # network
-dizquetv_port: "8000"
+dizquetv_port: "8888"
 dizquetv_hostname: "dizquetv"
 
 # specs
