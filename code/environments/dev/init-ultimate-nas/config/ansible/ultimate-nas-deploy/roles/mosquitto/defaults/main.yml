@@ -5,8 +5,8 @@ mosquitto_enabled: false
 mosquitto_data_directory: "{{ docker_home }}/mosquitto"
 
 # uid / gid
-mosquitto_user_id: "0"
-mosquitto_group_id: "0"
+mosquitto_user_id: "1001"
+mosquitto_group_id: "1001"
 
 # network
 mosquitto_port_a: "1883"
