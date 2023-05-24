@@ -1,0 +1,28 @@
+---
+- name: Create Trilium directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ trilium_data_directory }}"
+
+- name: Trilium Docker Container
+  docker_container:
+    name: trilium
+    image: zadam/trilium:latest
+    pull: true
+    volumes:
+      - "{{ trilium_data_directory }}/home/node/trilium-data:rw"
+    ports:
+      - "0.0.0.0:{{ trilium_port }}:8080"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+    restart_policy: unless-stopped
+    memory: "{{ trilium_memory }}"
+    labels:
+      traefik.enable: "{{ trilium_available_externally | string }}"
+      traefik.http.routers.trilium.rule: "Host(`{{ trilium_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.trilium.tls.certresolver: "letsencrypt"
+      traefik.http.routers.trilium.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.trilium.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.trilium.loadbalancer.server.port: "8080"

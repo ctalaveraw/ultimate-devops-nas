@@ -194,6 +194,11 @@
         - homeassistant
       when: (homeassistant_enabled | default(False))
 
+    - role: immich
+      tags:
+        - immich
+      when: (immich_enabled | default(False))
+
     - role: homebridge
       tags:
         - homebridge
@@ -233,6 +238,11 @@
       tags:
         - lidarr
       when: (lidarr_enabled | default(False))
+
+    - role: trilium
+      tags:
+        - trilium
+      when: (trilium_enabled | default(False))
 
     - role: mealie
       tags:

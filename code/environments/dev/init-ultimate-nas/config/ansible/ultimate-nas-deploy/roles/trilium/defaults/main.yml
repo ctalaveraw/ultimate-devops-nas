@@ -1,0 +1,14 @@
+---
+trilium_enabled: false
+trilium_available_externally: false
+
+# directories
+trilium_data_directory: "{{ docker_home }}/trilium"
+
+# network
+trilium_port: "18080"
+trilium_hostname: "trilium"
+
+
+# specs
+trilium_memory: 1g
