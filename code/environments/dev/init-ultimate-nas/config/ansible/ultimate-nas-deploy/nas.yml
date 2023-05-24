@@ -333,11 +333,6 @@
         - paperless_ng
       when: (paperless_ng_enabled | default(False))
 
-    - role: photoprism
-      tags:
-        - photoprism
-      when: (photoprism_enabled | default(False))
-
     - role: piwigo
       tags:
         - piwigo
