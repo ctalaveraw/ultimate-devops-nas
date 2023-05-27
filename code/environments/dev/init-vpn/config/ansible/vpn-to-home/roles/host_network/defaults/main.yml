@@ -1,8 +1,0 @@
----
-network_settings:
-  network_interface: eth0
-  ip_address: 192.168.1.120/24
-  router_address: 192.168.1.254
-  dns_addresses:
-    - 127.0.0.1
-    - 1.1.1.1
