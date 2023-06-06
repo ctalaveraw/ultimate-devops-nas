@@ -13,8 +13,8 @@ syncthing_samba_volumes:
   - "{{ syncthing_samba_data_directory }}:/var/syncthing/"
   - "{{ samba_shares_root }}:/var/syncthing/mergerfs/data/" # Uncomment to allow access to Samba shares
 
-syncthing_samba_user_id: "1000"
-syncthing_samba_group_id: "1000"
+syncthing_samba_user_id: "0"
+syncthing_samba_group_id: "0"
 
 # network
 syncthing_samba_port_http: 8384
