@@ -11,6 +11,7 @@ syncthing_data_directory: "{{ samba_shares_root }}/syncthing"
 #   - "/ansible/nas/filesystem/directory_name:/var/syncthing/directory_name"
 syncthing_volumes:
   - "{{ syncthing_data_directory }}:/var/syncthing/"
+  # - "{{ samba_shares_root }}:/var/syncthing/mergerfs" # Uncomment to allow access to Samba shares
 
 syncthing_user_id: "0"
 syncthing_group_id: "0"
