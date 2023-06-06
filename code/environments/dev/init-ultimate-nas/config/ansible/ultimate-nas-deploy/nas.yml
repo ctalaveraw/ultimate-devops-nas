@@ -408,10 +408,19 @@
         - stats
       when: (stats_enabled | default(False))
 
-    - role: syncthing
+    - role: syncthing-docker-config
       tags:
-        - syncthing
-      when: (syncthing_enabled | default(False))
+        - syncthing-docker
+        - syncthing-docker-config
+        - docker-config-syncthing
+        - docker-syncthing
+      when: (syncthing_docker_config_enabled | default(False))
+
+    - role: syncthing-samba
+      tags:
+        - syncthing-samba
+        - samba-syncthing
+      when: (syncthing_samba_enabled | default(False))
 
     - role: tautulli
       tags:
