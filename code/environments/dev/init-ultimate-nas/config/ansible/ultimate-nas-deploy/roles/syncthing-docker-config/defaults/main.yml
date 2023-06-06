@@ -13,8 +13,8 @@ syncthing_docker_config_volumes:
   - "{{ syncthing_docker_config_data_directory }}:/var/syncthing/"
   - "{{ docker_home }}:/var/syncthing/docker_volumes/" # Uncomment to allow access to mounted Docker volumes
 
-syncthing_docker_config_user_id: "1000"
-syncthing_docker_config_group_id: "1000"
+syncthing_docker_config_user_id: "0"
+syncthing_docker_config_group_id: "0"
 
 # network
 syncthing_docker_config_port_http: 8385
