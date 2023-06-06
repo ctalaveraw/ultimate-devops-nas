@@ -12,7 +12,7 @@
     image: zadam/trilium:latest
     pull: true
     volumes:
-      - "{{ trilium_data_directory }}/home/node/trilium-data:rw"
+      - "{{ trilium_data_directory }}:/home/node/trilium-data:rw"
     ports:
       - "0.0.0.0:{{ trilium_port }}:8080"
     env:
