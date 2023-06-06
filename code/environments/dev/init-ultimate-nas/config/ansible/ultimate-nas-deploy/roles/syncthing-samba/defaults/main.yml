@@ -3,7 +3,7 @@ syncthing_samba_enabled: false
 syncthing_samba_available_externally: false
 
 # directories
-syncthing_samba_data_directory: "{{ samba_shares_root }}/syncthing"
+syncthing_samba_data_directory: "{{ docker_home }}/{{ syncthing_samba_hostname }}"
 
 # these are the directories that you want to mount from the local ansible-nas filesystem into
 # the syncthing container.
@@ -12,13 +12,13 @@ syncthing_samba_data_directory: "{{ samba_shares_root }}/syncthing"
 syncthing_samba_volumes:
   - "{{ syncthing_samba_data_directory }}:/var/syncthing/"
   - "{{ samba_shares_root }}:/var/syncthing/mergerfs/data/" # Uncomment to allow access to Samba shares
-  
 
 syncthing_samba_user_id: "1000"
 syncthing_samba_group_id: "1000"
 
 # network
-syncthing_samba_port: 8384
+syncthing_samba_port_http: 8384
+syncthing_samba_port_sync: 22000
 syncthing_samba_hostname: syncthing-samba
 
 # specs

@@ -4,27 +4,27 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ syncthing_data_directory }}"
+    - "{{ syncthing_samba_data_directory }}"
 
 - name: Syncthing Docker Container
   docker_container:
-    name: syncthing
+    name: "{{ syncthing_samba_hostname }}"
     image: syncthing/syncthing:latest
     pull: true
     ports:
-      - "{{ syncthing_port }}:8384"
-      - "22000:22000/tcp"
-      - "22000:22000/udp"
+      - "{{ syncthing_samba_port_http }}:8384"
+      - "{{ syncthing_samba_port_sync }}:22000/tcp"
+      - "{{ syncthing_samba_port_sync }}:22000/udp"
     env:
-      PUID: "{{ syncthing_user_id }}"
-      PGID: "{{ syncthing_group_id }}"
-    volumes: "{{ syncthing_volumes }}"
+      PUID: "{{ syncthing_samba_user_id }}"
+      PGID: "{{ syncthing_samba_group_id }}"
+    volumes: "{{ syncthing_samba_volumes }}"
     restart_policy: unless-stopped
-    memory: "{{ syncthing_memory }}"
+    memory: "{{ syncthing_samba_memory }}"
     labels:
-      traefik.enable: "{{ syncthing_available_externally | string }}"
-      traefik.http.routers.syncthing.rule: "Host(`{{ syncthing_hostname }}.{{ ansible_nas_domain }}`)"
-      traefik.http.routers.syncthing.tls.certresolver: "letsencrypt"
-      traefik.http.routers.syncthing.tls.domains[0].main: "{{ ansible_nas_domain }}"
-      traefik.http.routers.syncthing.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-      traefik.http.services.syncthing.loadbalancer.server.port: "8384"
+      traefik.enable: "{{ syncthing_samba_available_externally | string }}"
+      traefik.http.routers.syncthing-samba.rule: "Host(`{{ syncthing_samba_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.syncthing-samba.tls.certresolver: "letsencrypt"
+      traefik.http.routers.syncthing-samba.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.syncthing-samba.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.syncthing-samba.loadbalancer.server.port: "8384"
