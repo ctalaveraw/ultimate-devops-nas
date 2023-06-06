@@ -3,7 +3,7 @@ syncthing_docker_config_enabled: false
 syncthing_docker_config_available_externally: false
 
 # directories
-syncthing_docker_config_data_directory: "{{ samba_shares_root }}/syncthing"
+syncthing_docker_config_data_directory: "{{ docker_home }}/{{ syncthing_docker_config_hostname}}"
 
 # these are the directories that you want to mount from the local ansible-nas filesystem into
 # the syncthing container.
@@ -17,8 +17,10 @@ syncthing_docker_config_user_id: "1000"
 syncthing_docker_config_group_id: "1000"
 
 # network
-syncthing_docker_config_port: 8385
+syncthing_docker_config_port_http: 8385
+syncthing_docker_config_port_sync: 22001
 syncthing_docker_config_hostname: syncthing-docker-config
+
 
 # specs
 syncthing_docker_config_memory: 1g
