@@ -1,6 +1,13 @@
 ---
 - name: Start Dashy
   block:
+    - name: Create Dashy Directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        # mode: 0755
+      with_items:
+        - "{{ dashy_config_directory }}"
     - name: Dashy Docker Container
       docker_container:
         name: "{{ dashy_container_name }}"
@@ -8,6 +15,8 @@
         pull: true
         ports:
           - "{{ dashy_port }}:80"
+        volumes:
+          # - "{{ dashy_config_directory }}/:/app/public/:rw"
         restart_policy: unless-stopped
         memory: "{{ dashy_memory }}"
         labels:
