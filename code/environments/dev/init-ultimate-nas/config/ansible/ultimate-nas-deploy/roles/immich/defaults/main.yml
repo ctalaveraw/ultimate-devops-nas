@@ -1,0 +1,36 @@
+---
+immich_enabled: false
+immich_available_externally: false
+
+# directories
+immich_config_directory: "{{ docker_home }}/immich/config"
+immich_db_data_directory: "{{ docker_home }}/{{ immich_db_container_name }}"
+immich_ml_directory: "{{ immich_config_directory }}/machine-learning"
+immich_photos: "{{ photos_root }}/immich"
+
+# uid / gid
+immich_user_id: "1000"
+immich_group_id: "1000"
+immich_mysql_user: "immich"
+immich_mysql_password: "immich"
+immich_mysql_root_password: "immich"
+
+# Immich config 
+immich_hostname: "immich"
+immich_container_name: "{{ immich_hostname }}"
+immich_photos_permission: "rw"
+
+# network
+immich_app_port: "9898"
+immich_db_port: "5432"
+immich_redis_port: "6379"
+
+# PostgreSQL
+immich_db_name: "postgres"
+immich_db_container_name: "{{ immich_container_name }}-{{ immich_db_name }}"
+
+# Redis
+immich_redis_name: "redis"
+immich_redis_container_name: "{{ immich_container_name }}-{{ immich_redis_name }}"
+
+

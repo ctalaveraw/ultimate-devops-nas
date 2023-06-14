@@ -199,6 +199,11 @@
         - homebridge
       when: (homebridge_enabled | default(False))
 
+    - role: immich
+      tags:
+        - immich
+      when: (immich_enabled | default(False))
+
     - role: jackett
       tags:
         - jackett

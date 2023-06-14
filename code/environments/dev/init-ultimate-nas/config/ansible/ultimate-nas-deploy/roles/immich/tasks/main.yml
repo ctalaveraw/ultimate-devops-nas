@@ -1,0 +1,75 @@
+---
+- name: Create Immich Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ immich_config_directory }}"
+    - "{{ immich_db_data_directory }}"
+    - "{{ immich_ml_directory }}"
+    - "{{ immich_photos }}"
+
+- name: Create PostgreSQL container for Immich
+  docker_container:
+    name: "{{ immich_db_container_name }}"
+    image: "{{ immich_db_name }}:14"
+    pull: true
+    volumes:
+      - "{{ immich_db_data_directory }}:/var/lib/postgresql/data:rw"
+    ports:
+      - "{{ immich_db_port }}:5432"
+    env:
+      POSTGRES_DB: "{{ immich_hostname }}"
+      POSTGRES_USER: "{{ immich_db_name }}"
+      POSTGRES_PASSWORD: "{{ immich_db_name }}"
+    restart_policy: unless-stopped
+
+- name: Create Redis container for Immich
+  docker_container:
+    name: "{{ immich_redis_container_name }}"
+    image: "{{ immich_redis_name }}"
+    pull: true
+    volumes:
+      - "{{ immich_ml_directory }}/postgres:/var/lib/postgres:rw"
+    ports:
+      - "{{ immich_redis_port }}:6379"
+    restart_policy: unless-stopped
+
+- name: Immich Docker Container
+  docker_container:
+    name: "{{ immich_hostname }}"
+    image: ghcr.io/imagegenius/immich:latest
+    pull: true
+    volumes:
+      - "{{ immich_config_directory }}:/config:rw"
+      - "{{ immich_ml_directory }}:/config/machine-learning:rw"
+      - "{{ immich_photos }}:/photos:rw"
+    links:
+      - "{{ immich_db_container_name }}:{{ immich_db_name }}"
+      - "{{ immich_redis_container_name }}:{{ immich_redis_name }}"
+    ports:
+      - "{{ immich_app_port }}:8080"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+      PUID: "{{ immich_user_id }}"
+      PGID: "{{ immich_group_id }}"
+      DB_DATABASE_NAME: "{{ immich_hostname }}"
+      DB_USERNAME: "{{ immich_db_name }}"
+      DB_PASSWORD: "{{ immich_db_name }}"
+      DB_PORT: "{{ immich_db_port }}"
+      DB_HOSTNAME: "{{ immich_db_name }}"
+      REDIS_HOSTNAME: "{{ immich_redis_name }}"
+      REDIS_PORT: "{{ immich_redis_port }}"
+      REDIS_PASSWORD: "{{ immich_redis_name }}"
+      CUDA_ACCELERATION: "false" # optional, requires NVIDIA GPU passthrough
+      DISABLE_TYPESENSE: "false" # optional, set to true to disable searching
+      DISABLE_MACHINE_LEANRNING: "false" # optional, set to true to disable machine learning
+    restart_policy: unless-stopped
+    labels:
+      traefik.enable: "{{ immich_available_externally | string }}"
+      traefik.http.routers.immich.rule: "Host(`{{ immich_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.immich.tls.certresolver: "letsencrypt"
+      traefik.http.routers.immich.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.immich.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.immich.loadbalancer.server.port: "8080"
+
