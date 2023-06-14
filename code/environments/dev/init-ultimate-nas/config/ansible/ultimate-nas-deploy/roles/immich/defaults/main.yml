@@ -32,5 +32,3 @@ immich_db_container_name: "{{ immich_container_name }}-{{ immich_db_name }}"
 # Redis
 immich_redis_name: "redis"
 immich_redis_container_name: "{{ immich_container_name }}-{{ immich_redis_name }}"
-
-
