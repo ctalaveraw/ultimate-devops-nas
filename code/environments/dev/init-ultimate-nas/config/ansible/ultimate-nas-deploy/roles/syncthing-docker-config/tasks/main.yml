@@ -20,7 +20,7 @@
       PGID: "{{ syncthing_docker_config_group_id }}"
     volumes: "{{ syncthing_docker_config_volumes }}"
     restart_policy: unless-stopped
-    memory: "{{ syncthing_docker_config_memory }}"
+    # memory: "{{ syncthing_docker_config_memory }}"
     labels:
       traefik.enable: "{{ syncthing_docker_config_available_externally | string }}"
       traefik.http.routers.syncthing-docker-config.rule: "Host(`{{ syncthing_docker_config_hostname }}.{{ ansible_nas_domain }}`)"

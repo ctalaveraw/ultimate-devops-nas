@@ -30,7 +30,7 @@
         enabled: yes
   when: nomad_enabled is true
 
-## # UNCOMMENT IF YOU NEED NOMAD
+# # UNCOMMENT IF YOU NEED NOMAD
 ##
 ##  - name: Stop Nomad
 ##    block:

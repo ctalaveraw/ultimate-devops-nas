@@ -18,4 +18,4 @@
     ports:
       - "{{ get_iplayer_port }}:8181"
     restart_policy: unless-stopped
-    memory: "{{ get_iplayer_memory }}"
+    # memory: "{{ get_iplayer_memory }}"
