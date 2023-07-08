@@ -19,7 +19,7 @@
       - "{{ netbootxyz_port_http }}:3000"
       - "{{ netbootxyz_port_http2 }}:80"
       - "{{ netbootxyz_port_tftp }}:69/udp"
-    # memory: "{{ netbootxyz_memory }}"
+   memory : "{{ netbootxyz_memory }}"
     env:
       TZ: "{{ ansible_nas_timezone }}"
       PUID: "{{ netbootxyz_user_id }}"

@@ -14,4 +14,4 @@
       MINIDLNA_PORT: "{{ minidlna_port }}"
     restart_policy: unless-stopped
     network_mode: host
-    # memory: "{{ minidlna_memory }}"
+   memory : "{{ minidlna_memory }}"
