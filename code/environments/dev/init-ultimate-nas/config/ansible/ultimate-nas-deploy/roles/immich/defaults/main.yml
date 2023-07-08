@@ -19,6 +19,7 @@ immich_mysql_root_password: "immich"
 immich_hostname: "immich"
 immich_container_name: "{{ immich_hostname }}"
 immich_photos_permission: "rw"
+immich_memory: 4g
 
 # network
 immich_app_port: "9898"
@@ -28,7 +29,9 @@ immich_redis_port: "6379"
 # PostgreSQL
 immich_db_name: "postgres"
 immich_db_container_name: "{{ immich_container_name }}-{{ immich_db_name }}"
+immich_postgres_memory: 1g
 
 # Redis
 immich_redis_name: "redis"
 immich_redis_container_name: "{{ immich_container_name }}-{{ immich_redis_name }}"
+immich_redis_memory: 1g

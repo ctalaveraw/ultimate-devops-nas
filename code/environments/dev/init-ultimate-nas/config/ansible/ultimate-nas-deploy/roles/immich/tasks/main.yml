@@ -16,6 +16,7 @@
     pull: true
     volumes:
       - "{{ immich_db_data_directory }}:/var/lib/postgresql/data:rw"
+    memory: "{{ immich_postgres_memory }}"
     ports:
       - "{{ immich_db_port }}:5432"
     env:
@@ -31,6 +32,7 @@
     pull: true
     volumes:
       - "{{ immich_ml_directory }}/postgres:/var/lib/postgres:rw"
+    memory: "{{ immich_redis_memory }}"
     ports:
       - "{{ immich_redis_port }}:6379"
     restart_policy: unless-stopped
@@ -44,6 +46,7 @@
       - "{{ immich_config_directory }}:/config:rw"
       - "{{ immich_ml_directory }}:/config/machine-learning:rw"
       - "{{ immich_photos }}:/photos:rw"
+    memory: "{{ immich_memory }}"
     links:
       - "{{ immich_db_container_name }}:{{ immich_db_name }}"
       - "{{ immich_redis_container_name }}:{{ immich_redis_name }}"
