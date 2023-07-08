@@ -8,7 +8,7 @@
     ports:
       - "{{ stats_prometheus_smartctl_port }}:9902"
     restart_policy: unless-stopped
-    memory: "{{ stats_prometheus_smartctl_memory }}"
+     # memory: "{{ stats_prometheus_smartctl_memory }}"
 
 - name: Speedtest Exporter Docker Container
   docker_container:
@@ -18,5 +18,5 @@
     ports:
       "{{ stats_speedtest_exporter_port }}:9798"
     restart_policy: unless-stopped
-    memory: "{{ stats_speedtest_exporter_memory }}"
+     # memory: "{{ stats_speedtest_exporter_memory }}"
   when: stats_internet_speed_test_enabled

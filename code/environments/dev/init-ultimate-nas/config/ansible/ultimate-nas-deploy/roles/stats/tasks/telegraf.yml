@@ -45,5 +45,5 @@
       HOST_RUN: "/hostfs/run"
       HOST_MOUNT_PREFIX: "/hostfs"
     restart_policy: unless-stopped
-    memory: 1g
+    # memory: 1g
     restart: "{{ telegraf_config is changed }}"

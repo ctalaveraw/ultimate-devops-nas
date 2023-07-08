@@ -9,7 +9,7 @@
 - name: Create Prowlarr Docker Container
   docker_container:
     name: prowlarr
-    image: ghcr.io/linuxserver/prowlarr:latest
+    image: ghcr.io/linuxserver/prowlarr:develop
     pull: true
     volumes:
       - "{{ prowlarr_data_directory }}:/config:rw"
@@ -20,7 +20,7 @@
       PUID: "{{ prowlarr_user_id }}"
       PGID: "{{ prowlarr_group_id }}"
     restart_policy: unless-stopped
-    memory: "{{ prowlarr_memory }}"
+     # memory: "{{ prowlarr_memory }}"
     labels:
       traefik.enable: "{{ prowlarr_available_externally | string }}"
       traefik.http.routers.prowlarr.rule: "Host(`{{ prowlarr_hostname }}.{{ ansible_nas_domain }}`)"

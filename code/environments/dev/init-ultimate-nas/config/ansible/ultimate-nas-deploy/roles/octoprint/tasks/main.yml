@@ -19,7 +19,7 @@
       - "{{ octoprint_printer_mountpoint }}"
       - "{{ octoprint_enable_webcam | ternary(octoprint_webcam_mountpoint, '/dev/null') }}"
     restart_policy: unless-stopped
-    memory: "{{ octoprint_memory }}"
+    # memory: "{{ octoprint_memory }}"
     env:
       TZ: "{{ ansible_nas_timezone }}"
       MJPG_STREAMER_INPUT: "-n -r 1080x1024 -f 30"
