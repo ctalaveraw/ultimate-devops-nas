@@ -29,7 +29,7 @@
           - "{{ jenkins_port }}:{{ jenkins_port }}"
           - "{{ jenkins_port_http }}:{{ jenkins_port_http }}"
         restart_policy: unless-stopped
-       memory : "{{ jenkins_memory }}"
+        memory : "{{ jenkins_memory }}"
         labels:
           traefik.enable: "{{ jenkins_available_externally | string }}"
           traefik.http.routers.jenkins.rule: "Host(`{{ jenkins_hostname }}.{{ ansible_nas_domain }}`)"
