@@ -42,7 +42,7 @@
       GF_PLUGINS_ENABLE_ALPHA: "true"
       GF_UNIFIED_ALERTING_ENABLED: "true"
     restart_policy: unless-stopped
-   memory : 1g
+    memory : 1g
     labels:
       traefik.enable: "{{ stats_grafana_available_externally | string }}"
       traefik.http.routers.grafana.rule: "Host(`grafana.{{ ansible_nas_domain }}`) "

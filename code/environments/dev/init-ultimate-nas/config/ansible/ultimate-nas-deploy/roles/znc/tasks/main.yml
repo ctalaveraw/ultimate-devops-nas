@@ -21,7 +21,7 @@
       PUID: "{{ znc_user_id }}"
       PGID: "{{ znc_group_id }}"
     restart_policy: unless-stopped
-   memory : "{{ znc_memory }}"
+    memory : "{{ znc_memory }}"
     labels:
       traefik.enable: "{{ znc_available_externally | string }}"
       traefik.http.routers.znc.rule: "Host(`{{ znc_hostname }}.{{ ansible_nas_domain }}`)"

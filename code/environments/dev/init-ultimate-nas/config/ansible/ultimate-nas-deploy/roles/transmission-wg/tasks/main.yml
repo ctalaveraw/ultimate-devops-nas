@@ -69,4 +69,4 @@
       traefik.http.routers.transmission-wg.tls.domains[0].main: "{{ ansible_nas_domain }}"
       traefik.http.routers.transmission-wg.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
       traefik.http.services.transmission-wg.loadbalancer.server.port: "{{ transmission_webui_port }}"
-   memory : "{{ transmission_memory }}"
+    memory : "{{ transmission_memory }}"

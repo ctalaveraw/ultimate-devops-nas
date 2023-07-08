@@ -11,3 +11,6 @@ uptime_kuma_hostname: "uptime-kuma"
 
 # docker
 uptime_kuma_container_name: uptime-kuma
+
+# memory
+uptime_kuma_memory: 1g
