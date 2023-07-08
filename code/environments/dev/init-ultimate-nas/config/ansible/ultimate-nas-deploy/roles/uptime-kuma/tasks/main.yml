@@ -18,7 +18,7 @@
         volumes:
           - "{{ uptime_kuma_data_directory }}:/app/data:rw"
           - /var/run/docker.sock:/var/run/docker.sock
-       memory : "{{ uptime_kuma_memory }}"
+        memory : "{{ uptime_kuma_memory }}"
         labels:
           traefik.enable: "{{ uptime_kuma_available_externally | string }}"
           traefik.http.routers.uptime-kuma.rule: "Host(`{{ uptime_kuma_hostname }}.{{ ansible_nas_domain }}`)"
