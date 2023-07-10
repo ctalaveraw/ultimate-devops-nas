@@ -1,0 +1,18 @@
+---
+cron_mem_enabled: false
+
+# Defines "minute (0-59)"
+cron_mem_minute: "0"
+
+# Defines "hour (0-23)"
+cron_mem_hour: "*/2"
+
+# Defines "day of the month (1-31)"
+cron_mem_day_of_month: "*"
+
+# Defines "month (1-12)"
+cron_mem_month: "*"
+
+# Defines "day of the week (0-6)"
+cron_mem_day_of_week: "*"
+

@@ -85,6 +85,12 @@
       tags:
         - couchpotato
 
+    - role: cron-clear-mem
+      tags:
+        - cron-clear-mem
+        - cron-mem
+      when: (cron_mem_enabled | default(False))
+
     - role: dashy
       tags:
         - dashy
