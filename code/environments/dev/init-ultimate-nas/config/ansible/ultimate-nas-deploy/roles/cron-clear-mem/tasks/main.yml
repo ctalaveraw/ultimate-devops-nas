@@ -1,5 +1,5 @@
 ---
-- name: Cron scheduel to clear pagecache, dentries and inodes every other hour
+- name: Cron schedule to clear pagecache, dentries and inodes every other hour
   ansible.builtin.cron:
     name: "semi-hourly clear cached memory"
     minute: "{{ cron_mem_minute }}"
