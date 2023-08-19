@@ -9,7 +9,7 @@
 - name: Create Prowlarr Docker Container
   docker_container:
     name: prowlarr
-    image: ghcr.io/linuxserver/prowlarr:latest
+    image: ghcr.io/linuxserver/prowlarr:develop
     pull: true
     volumes:
       - "{{ prowlarr_data_directory }}:/config:rw"
