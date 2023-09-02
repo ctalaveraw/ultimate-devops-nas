@@ -60,6 +60,7 @@
       PAPERLESS_ADMIN_PASSWORD: "paperless"
       PAPERLESS_REDIS: "redis://{{ paperless_ng_container_name_redis | string }}:6379"
       PAPERLESS_DBHOST: "{{ paperless_ng_container_name_postgres | string }}"
+      PAPERLESS_URL: "https://{{ paperless_ng_hostname }}.{{ ansible_nas_domain }}"
       USERMAP_UID: "{{ paperless_ng_user_id }}"
       USERMAP_GID: "{{ paperless_ng_group_id }}"
       PAPERLESS_OCR_LANGUAGES: "{{ paperless_ng_languages }}"
