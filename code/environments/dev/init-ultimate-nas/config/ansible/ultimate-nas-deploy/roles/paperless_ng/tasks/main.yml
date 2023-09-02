@@ -46,7 +46,7 @@
 - name: Create paperless_ng UI Docker Container
   docker_container:
     name: "{{ paperless_ng_container_name_uiserver }}"
-    image: jonaswinkler/paperless-ng:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
     pull: true
     volumes:
       - "{{ paperless_ng_data_directory }}:/usr/src/paperless/data"
@@ -65,3 +65,10 @@
     memory : "{{ paperless_ng_ui_memory }}"
     networks:
       - name: "{{ paperless_ng_container_network_name }}"
+    labels:
+      traefik.enable: "{{ paperless_ng_available_externally | string }}"
+      traefik.http.routers.paperless-ng.rule: "Host(`{{ paperless_ng_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.paperless-ng.tls.certresolver: "letsencrypt"
+      traefik.http.routers.paperless-ng.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.paperless-ng.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.paperless-ng.loadbalancer.server.port: "8000"

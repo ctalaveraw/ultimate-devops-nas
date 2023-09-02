@@ -1,5 +1,6 @@
 ---
 paperless_ng_enabled: false
+paperless_ng_available_externally: false
 
 # directories
 paperless_ng_config_directory: "{{ docker_home }}/paperless_ng"
@@ -13,7 +14,7 @@ paperless_ng_consume_directory: "{{ paperless_ng_files_directory }}/consume"
 
 # network
 paperless_ng_port: "16922"
-paperless_ng_hostname: "paperless_ng"
+paperless_ng_hostname: "paperless-ngx"
 
 # postgres
 paperless_ng_postgres_db: "paperless"
