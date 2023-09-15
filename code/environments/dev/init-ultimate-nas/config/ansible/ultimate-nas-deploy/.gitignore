@@ -1,20 +1,14 @@
-tests/test.yml
+/inventories/*
+!inventories/sample/
 site
 .vagrant
 *.retry
 *.log
-inventories
 .cache
 roles/bertvv.samba
 roles/geerlingguy.docker
 roles/geerlingguy.nfs
 *.conf
-
-# Vim
-[._]sw[a-p]
-
-# Session
-Session.vim
 
 # IntelliJ
 /.idea/
