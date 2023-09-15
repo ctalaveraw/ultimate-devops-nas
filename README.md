@@ -288,17 +288,3 @@ Planned features include:
 ##### Alternative / optional choices
 
 - [openHAB](https://www.openhab.org/) - A vendor and technology agnostic open source automation software for your home; Alternative to Home Assistant
-
-
-
-## Installation
-
-TBD
-
-## Documentation
-
-TBD
-
-## Requirements
-
-TBD
