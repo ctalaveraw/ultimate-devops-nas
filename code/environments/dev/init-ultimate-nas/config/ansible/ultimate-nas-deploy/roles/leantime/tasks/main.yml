@@ -1,0 +1,63 @@
+---
+- name: Create LeanTime Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ leantime_config_directory }}"
+    - "{{ leantime_mysql_config_directory }}"
+
+- name: Create MySQL container for LeanTime
+  docker_container:
+    name: "{{ leantime_mysql_container_name }}"
+    image: mysql:5.7
+    pull: true
+    volumes:
+      - "{{ leantime_mysql_config_directory }}/mysql:/var/lib/mysql:rw"
+    env:
+      MYSQL_USER: "{{ leantime_mysql_user }}"
+      MYSQL_ROOT_PASSWORD: "{{ leantime_mysql_password_root }}"
+      MYSQL_PASSWORD: "{{ leantime_mysql_password }}"
+      MYSQL_DATABASE: "{{ leantime_hostname }}"
+    restart_policy: unless-stopped
+    memory : "{{ leantime_mysql_memory }}"
+
+- name: LeanTime Docker Container
+  docker_container:
+    name: "{{ leantime_container_name }}"
+    image: leantime/leantime
+    pull: true
+    volumes:
+      - "{{ leantime_config_directory }}:/config:rw"
+    links:
+      - "{{ leantime_mysql_container_name }}:db"
+    ports:
+      - "{{ leantime_port }}:80"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+      LEAN_DB_HOST: "{{ leantime_mysql_container_name }}"
+      LEAN_DB_USER: "{{ leantime_mysql_user }}"
+      LEAN_DB_PASSWORD: "{{ leantime_mysql_password }}"
+      LEAN_DB_DATABASE: "{{ leantime_hostname }}"
+    restart_policy: unless-stopped
+    memory: "{{ leantime_memory }}"
+    labels:
+      traefik.enable: "{{ leantime_available_externally | string }}"
+      traefik.http.routers.leantime.rule: "Host(`{{ leantime_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.leantime.tls.certresolver: "letsencrypt"
+      traefik.http.routers.leantime.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.leantime.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.leantime.loadbalancer.server.port: "80"
+
+- name: Stop LeanTime
+  block:
+    - name: Stop LeanTime
+      docker_container:
+        name: "{{ leantime_container_name }}"
+        state: absent
+
+    - name: Stop LeanTime MySQL
+      docker_container:
+        name: "{{ leantime_mysql_container_name }}"
+        state: absent
+  when: leantime_enabled is false

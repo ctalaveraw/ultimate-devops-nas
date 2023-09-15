@@ -240,6 +240,11 @@
         - krusader
       when: (krusader_enabled | default(False))
 
+    - role: leantime
+      tags:
+        - leantime
+      when: (leantime_enabled | default(False))
+
     - role: lidarr
       tags:
         - lidarr

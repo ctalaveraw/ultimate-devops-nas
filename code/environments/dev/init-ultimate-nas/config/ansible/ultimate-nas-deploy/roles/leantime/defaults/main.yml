@@ -1,0 +1,27 @@
+---
+## LeanTime
+
+# enable or disable the application
+leantime_enabled: false
+leantime_available_externally: false
+
+# secrets
+leantime_mysql_password: "123456789!"
+leantime_mysql_password_root: "{{ leantime_mysql_password }}"
+
+# directories
+leantime_config_directory: "{{ docker_home }}/leantime/config"
+
+# network
+leantime_hostname: "leantime"
+leantime_container_name: "{{ leantime_hostname }}"
+leantime_port: "1111"
+
+# database
+leantime_mysql_container_name: "{{ leantime_hostname }}-mysql"
+leantime_mysql_config_directory: "{{ docker_home }}/{{ leantime_mysql_container_name }}"
+leantime_mysql_user: "admin"
+
+# specs
+leantime_memory: "1g"
+leantime_mysql_memory: "1g"
