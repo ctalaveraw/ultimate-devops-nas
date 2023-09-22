@@ -4,7 +4,7 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ serge_data_directory }}"
+    - "{{ serge_data_directory }}" # All AI training data will be on Samba Share under smb://host/code/
 
 - name: Serge AI Chat
   docker_container:
@@ -12,7 +12,6 @@
     image: ghcr.io/serge-chat/serge:latest
     pull: true
     volumes:
-      - "{{ serge_data_directory }}:/config:rw"
       - "{{ serge_data_directory }}/weights:/usr/src/app/weights:rw"
       - "{{ serge_data_directory }}/datadb:/data/db/:rw"
     ports:
