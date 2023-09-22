@@ -1,0 +1,15 @@
+---
+serge_enabled: false
+serge_available_externally: false
+
+# directories
+serge_data_directory: "{{ docker_home }}/serge/config"
+
+# uid / gid
+serge_user_id: "0"
+serge_group_id: "0"
+
+# network
+serge_port: "8008"
+serge_hostname: "serge"
+serge_container_name: "{{ serge_hostname }}"

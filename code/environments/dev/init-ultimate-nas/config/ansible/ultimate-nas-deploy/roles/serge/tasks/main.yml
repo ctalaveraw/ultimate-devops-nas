@@ -1,0 +1,31 @@
+---
+- name: Create Serge AI Chat Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ serge_data_directory }}"
+
+- name: Serge AI Chat
+  docker_container:
+    name: "{{ serge_container_name }}"
+    image: ghcr.io/serge-chat/serge:latest
+    pull: true
+    volumes:
+      - "{{ serge_data_directory }}:/config:rw"
+      - "{{ serge_data_directory }}/weights:/usr/src/app/weights:rw"
+      - "{{ serge_data_directory }}/datadb:/data/db/:rw"
+    ports:
+      - "{{ serge_port }}:{{ serge_port }}"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+      PUID: "{{ serge_user_id }}"
+      PGID: "{{ serge_group_id }}"
+    restart_policy: unless-stopped
+    labels:
+      traefik.enable: "{{ serge_available_externally | string }}"
+      traefik.http.routers.serge.rule: "Host(`{{ serge_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.serge.tls.certresolver: "letsencrypt"
+      traefik.http.routers.serge.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.serge.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.serge.loadbalancer.server.port: "{{ serge_port }}"

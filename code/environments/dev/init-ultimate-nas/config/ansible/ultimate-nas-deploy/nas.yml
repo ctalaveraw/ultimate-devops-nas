@@ -404,6 +404,11 @@
         - sabnzbd
       when: (sabnzbd_enabled | default(False))
 
+    - role: serge
+      tags:
+        - serge
+      when: (serge_enabled | default(False))
+
     - role: sickchill
       tags:
         - sickchill
