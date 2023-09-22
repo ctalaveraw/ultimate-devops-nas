@@ -3,7 +3,7 @@ serge_enabled: false
 serge_available_externally: false
 
 # directories
-serge_data_directory: "{{ docker_home }}/serge/config"
+serge_data_directory: "{{ code_root }}/ai/serge/"
 
 # uid / gid
 serge_user_id: "0"
