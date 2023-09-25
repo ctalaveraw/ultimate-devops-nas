@@ -1,0 +1,18 @@
+---
+linkding_enabled: false
+linkding_available_externally: false
+
+# directories
+linkding_data_directory: "{{ docker_home }}/linkding/config"
+
+# uid/gid
+linkding_user_id: "0"
+linkding_group_id: "0"
+
+# network
+linkding_port: "9090"
+linkding_hostname: "linkding"
+linkding_container_name: "{{ linkding_hostname }}"
+
+# specs
+linkding_memory: 1g
