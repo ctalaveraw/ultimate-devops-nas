@@ -250,6 +250,11 @@
         - lidarr
       when: (lidarr_enabled | default(False))
 
+    - role: linkding
+      tags:
+        - linkding
+      when: (linkding_enabled | default(False))
+
     - role: trilium
       tags:
         - trilium

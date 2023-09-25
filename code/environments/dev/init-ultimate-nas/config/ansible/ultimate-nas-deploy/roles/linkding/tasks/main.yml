@@ -1,0 +1,28 @@
+---
+- name: Create Linkding Directory
+  file:
+    path: "{{ linkding_data_directory }}"
+    state: directory
+
+- name: Linkding Docker Container
+  docker_container:
+    name: "{{ linkding_container_name }}"
+    image: sissbruecker/linkding:latest
+    pull: true
+    volumes:
+      - "{{ linkding_data_directory }}:/etc/linkding/data:rw"
+    ports:
+      - "{{ linkding_port }}:{{ linkding_port }}"
+    env:
+      TZ: "{{ ansible_nas_timezone }}"
+      PUID: "{{ linkding_user_id }}"
+      PGID: "{{ linkding_group_id }}"
+    restart_policy: unless-stopped
+    memory : "{{ linkding_memory }}"
+    labels:
+      traefik.enable: "{{ linkding_available_externally | string }}"
+      traefik.http.routers linkding.rule: "Host(`{{ linkding_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers linkding.tls.certresolver: "letsencrypt"
+      traefik.http.routers linkding.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers linkding.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services linkding.loadbalancer.server.port: "{{ linkding_port }}"
