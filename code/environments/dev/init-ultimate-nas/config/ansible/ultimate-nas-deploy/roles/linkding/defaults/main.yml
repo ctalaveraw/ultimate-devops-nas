@@ -13,6 +13,8 @@ linkding_group_id: "0"
 linkding_port: "9090"
 linkding_hostname: "linkding"
 linkding_container_name: "{{ linkding_hostname }}"
+linkding_domain_external: "{{ linkding_hostname }}.{{ ansible_nas_domain }}"
+linkding_domain_allowed: "https://{{ linkding_domain_external }}"
 
 # specs
 linkding_memory: 1g
