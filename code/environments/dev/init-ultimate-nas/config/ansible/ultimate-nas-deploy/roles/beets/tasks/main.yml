@@ -1,0 +1,43 @@
+---
+- name: Start Beets
+  block:
+    - name: Create Beets Directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ beets_data_directory }}"
+
+    - name: Beets Docker Container
+      docker_container:
+        name: "{{ beets_container_name }}"
+        image: lscr.io/linuxserver/beets:latest
+        pull: true
+        volumes:
+          - "{{ beets_download_directory }}:/downloads:rw"
+          - "{{ beets_music_directory }}:/music:rw"
+          - "{{ beets_data_directory }}/config:/config:rw"
+        ports:
+          - "{{ beets_port }}:{{ beets_port }}"
+        env:
+          TZ: "{{ ansible_nas_timezone }}"
+          PUID: "{{ beets_user_id }}"
+          PGID: "{{ beets_group_id }}"
+        restart_policy: unless-stopped
+        memory : "{{ beets_memory }}"
+        labels:
+          traefik.enable: "{{ beets_available_externally | string }}"
+          traefik.http.routers.beets.rule: "Host(`{{ beets_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.beets.tls.certresolver: "letsencrypt"
+          traefik.http.routers.beets.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.beets.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.beets.loadbalancer.server.port: "{{ beets_port }}"
+  when: beets_enabled is true
+
+- name: Stop Beets
+  block:
+    - name: Stop Beets
+      docker_container:
+        name: "{{ beets_container_name }}"
+        state: absent
+  when: beets_enabled is false
