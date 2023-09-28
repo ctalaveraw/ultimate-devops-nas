@@ -23,5 +23,5 @@ leantime_mysql_config_directory: "{{ docker_home }}/{{ leantime_mysql_container_
 leantime_mysql_user: "admin"
 
 # specs
-leantime_memory: "1g"
+leantime_memory: "2g"
 leantime_mysql_memory: "1g"
