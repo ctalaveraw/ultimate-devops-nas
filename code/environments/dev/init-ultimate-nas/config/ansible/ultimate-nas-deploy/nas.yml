@@ -57,6 +57,11 @@
       tags:
         - bazarr
 
+    - role: beets
+      tags:
+        - beets
+      when: (beets_enabled | default(False))        
+
     - role: bitwarden
       tags:
         - bitwarden
