@@ -364,6 +364,11 @@
         - paperless_ng
       when: (paperless_ng_enabled | default(False))
 
+    - role: picard
+      tags:
+        - picard
+      when: (picard_enabled | default(False))
+
     - role: piwigo
       tags:
         - piwigo
