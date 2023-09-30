@@ -9,5 +9,5 @@
     day: "{{ snapraid_cron_scrub_day_of_month }}"
     month: "{{ snapraid_cron_scrub_month }}"
     weekday: "{{ snapraid_cron_scrub_day_of_week }}"
-    job: "snapraid -p 8 -o 90 scrub --log $HOME/snapraid_scrub_weekly.log"
+    job: "ionice -c 3 snapraid -p 8 -o 90 scrub --log $HOME/snapraid_scrub_weekly.log"
 
