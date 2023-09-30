@@ -1,0 +1,46 @@
+---
+- name: Start Musicbrainz-Picard
+  block:
+    - name: Create Musicbrainz-Picard Directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ picard_data_directory }}"
+
+    - name: Musicbrainz-Picard Docker Container
+      docker_container:
+        name: "{{ picard_container_name }}"
+        image: mikenye/picard:latest
+        pull: true
+        volumes:
+          - "{{ picard_data_directory }}/config:/config:rw"
+          - "{{ picard_music_directory }}:/storage:rw"
+        ports:
+          - "{{ picard_port_http }}:{{ picard_port_http }}"
+          - "{{ picard_port_browser_integration }}:8000"
+          # - "{{ picard_port_vnc }}:{{ picard_port_vnc }}" # Uncomment if using VNC
+        env:
+          TZ: "{{ ansible_nas_timezone }}"
+          USER_ID: "{{ picard_user_id }}"
+          GROUP_ID: "{{ picard_group_id }}"
+          VNC_PASSWORD: "{{ picard_password }}"
+          KEEP_APP_RUNNING: "1"
+        restart_policy: unless-stopped
+        memory : "{{ picard_memory }}"
+        labels:
+          traefik.enable: "{{ picard_available_externally | string }}"
+          traefik.http.routers.beets.rule: "Host(`{{ picard_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.beets.tls.certresolver: "letsencrypt"
+          traefik.http.routers.beets.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.beets.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.beets.loadbalancer.server.port: "{{ picard_port_http }}"
+  when: picard_enabled is true
+
+- name: Stop Musicbrainz-Picard
+  block:
+    - name: Stop Musicbrainz-Picard
+      docker_container:
+        name: "{{ picard_container_name }}"
+        state: absent
+  when: picard_enabled is false

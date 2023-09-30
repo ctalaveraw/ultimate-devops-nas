@@ -290,11 +290,6 @@
         - mosquitto
       when: (mosquitto_enabled | default(False))
 
-    - role: musicbrainz-picard
-      tags:
-        - musicbrainz-picard
-      when: (musicbrainz_picard_enabled | default(False))
-
     - role: mylar
       tags:
         - mylar
@@ -368,6 +363,11 @@
       tags:
         - paperless_ng
       when: (paperless_ng_enabled | default(False))
+
+    - role: picard
+      tags:
+        - picard
+      when: (picard_enabled | default(False))
 
     - role: piwigo
       tags:

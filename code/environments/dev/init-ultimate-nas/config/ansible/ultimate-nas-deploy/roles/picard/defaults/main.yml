@@ -1,0 +1,24 @@
+---
+picard_enabled: false
+picard_available_externally: false
+
+# permissions
+picard_password: "P@$$w0rd" #Change to desired password
+picard_user_id: "1000"
+picard_group_id: "1000"
+
+# directories
+picard_music_directory: "{{ music_root }}"
+picard_data_directory: "{{ docker_home }}/picard"
+
+# network
+picard_port_http: "5800"
+picard_port_browser_integration: "9988"
+# picard_port_vnc: "5900" ## Uncomment if using VNC
+
+# specs
+picard_memory: 1g
+
+# docker
+picard_hostname: "picard"
+picard_container_name: "{{ picard_hostname }}"
