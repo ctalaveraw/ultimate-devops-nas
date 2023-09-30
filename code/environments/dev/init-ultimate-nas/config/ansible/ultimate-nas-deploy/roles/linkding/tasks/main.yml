@@ -12,7 +12,7 @@
     volumes:
       - "{{ linkding_data_directory }}:/etc/linkding/data:rw"
     ports:
-      - "{{ linkding_port }}:{{ linkding_port }}"
+      - "{{ linkding_port }}:9090"
     env:
       TZ: "{{ ansible_nas_timezone }}"
       PUID: "{{ linkding_user_id }}"
@@ -27,4 +27,4 @@
       traefik.http.routers.linkding.tls.certresolver: "letsencrypt"
       traefik.http.routers.linkding.tls.domains[0].main: "{{ ansible_nas_domain }}"
       traefik.http.routers.linkding.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-      traefik.http.services.linkding.loadbalancer.server.port: "{{ linkding_port }}"
+      traefik.http.services.linkding.loadbalancer.server.port: "9090"
