@@ -290,6 +290,11 @@
         - mosquitto
       when: (mosquitto_enabled | default(False))
 
+    - role: musicbrainz-picard
+      tags:
+        - musicbrainz-picard
+      when: (musicbrainz_picard_enabled | default(False))
+
     - role: mylar
       tags:
         - mylar
