@@ -151,7 +151,7 @@ source "proxmox" "nas-host-template" {
     qemu_agent = true
     
     ## VM Hard Disk Settings
-    scsi_controller = "virtio-scsi-pci"
+    scsih_controller = "virtio-scsi-single"
     disks {
         disk_size = "50G"
         format = "raw"
