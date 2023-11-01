@@ -43,6 +43,12 @@ snapraid_excludes:
   - "*.unrecoverable"
   - /tmp/
   - /lost+found/
+  - "*.nfo"
+  - "*.part"
+  - "*.parts"
+  - "*.thumbs.db"
+  - "*.tmp"
+
 
 # Defines the block size in kibi bytes (1024 bytes)
 # snapraid_blocksize: 256
