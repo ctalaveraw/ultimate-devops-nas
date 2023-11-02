@@ -33,3 +33,10 @@
     fstype: "{{ disk3_filesystem }}"
     src: "UUID={{ disk3_uuid }}"
     state: mounted
+
+- name: edit fstab to mount data disk 4 on boot
+  ansible.posix.mount:
+    path: "{{ disk4_mount_path }}"
+    fstype: "{{ disk4_filesystem }}"
+    src: "UUID={{ disk4_uuid }}"
+    state: mounted

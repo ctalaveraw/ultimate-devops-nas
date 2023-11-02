@@ -25,3 +25,8 @@ disk2_uuid: ""
 disk3_mount_path: "/mnt/disk3"
 disk3_filesystem: "ext4"
 disk3_uuid: ""
+
+### Data Disk 4
+disk4_mount_path: "/mnt/disk4"
+disk4_filesystem: "ext4"
+disk4_uuid: ""
