@@ -1,0 +1,95 @@
+---
+- name: Create Linkace network
+  docker_network:
+    name: "{{ linkace_container_network_name }}"
+
+- name: Create Linkace directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ linkace_data_directory }}"
+    - "{{ linkace_appdata_directory }}"
+    - "{{ linkace_logs_directory }}"
+    - "{{ linkace_mariadb_directory }}"
+
+- name: Create Linkace MariaDB Docker Container
+  docker_container:
+    name: "{{ linkace_container_name_mariadb }}"
+    image: mariadb:10.7
+    pull: true
+    restart_policy: unless-stopped
+    command: "mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin"
+    env:
+      MYSQL_DATABASE: "{{ linkace_mariadb_db }}"
+      MYSQL_USER: "{{ linkace_mariadb_user }}"
+      MYSQL_ROOT_PASSWORD: "{{ linkace_mariadb_password }}"
+      MYSQL_PASSWORD: "{{ linkace_mariadb_password }}"   
+    volumes:
+      - "{{ linkace_mariadb_directory }}:/var/lib/mysql"
+    memory : "{{ linkace_mariadb_memory }}"
+    networks:
+      - name: "{{ linkace_container_network_name }}"
+
+- name: Create Linkace UI Docker Container
+  docker_container:
+    name: "{{ linkace_container_name_uiserver }}"
+    image: linkace/linkace:latest
+    pull: true
+    depends_on:
+      - "{{ linkace_container_name_mariadb }}"
+    volumes:
+      - "{{ linkace_appdata_directory }}:/app:rw"
+      - "{{ linkace_logs_directory }}:/app/storage/logs:rw"
+      - "{{ linkace_backups_directory }}:/app/storage/app/backups"
+    env:
+      DB_HOST: "{{ linkace_container_name_mariadb }}"
+      DB_DATABASE: "{{ linkace_mariadb_db }}"
+      DB_USERNAME: "{{ linkace_mariadb_user }}"
+      DB_PASSWORD: "{{ linkace_mariadb_password }}"
+    restart_policy: unless-stopped
+    memory : "{{ linkace_ui_memory }}"
+    networks:
+      - name: "{{ linkace_container_network_name }}"
+    labels:
+      traefik.enable: "{{ linkace_available_externally | string }}"
+      traefik.http.routers.paperless-ng.rule: "Host(`{{ linkace_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.paperless-ng.tls.certresolver: "letsencrypt"
+      traefik.http.routers.paperless-ng.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.paperless-ng.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.paperless-ng.loadbalancer.server.port: "{{ linkace_port_nginx_http }}"
+
+- name: Create Linkace NGINX container
+  docker_container:
+    name: "{{ linkace_container_name_nginx }}"
+    image: bitnami/nginx:1.21
+    restart_policy: unless-stopped
+    memory : "{{ linkace_nginx_memory }}"
+    ports:
+      - "{{ linkace_port_nginx_http }}:8080"
+      # - "{{ linkace_port_nginx_https }}:8443"
+    depends_on:
+      - "{{ linkace_container_name_uiserver }}"
+    volumes:
+      - "{{ linkace_appdata_directory }}:/app:rw"
+      - "{{ linkace_nginx_directory }}/./nginx.conf:/opt/bitnami/nginx/conf/server_blocks/linkace.conf:ro"
+      # Replace `nginx.conf` with `nginx-ssl.conf` and remove the hash from the following line
+      # if you want to use HTTPS for this container
+      #- /path/to/your/ssl/certificates:/certs:ro
+    state: started
+
+
+- name: Create Linkace Redis broker
+  docker_container:
+    name: "{{ linkace_container_name_redis }}"
+    image: bitnami/redis:6.2
+    pull: true
+    restart_policy: unless-stopped
+    memory : "{{ linkace_redis_memory }}"
+    env:
+      REDIS_PASSWORD: "{{ linkace_redis_password }}"
+    networks:
+      - name: "{{ linkace_container_network_name }}"
+    state: started  
+
+

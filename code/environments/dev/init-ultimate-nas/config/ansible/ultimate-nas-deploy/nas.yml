@@ -255,6 +255,11 @@
         - lidarr
       when: (lidarr_enabled | default(False))
 
+    - role: linkace
+      tags:
+        - linkace
+      when: (linkace_enabled | default(False))
+  
     - role: linkding
       tags:
         - linkding
