@@ -62,10 +62,6 @@
         - beets
       when: (beets_enabled | default(False))
 
-    - role: bitwarden
-      tags:
-        - bitwarden
-
     - role: booksonic
       tags:
         - booksonic
@@ -526,6 +522,11 @@
       tags:
         - utorrent
       when: (utorrent_enabled | default(False))
+         
+    - role: vaultwarden
+      tags:
+        - vaultwarden
+      when: (vaultwarden_enabled | default(False))      
 
     - role: virtual_desktop
       tags:
