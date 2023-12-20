@@ -1,11 +1,14 @@
 ---
 vaultwarden_enabled: false
 vaultwarden_available_externally: false
+vaultwarden_available_local_dns: false
+
 vaultwarden_data_directory: "{{ docker_home }}/vaultwarden"
-vaultwarden_port_a: "19080"
-vaultwarden_port_b: "3012"
-vaultwarden_hostname: "vaultwarden"
+
+vaultwarden_port_container_ui: "80"
+vaultwarden_port_ui: "19080"
 vaultwarden_ip_whitelist: "0.0.0.0/0"
+vaultwarden_hostname: "vaultwarden"
 
 # Keep this token secret, this is password to access admin area of your server!
 # This token can be anything, but it's recommended to use a long, randomly generated string of characters,

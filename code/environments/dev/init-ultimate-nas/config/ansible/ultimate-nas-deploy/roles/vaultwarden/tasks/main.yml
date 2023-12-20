@@ -9,46 +9,47 @@
       with_items:
         - "{{ vaultwarden_data_directory }}"
 
-    - name: Vaultwarden Docker Container
-      docker_container:
-        name: "{{ vaultwarden_container_name }}"
-        image: vaultwarden/server:latest
-        pull: true
-        ports:
-          - "{{ vaultwarden_port_a }}:80"
-          - "{{ vaultwarden_port_b }}:3012"
-        volumes:
-          - "{{ vaultwarden_data_directory }}vw_data:/data:rw"
-        # env:
-        #   SIGNUPS_ALLOWED: "{{ vaultwarden_allow_signups | string }}"
-        #   ADMIN_TOKEN: "{{ vaultwarden_admin_token }}"
-        #   LOG_FILE: "/data/vaultwarden.log"
-        #   WEBSOCKET_ENABLED: "true"
-        labels:
-          traefik.enable: "{{ vaultwarden_available_externally | string }}"
-          traefik.http.routers.vaultwarden.rule: "Host(`{{ vaultwarden_hostname }}.{{ ansible_nas_domain }}`)"
-          traefik.http.routers.vaultwarden.tls.certresolver: "letsencrypt"
-          traefik.http.routers.vaultwarden.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.vaultwarden.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-          traefik.http.routers.vaultwarden.service: "vaultwarden"
-          traefik.http.routers.vaultwarden.middlewares: "vaultwarden-ipwhitelist@docker"
-          traefik.http.services.vaultwarden.loadbalancer.server.port: "80"
-          traefik.http.routers.vaultwarden-ws.rule: "Host(`{{ vaultwarden_hostname }}.{{ ansible_nas_domain }}`) && Path(`/notifications/hub`)"
-          traefik.http.routers.vaultwarden-ws.tls.certresolver: "letsencrypt"
-          traefik.http.routers.vaultwarden-ws.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.vaultwarden-ws.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-          traefik.http.routers.vaultwarden-ws.service: "vaultwarden-ws"
-          traefik.http.routers.vaultwarden-ws.middlewares: "vaultwarden-ipwhitelist@docker"
-          traefik.http.services.vaultwarden-ws.loadbalancer.server.port: "3012"
-          traefik.http.middlewares.vaultwarden-ipwhitelist.ipwhitelist.sourcerange: "{{ vaultwarden_ip_whitelist }}"
-          memory : "{{ vaultwarden_memory }}"
-        restart_policy: always
+- name: Set vaultwarden labels for external Traefik rules
+  set_fact:
+    vaultwarden_traefik_rules_external:
+      traefik.enable: "{{ vaultwarden_available_externally | string }}"
+      traefik.http.routers.vaultwarden.rule: "Host(`{{ vaultwarden_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.vaultwarden.tls.certresolver: "letsencrypt"
+      traefik.http.routers.vaultwarden.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.vaultwarden.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.vaultwarden.loadbalancer.server.port: "{{ vaultwarden_port_container_ui }}"
+      traefik.http.routers.vaultwarden.service: "{{ vaultwarden_hostname }}"
+      traefik.http.routers.vaultwarden.priority: "1"
+  when: vaultwarden_available_externally
 
+- name: Set vaultwarden labels for internal Traefik rules
+  set_fact:
+    vaultwarden_traefik_rules_internal:
+      traefik.enable: "{{ vaultwarden_available_local_dns | string }}"
+      traefik.http.routers.vaultwarden-local.rule: "Host(`{{ vaultwarden_hostname }}.{{ ansible_nas_domain_local }}`)"
+      traefik.http.routers.vaultwarden-local.tls.certresolver: "letsencrypt"
+      traefik.http.routers.vaultwarden-local.tls.domains[0].main: "{{ ansible_nas_domain_local }}"
+      traefik.http.routers.vaultwarden-local.tls.domains[0].sans: "*.{{ ansible_nas_domain_local }}"
+      traefik.http.services.vaultwarden-local.loadbalancer.server.port: "{{ vaultwarden_port_container_ui }}"
+      traefik.http.routers.vaultwarden-local.service: "{{ vaultwarden_hostname }}-local" 
+      traefik.http.routers.vaultwarden-local.priority: "2"   
+  when: vaultwarden_available_local_dns
+
+- name: Vaultwarden Docker Container
+  docker_container:
+    name: "{{ vaultwarden_container_name }}"
+    image: vaultwarden/server:latest
+    pull: true
+    ports:
+      - "{{ vaultwarden_port_ui }}:{{ vaultwarden_port_container_ui }}"
+    volumes:
+      - "{{ vaultwarden_data_directory }}vw_data:/data:rw"
+    env:
+      SIGNUPS_ALLOWED: "{{ vaultwarden_allow_signups | string }}"
+      ADMIN_TOKEN: "{{ vaultwarden_admin_token }}"
+    labels:
+      "{{ vaultwarden_traefik_rules_external | combine(vaultwarden_traefik_rules_internal) }}"
+    memory : "{{ vaultwarden_memory }}"
+    restart_policy: always
   when: vaultwarden_enabled is true
 
-# - name: Stop Vaultwarden
-#   block:
-#     - name: Stop Vaultwarden
-#       docker_container:
-#         name: "{{ vaultwarden_container_name }}"
-#         state: absent
