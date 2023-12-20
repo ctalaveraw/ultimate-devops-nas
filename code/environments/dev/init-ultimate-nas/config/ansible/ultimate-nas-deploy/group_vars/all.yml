@@ -39,6 +39,9 @@ ansible_nas_email: me@example.com
 # Applications will have subdomain SSL certificates created if Traefik is enabled, e.g. ansible-nas.<your-domain>, nextcloud.<your-domain>
 ansible_nas_domain: example.com
 
+# Traefik local DNS resolution, uncomment if using local DNS resolver (PiHole, AdGuard Home, etc.) and need to use LAN-only domain names
+ansible_nas_domain_local: nas.local # Remember to update DNS/CNAME records for local DNS resolver to reflect each enabled service!
+
 # What version of python ansible should use on target system
 ansible_python_interpreter: /usr/bin/python3
 
