@@ -8,6 +8,34 @@
     - "{{ plex_config_directory }}"
     - "{{ plex_logs }}"
 
+- name: Set Plex labels for external Traefik rules
+  set_fact:
+    plex_traefik_rules_external:
+      traefik.enable: "{{ plex_available_externally | string }}"
+      traefik.http.routers.plex.rule: "Host(`{{ plex_hostname }}.{{ ansible_nas_domain }}`)"
+      traefik.http.routers.plex.tls.certresolver: "letsencrypt"
+      traefik.http.routers.plex.tls.domains[0].main: "{{ ansible_nas_domain }}"
+      traefik.http.routers.plex.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+      traefik.http.services.plex.loadbalancer.server.port: "{{ plex_port_container_ui }}"
+      traefik.http.routers.plex.service: "{{ plex_hostname }}"
+      traefik.http.routers.plex.priority: "1"
+  when: plex_available_externally
+
+
+- name: Set Plex labels for internal Traefik rules
+  set_fact:
+    plex_traefik_rules_internal_list:
+      traefik.enable: "{{ plex_available_local_dns | string }}"
+      traefik.http.routers.plex-local.rule: "Host(`{{ plex_hostname }}.{{ ansible_nas_domain_local }}`)"
+      traefik.http.routers.plex-local.tls.certresolver: "letsencrypt"
+      traefik.http.routers.plex-local.tls.domains[0].main: "{{ ansible_nas_domain_local }}"
+      traefik.http.routers.plex-local.tls.domains[0].sans: "*.{{ ansible_nas_domain_local }}"
+      traefik.http.services.plex-local.loadbalancer.server.port: "{{ plex_port_container_ui }}"
+      traefik.http.routers.plex-local.service: "{{ plex_hostname }}-local" 
+      traefik.http.routers.plex-local.priority: "2"
+  when: plex_available_local_dns
+
+
 - name: Create Plex Docker Container
   docker_container:
     name: plex
@@ -30,11 +58,7 @@
       PGID: "{{ plex_group_id }}"
       VERSION: "{{ plex_version }}"
     restart_policy: unless-stopped
-    # memory: "{{ plex_memory }}"
+    memory: "{{ plex_memory }}"
     labels:
-      traefik.enable: "{{ plex_available_externally | string }}"
-      traefik.http.routers.plex.rule: "Host(`{{ plex_hostname }}.{{ ansible_nas_domain }}`)"
-      traefik.http.routers.plex.tls.certresolver: "letsencrypt"
-      traefik.http.routers.plex.tls.domains[0].main: "{{ ansible_nas_domain }}"
-      traefik.http.routers.plex.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
-      traefik.http.services.plex.loadbalancer.server.port: "32400"
+      "{{ plex_traefik_rules_external | combine(plex_traefik_rules_internal) }}"
+
