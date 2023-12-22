@@ -14,8 +14,13 @@
         [entryPoints.websecure.http.tls.domains]
           main = "{{ ansible_nas_domain }}"
           sans = [
-            "*.{{ ansible_nas_domain }}"
+            "*.{{ ansible_nas_domain }}",
+            "{{ ansible_nas_domain_local_nas }}",
+            "*.{{ ansible_nas_domain_local_nas }}",
+            "{{ ansible_nas_domain_local_vpn }}",
+            "*.{{ ansible_nas_domain_local_vpn }}"
           ]
+        
 
   [entryPoints.traefik]
     address = ":{{ traefik_port_ui }}"
@@ -44,7 +49,9 @@
       email = "{{ ansible_nas_email }}"
       storage = "/letsencrypt/acme.json"
       caserver = "{{ traefik_acme_server }}"
+      tlschallenge = "true"
 
       [certificatesResolvers.letsencrypt.acme.dnsChallenge]
+        delaybeforecheck = "60"
         provider = "{{ traefik_dns_provider }}"
       

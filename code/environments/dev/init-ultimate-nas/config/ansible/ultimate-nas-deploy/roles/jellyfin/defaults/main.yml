@@ -2,6 +2,7 @@
 # enable or disable the application
 jellyfin_enabled: false
 jellyfin_available_externally: false
+jellyfin_available_local_dns: false
 
 # directories
 jellyfin_config_directory: "{{ docker_home }}/jellyfin/config"
@@ -26,11 +27,13 @@ jellyfin_group_id: "0"
 
 # network
 jellyfin_hostname: "jellyfin"
+jellyfin_port_container_http: "8096"
+jellyfin_port_container_https: "8920"
 jellyfin_port_http: "8896"
 jellyfin_port_https: "8928"
 
 # specs
-jellyfin_memory: "1g"
+jellyfin_memory: "2g"
 
 # Device mappings for the docker container. E.g. To enable hardware transcoding:
 # jellyfin_devices:
