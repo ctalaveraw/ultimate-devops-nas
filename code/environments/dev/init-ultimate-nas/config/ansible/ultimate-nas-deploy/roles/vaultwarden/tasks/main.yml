@@ -26,10 +26,10 @@
   set_fact:
     vaultwarden_traefik_rules_internal:
       traefik.enable: "{{ vaultwarden_available_local_dns | string }}"
-      traefik.http.routers.vaultwarden-local.rule: "Host(`{{ vaultwarden_hostname }}.{{ ansible_nas_domain_local }}`)"
+      traefik.http.routers.vaultwarden-local.rule: "Host(`{{ vaultwarden_hostname }}.{{ ansible_nas_domain_local_nas }}`)"
       traefik.http.routers.vaultwarden-local.tls.certresolver: "letsencrypt"
-      traefik.http.routers.vaultwarden-local.tls.domains[0].main: "{{ ansible_nas_domain_local }}"
-      traefik.http.routers.vaultwarden-local.tls.domains[0].sans: "*.{{ ansible_nas_domain_local }}"
+      traefik.http.routers.vaultwarden-local.tls.domains[0].main: "{{ ansible_nas_domain_local_nas }}"
+      traefik.http.routers.vaultwarden-local.tls.domains[0].sans: "*.{{ ansible_nas_domain_local_nas }}"
       traefik.http.services.vaultwarden-local.loadbalancer.server.port: "{{ vaultwarden_port_container_ui }}"
       traefik.http.routers.vaultwarden-local.service: "{{ vaultwarden_hostname }}-local" 
       traefik.http.routers.vaultwarden-local.priority: "2"   
