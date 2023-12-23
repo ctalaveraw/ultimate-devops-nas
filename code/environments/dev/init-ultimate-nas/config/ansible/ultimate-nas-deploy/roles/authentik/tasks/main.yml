@@ -1,0 +1,164 @@
+---
+- name: Start Authentik
+  block:
+    - name: Create Authentik Directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ authentik_data_directory }}"
+
+    - name: Set Authentik labels for external Traefik rules
+      set_fact:
+        authentik_traefik_rules_external:
+          traefik.enable: "{{ authentik_available_externally | string }}"
+          traefik.http.routers.authentik.tls.certresolver: "letsencrypt"
+          traefik.http.routers.authentik.rule: "Host(`{{ authentik_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.authentik.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.authentik.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.authentik.loadbalancer.server.port: "{{ authentik_container_port_http }}"
+          traefik.http.routers.authentik.service: "{{ authentik_hostname }}"
+          traefik.http.routers.authentik.priority: "1"
+      when: authentik_available_externally
+
+    - name: Set Authentik labels for internal Traefik rules
+      set_fact:
+        authentik_traefik_rules_internal:
+          traefik.enable: "{{ authentik_available_local_dns | string }}"
+          traefik.http.routers.authentik-local.tls.certresolver: "letsencrypt"
+          traefik.http.routers.authentik-local.rule: "Host(`{{ authentik_hostname }}.{{ ansible_nas_domain_local_nas }}`)"
+          traefik.http.routers.authentik-local.tls.domains[0].main: "{{ ansible_nas_domain_local_nas }}"
+          traefik.http.routers.authentik-local.tls.domains[0].sans: "*.{{ ansible_nas_domain_local_nas }}"
+          traefik.http.services.authentik-local.loadbalancer.server.port: "{{ authentik_container_port_http }}"
+          traefik.http.routers.authentik-local.service: "{{ authentik_hostname }}-local" 
+          traefik.http.routers.authentik-local.priority: "2"
+      when: authentik_available_local_dns
+
+    - name: Create Authentik Postgres container
+      docker_container:
+        image: docker.io/library/postgres:12-alpine
+        name: "{{ authentik_container_name_postgres }}"
+        restart_policy: unless-stopped
+        pull: true
+        memory: "{{ authentik_memory }}"
+        healthcheck:
+          test: ["CMD-SHELL", "pg_isready -d authentik -U authentik"]
+          start_period: 20s
+          interval: 30s
+          retries: 5
+          timeout: 5s
+        volumes:
+          - "{{ authentik_postgres_directory }}/database:/var/lib/postgresql/data:rw"
+        env:
+          POSTGRES_PASSWORD: "{{ authentik_postgres_key }}"
+          POSTGRES_USER: "{{ authentik_hostname }}"
+          POSTGRES_DB: "{{ authentik_hostname }}"
+          COMPOSE_PORT_HTTP: "{{ authentik_port_http }}"
+          COMPOSE_PORT_HTTPS: "{{ authentik_port_https }}"
+          PG_PASS: "{{ authentik_postgres_key }}"
+          AUTHENTIK_SECRET_KEY: "{{ authentik_secret_key }}"
+          AUTHENTIK_ERROR_REPORTING__ENABLED: "true"       
+          AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik_postgres_key }}"
+          AUTHENTIK_POSTGRESQL__USER: "{{ authentik_hostname }}"
+          AUTHENTIK_POSTGRESQL__NAME: "{{ authentik_hostname }}"
+          AUTHENTIK_POSTGRESQL__HOST: "{{ authentik_postgres_name }}"
+          AUTHENTIK_REDIS__HOST: "{{ authentik_redis_name }}"
+      when: authentik_enabled is true
+
+    - name: Create Authentik Redis container
+      docker_container:
+        image: docker.io/library/redis:alpine
+        name: "{{ authentik_container_name_redis }}"
+        restart_policy: unless-stopped
+        command: "--save 60 1 --loglevel warning"
+        pull: true
+        memory: "{{ authentik_memory }}"
+        healthcheck:
+          test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+          start_period: 20s
+          interval: 30s
+          retries: 5
+          timeout: 5s
+        volumes:
+         - "{{ authentik_redis_directory }}/redis:/data:rw"
+      when: authentik_enabled is true
+
+    - name: Create Authentik server container
+      docker_container:
+        name: "{{ authentik_container_name_server }}"
+        image: ghcr.io/goauthentik/server
+        restart_policy: unless-stopped
+        command: "server"
+        pull: true
+        memory: "{{ authentik_memory }}"
+        links:
+          - "{{ authentik_container_name_postgres }}:{{ authentik_postgres_name }}"
+          - "{{ authentik_container_name_redis }}:{{ authentik_redis_name }}"
+        volumes:
+         - "{{ authentik_data_directory }}/media:/media:rw"
+         - "{{ authentik_data_directory }}/custom-templates:/templates:rw"
+        ports:
+          - "{{ authentik_port_https }}:{{ authentik_container_port_https }}"
+          - "{{ authentik_port_http }}:{{ authentik_container_port_http }}"
+        env:
+          AUTHENTIK_SECRET_KEY: "{{ authentik_secret_key }}"
+          AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik_postgres_key }}"
+          AUTHENTIK_POSTGRESQL__USER: "{{ authentik_hostname }}"
+          AUTHENTIK_POSTGRESQL__NAME: "{{ authentik_hostname }}"
+          AUTHENTIK_ERROR_REPORTING__ENABLED: "true"
+          PG_PASS: "{{ authentik_postgres_key }}"
+          COMPOSE_PORT_HTTP: "{{ authentik_port_http }}"
+          COMPOSE_PORT_HTTPS: "{{ authentik_port_https }}"
+          AUTHENTIK_POSTGRESQL__HOST: "{{ authentik_postgres_name }}"
+          AUTHENTIK_REDIS__HOST: "{{ authentik_redis_name }}"
+        when: authentik_enabled is true
+
+    - name: Create Authentik worker container
+      docker_container:
+        name: "{{ authentik_container_name_worker }}"
+        image: ghcr.io/goauthentik/server
+        restart_policy: unless-stopped
+        command: "worker"
+        user: "root"
+        pull: true
+        memory: "{{ authentik_memory }}"
+        links:
+          - "{{ authentik_container_name_postgres }}:{{ authentik_postgres_name }}"
+          - "{{ authentik_container_name_redis }}:{{ authentik_redis_name }}"
+        volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+         - "{{ authentik_data_directory }}/media:/media:rw"
+         - "{{ authentik_data_directory }}/certs:/certs:rw"
+         - "{{ authentik_data_directory }}/custom-templates:/templates:rw"
+        env:
+          AUTHENTIK_SECRET_KEY: "{{ authentik_secret_key }}"
+          AUTHENTIK_POSTGRESQL__PASSWORD: "{{ authentik_postgres_key }}"
+          AUTHENTIK_POSTGRESQL__USER: "{{ authentik_hostname }}"
+          AUTHENTIK_POSTGRESQL__NAME: "{{ authentik_hostname }}"
+          AUTHENTIK_ERROR_REPORTING__ENABLED: "true"
+          PG_PASS: "{{ authentik_postgres_key }}"
+          COMPOSE_PORT_HTTP: "{{ authentik_port_http }}"
+          COMPOSE_PORT_HTTPS: "{{ authentik_port_https }}"
+          AUTHENTIK_POSTGRESQL__HOST: "{{ authentik_postgres_name }}"
+          AUTHENTIK_REDIS__HOST: "{{ authentik_redis_name }}"
+        when: authentik_enabled is true
+
+    - name: Stop Authentik Containers
+      block:
+        - name: Stop Authentik Postgres container
+          docker_container:
+            name: "{{ authentik_container_name_postgres }}"
+            state: absent
+        - name: Stop Authentik Redis container
+          docker_container:
+            name: "{{ authentik_container_name_redis }}"
+            state: absent
+        - name: Stop Authentik server container
+          docker_container:
+            name: "{{ authentik_container_name_server }}"
+            state: absent
+        - name: Stop Authentik worker container
+          docker_container:
+            name: "{{ authentik_container_name_worker }}"
+            state: absent
+      when: authentik_enabled is false

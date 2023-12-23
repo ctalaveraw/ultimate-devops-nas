@@ -49,6 +49,11 @@
     ###
     ### Applications
     ###
+    - role: authentik
+      tags:
+        - authentik
+      when: (authentik_enabled | default(False))
+
     - role: airsonic
       tags:
         - airsonic
