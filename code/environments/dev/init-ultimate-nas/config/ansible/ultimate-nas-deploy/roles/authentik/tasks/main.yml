@@ -111,6 +111,15 @@
           COMPOSE_PORT_HTTPS: "{{ authentik_port_https }}"
           AUTHENTIK_POSTGRESQL__HOST: "{{ authentik_postgres_name }}"
           AUTHENTIK_REDIS__HOST: "{{ authentik_redis_name }}"
+          # email settings
+          AUTHENTIK_EMAIL__HOST: "{{ authentik_email_smtp_server }}"
+          AUTHENTIK_EMAIL__FROM: "{{ authentik_email_address_send }}"
+          AUTHENTIK_EMAIL__USERNAME: "{{ authentik_email_address_user }}"
+          AUTHENTIK_EMAIL__PASSWORD: "{{ authentik_email_password }}"
+          AUTHENTIK_EMAIL__PORT: "{{ authentik_email_port }}"
+          AUTHENTIK_EMAIL__USE_TLS: "{{ authentik_email_use_tls }}" 
+          AUTHENTIK_EMAIL__USE_SSL: "{{ authentik_email_use_ssl }}"
+          AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik_email_timeout }}"
         when: authentik_enabled is true
 
     - name: Create Authentik worker container
@@ -141,6 +150,15 @@
           COMPOSE_PORT_HTTPS: "{{ authentik_port_https }}"
           AUTHENTIK_POSTGRESQL__HOST: "{{ authentik_postgres_name }}"
           AUTHENTIK_REDIS__HOST: "{{ authentik_redis_name }}"
+          # email settings
+          AUTHENTIK_EMAIL__HOST: "{{ authentik_email_smtp_server }}"
+          AUTHENTIK_EMAIL__FROM: "{{ authentik_email_address_send }}"
+          AUTHENTIK_EMAIL__USERNAME: "{{ authentik_email_address_user }}"
+          AUTHENTIK_EMAIL__PASSWORD: "{{ authentik_email_password }}"
+          AUTHENTIK_EMAIL__PORT: "{{ authentik_email_port }}"
+          AUTHENTIK_EMAIL__USE_TLS: "{{ authentik_email_use_tls }}" 
+          AUTHENTIK_EMAIL__USE_SSL: "{{ authentik_email_use_ssl }}"
+          AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik_email_timeout }}"
         when: authentik_enabled is true
 
     - name: Stop Authentik Containers
