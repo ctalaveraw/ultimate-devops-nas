@@ -33,8 +33,14 @@
 # Will be added to the docker group to give user command line access to docker
 ansible_nas_user: user
 
-# Your email and domain, used for Let's Encrypt SSL certs
+# Your personal email and provider, used for Let's Encrypt SSL certs
 ansible_nas_email: me@example.com
+
+# Personal email password
+ansible_nas_email_password: "EnterSecurePasswordHere"
+
+# Personal email SMTP server
+ansible_nas_email_smtp_serverd: "smtp.example.com"
 
 # Applications will have subdomain SSL certificates created if Traefik is enabled, e.g. ansible-nas.<your-domain>, nextcloud.<your-domain>
 ansible_nas_domain: example.com
@@ -50,6 +56,10 @@ ansible_nas_domain_local_vpn: vpn.local.example.com # Remember to update DNS/CNA
 
 # What version of python ansible should use on target system
 ansible_python_interpreter: /usr/bin/python3
+
+# System Password
+app_password: "EnterSecurePasswordHere"
+
 
 ###
 ### Samba
