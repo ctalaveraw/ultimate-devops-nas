@@ -36,7 +36,7 @@ ansible_nas_user: user
 # Your personal email and provider, used for Let's Encrypt SSL certs
 ansible_nas_email: me@example.com
 
-# Personal email password
+# Personal email password (note: this may have to be replaced by a token or special password from email provider)
 ansible_nas_email_password: "EnterSecurePasswordHere"
 
 # Personal email SMTP server

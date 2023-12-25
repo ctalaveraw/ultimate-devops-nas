@@ -1,5 +1,6 @@
 ---
 authentik_enabled: false
+# authentik_enabled_middleware_traefik: false
 authentik_available_externally: false
 authentik_available_local_dns: false
 
@@ -41,6 +42,7 @@ authentik_redis_name: "redis"
 # docker
 authentik_container_name_server: "{{ authentik_hostname }}-server"
 authentik_container_name_worker: "{{ authentik_hostname }}-worker"
+# authentik_container_name_proxy: "{{ authentik_hostname }}-proxy"
 
 # email settings
 
@@ -53,12 +55,3 @@ authentik_email_use_tls: "true" # set to "true" if using TLS
 authentik_email_use_ssl: "false" # set to "true" if using SSL
 # authentik_email_port: "465" # Uncomment if using SSL
 authentik_email_timeout: "10"
-
-AUTHENTIK_EMAIL__HOST: "{{ authentik_email_smtp_server }}"
-AUTHENTIK_EMAIL__FROM: "{{ authentik_email_address_send }}"
-AUTHENTIK_EMAIL__USERNAME: "{{ authentik_email_address_user }}"
-AUTHENTIK_EMAIL__PASSWORD: "{{ authentik_email_password }}"
-AUTHENTIK_EMAIL__PORT: "{{ authentik_email_port }}"
-AUTHENTIK_EMAIL__USE_TLS: "{{ authentik_email_use_tls }}" 
-AUTHENTIK_EMAIL__USE_SSL: "{{ authentik_email_use_ssl }}"
-AUTHENTIK_EMAIL__TIMEOUT: "{{ authentik_email_timeout }}"
