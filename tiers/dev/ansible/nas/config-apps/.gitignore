@@ -1,5 +1,4 @@
-/inventories/*
-!inventories/sample/
+tests/test.yml
 site
 .vagrant
 *.retry
@@ -8,7 +7,16 @@ site
 roles/bertvv.samba
 roles/geerlingguy.docker
 roles/geerlingguy.nfs
-*.conf
+
+# Vim
+[._]sw[a-p]
+
+# Session
+Session.vim
 
 # IntelliJ
 /.idea/
+
+# inventories
+/inventories/*
+!inventories/sample/
