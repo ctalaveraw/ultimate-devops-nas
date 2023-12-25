@@ -53,6 +53,11 @@
       tags:
         - airsonic
 
+    - role: authentik
+      tags:
+        - authentik
+      when: (authentik_enabled | default(False))
+    
     - role: bazarr
       tags:
         - bazarr
