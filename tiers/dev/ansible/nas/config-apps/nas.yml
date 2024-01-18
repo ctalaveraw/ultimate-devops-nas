@@ -57,7 +57,12 @@
       tags:
         - authentik
       when: (authentik_enabled | default(False))
-    
+
+    - role: baikal
+      tags:
+        - baikal
+      when: (baikal_enabled | default(False))
+
     - role: bazarr
       tags:
         - bazarr
