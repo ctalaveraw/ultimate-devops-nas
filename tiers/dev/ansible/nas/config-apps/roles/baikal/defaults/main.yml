@@ -1,0 +1,20 @@
+---
+baikal_enabled: false
+baikal_available_externally: false
+
+# directories
+baikal_data_directory: "{{ docker_home }}/{{ baikal_hostname }}"
+
+# uid/gid
+baikal_user_id: "0"
+baikal_group_id: "0"
+
+# network
+baikal_port: "16780"
+baikal_hostname: "baikal"
+
+# specs
+baikal_memory: 1g
+
+# docker
+baikal_container_name: baikal
